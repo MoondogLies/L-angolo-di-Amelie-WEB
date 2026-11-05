@@ -30,14 +30,13 @@ h1,h2,h3,
 .card h3,
 .page-title h2,
 .section-title h2,
-.course-card h3,
-.detail-row strong{
+.course-card h3{
   font-family:var(--font-titoli);
 }
 
 small,p,span,a,button,
 .card-date,.card p,.place,.close-hint,
-.detail-row span,.course-card p,
+.course-card p,
 .social-caption,.hint,.footer-links a{
   font-family:var(--font-dettagli);
 }
@@ -111,6 +110,7 @@ main{width:100%;max-width:1920px;margin:0 auto;padding:240px 18px 70px;flex:1}
 .card{
   position:absolute;left:50%;top:50%;
   width:var(--card-w);
+  height:auto;
   background:#fff;color:var(--testo);border-radius:14px;
   box-shadow:var(--ombra);overflow:hidden;cursor:pointer;
   border:1px solid #eee;
@@ -122,20 +122,51 @@ main{width:100%;max-width:1920px;margin:0 auto;padding:240px 18px 70px;flex:1}
   position:relative;
   aspect-ratio:2 / 3;
   background:#000;
+  overflow:hidden;
 }
-.card-poster img{
-  width:100%;height:100%;object-fit:cover;display:block;
+.card-poster img,
+.card-poster video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.card-video-poster,
+.card-video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transition:opacity .45s ease;
+}
+.card-video{
+  opacity:0;
+  z-index:1;
+}
+.card-video.playing{
+  opacity:1;
+}
+.card-video-poster{
+  z-index:2;
+}
+.card-video-poster.hidden{
+  opacity:0;
+  pointer-events:none;
 }
 .card-poster::after{
   content:"";
   position:absolute;inset:0;
   background:linear-gradient(to top, rgba(0,0,0,.94) 0%, rgba(0,0,0,.6) 34%, rgba(0,0,0,0) 68%);
+  z-index:3;
 }
 .card-info{
   position:absolute;left:0;right:0;bottom:0;
   padding:16px 15px 15px;
-  display:grid;gap:6px;
-  z-index:2;
+  display:grid;gap:8px;
+  justify-items:start;
+  z-index:4;
 }
 .card-date{
   width:max-content;background:var(--rosso);color:#fff;
@@ -151,21 +182,38 @@ main{width:100%;max-width:1920px;margin:0 auto;padding:240px 18px 70px;flex:1}
   margin:0;color:rgba(255,255,255,.85);
   font-size:.82rem;font-weight:700;letter-spacing:.3px;
 }
-.card .place{
-  margin:0;color:rgba(255,255,255,.72);
-  font-size:.75rem;font-weight:700;
+.sinossi-btn{
+  margin-top:6px;
+  background:var(--rosso);
+  color:#fff;
+  border:0;
+  padding:8px 15px;
+  border-radius:999px;
+  font-size:.75rem;
+  font-weight:800;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+  cursor:pointer;
+  box-shadow:0 6px 18px rgba(0,0,0,.35);
 }
-.card .short-desc{
-  margin:0;color:rgba(255,255,255,.72);
-  font-size:.78rem;line-height:1.35;
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+.sinossi-btn:hover{
+  background:var(--rosso-scuro);
 }
 .card.past{filter:grayscale(1);opacity:.78}
 .card.past .card-date{background:#555}
 .card.current{z-index:20;box-shadow:0 30px 70px rgba(0,0,0,.25)}
 .card.current h3{font-size:1.5rem}
-.card.current .short-desc{-webkit-line-clamp:3}
 .card.hidden{opacity:0;pointer-events:none}
+
+.card-details{
+  display:none;
+  padding:clamp(14px,3vw,24px);
+  background:#fff;color:var(--testo);
+}
+
+.card.expanded .card-details{
+  display:block;
+}
 
 .card.expanded{
   z-index:80;
@@ -192,21 +240,17 @@ main{width:100%;max-width:1920px;margin:0 auto;padding:240px 18px 70px;flex:1}
   font-size:clamp(19px,3.4vw,30px);
 }
 .card.expanded .regia{font-size:clamp(.85rem,2vw,1rem)}
-.card.expanded .short-desc{display:none}
+.card.expanded .sinossi-btn{display:none}
 
-.card-details{
-  padding:clamp(14px,3vw,24px);
-  display:grid;gap:12px;
-  background:#fff;color:var(--testo);
-}
 .card-details p.desc{
   margin:0;color:#444;font-size:clamp(.9rem,2vw,1rem);line-height:1.5;
 }
-.details{display:none}
-.card.expanded .details{display:grid;gap:10px}
-.detail-row{display:flex;gap:10px;align-items:flex-start;font-size:.93rem;color:#444}
-.detail-row strong{color:var(--rosso-scuro);min-width:96px}
-.close-hint{margin-top:8px;font-size:.78rem;color:#999;text-align:center}
+.close-hint{
+  margin-top:12px;
+  font-size:.78rem;
+  color:#999;
+  text-align:center;
+}
 
 .nav-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:40;width:52px;height:52px;border-radius:50%;border:0;cursor:pointer;background:var(--rosso);color:#fff;font-size:23px;font-weight:800;box-shadow:var(--ombra);transition:.2s}
 .nav-arrow:hover{background:var(--rosso-scuro)}
@@ -266,8 +310,6 @@ footer{
   .card-info{padding:13px 12px 12px}
   .card h3{font-size:1.12rem}
   .card.current h3{font-size:1.25rem}
-  .card .short-desc{display:none}
-  .card.current .short-desc{display:-webkit-box}
   .nav-arrow{width:42px;height:42px;font-size:18px}
   .nav-arrow.prev{left:5px}
   .nav-arrow.next{right:5px}
@@ -286,12 +328,6 @@ footer{
   }
   .card.expanded .card-details{
     padding:14px;
-  }
-  .detail-row{
-    font-size:.85rem;
-  }
-  .detail-row strong{
-    min-width:78px;
   }
 }
 </style>
@@ -388,86 +424,90 @@ const eventi = [
   {
     titolo:"Recital di poesia e musica",
     regia:"",
-    data:"2026-03-14", ora:"18:30",
+    data:"2026-03-14",
+    ora:"18:30",
     luogo:"Sede dell’associazione, Roma",
     descrizione:"Incontro con poeti e musicisti per una serata dedicata alla parola e alla musica dal vivo.",
     immagine:"https://placehold.co/700x1050/8e0b20/ffffff?text=Evento+passato+1",
-    ingresso:"Libero, fino ad esaurimento posti",
-    prenotazione:"Non necessaria",
-    durata:"Circa 2 ore",
-    note:"Al termine sarà possibile dialogare con gli artisti."
+    video:"",
+    videoPoster:""
   },
   {
     titolo:"Laboratorio di fotografia urbana",
     regia:"",
-    data:"2026-04-11", ora:"17:00",
+    data:"2026-04-11",
+    ora:"17:00",
     luogo:"Centro culturale, Roma",
     descrizione:"Percorso pratico di fotografia per raccontare la città con luce, composizione e sguardo personale.",
     immagine:"https://placehold.co/700x1050/c8102e/ffffff?text=Evento+passato+2",
-    ingresso:"Su iscrizione",
-    prenotazione:"Obbligatoria via email",
-    durata:"3 ore",
-    note:"Porta una macchina fotografica o uno smartphone."
+    video:"",
+    videoPoster:""
   },
   {
     titolo:"Cinema e discussione",
     regia:"",
-    data:"2026-05-09", ora:"19:00",
+    data:"2026-05-09",
+    ora:"19:00",
     luogo:"Sala proiezioni, Roma",
     descrizione:"Proiezione e conversazione aperta su cinema, memoria e rappresentazione del presente.",
     immagine:"https://placehold.co/700x1050/8e0b20/ffffff?text=Evento+passato+3",
-    ingresso:"Libero",
-    prenotazione:"Consigliata",
-    durata:"Circa 2 ore e mezza",
-    note:"Proiezione in italiano, con eventuale introduzione."
+    video:"",
+    videoPoster:""
   },
   {
     titolo:"BLADE RUNNER 2049",
     regia:"Denis Villeneuve",
-    data:"2026-11-15", ora:"18:30",
+    data:"2026-11-15",
+    ora:"18:30",
     luogo:"Sede dell’associazione, Roma",
-    descrizione:"",
+    descrizione:"Trent’anni dopo gli eventi del primo film, un nuovo blade runner scopre un segreto capace di cambiare il destino del mondo. La sua ricerca lo porta a confrontarsi con il passato, con la memoria e con ciò che resta dell’umanità.",
     immagine:"bladerunner2049.jpg",
-    ingresso:"Libero, fino ad esaurimento posti",
-    prenotazione:"Non necessaria",
-    durata:"Circa 2 ore",
-    note:"Ingresso consentito da 15 minuti prima dell’inizio."
+    video:"bladerunner2049.mp4",
+    videoPoster:"bladerunner2049.jpg"
   },
   {
     titolo:"FALLEN ANGELS",
     regia:"Wong Kar-wai",
-    data:"2026-11-29", ora:"17:00",
+    data:"2026-11-29",
+    ora:"17:00",
     luogo:"L’Angolo di Amelie",
-    descrizione:"",
+    descrizione:"A Hong Kong, due solitari attraversano notti frenetiche e incontri casuali. Lui è un killer, lei una donna in fuga; entrambi cercano un legame in una città piena di luci, rumori e solitudine.",
     immagine:"fallenangels.jpg",
-    ingresso:"Su iscrizione",
-    prenotazione:"Obbligatoria",
-    durata:"3 ore",
-    note:"Adatto a principianti e appassionati."
+    video:"",
+    videoPoster:""
   },
   {
     titolo:"Cinema e immagini del presente",
     regia:"",
-    data:"2026-12-13", ora:"19:00",
+    data:"2026-12-13",
+    ora:"19:00",
     luogo:"Sala proiezioni, Roma",
     descrizione:"Proiezione seguita da una discussione aperta su cinema, memoria e rappresentazione sociale.",
     immagine:"https://placehold.co/700x1050/8e0b20/ffffff?text=Evento+futuro+2",
-    ingresso:"Libero",
-    prenotazione:"Consigliata",
-    durata:"Circa 2 ore e mezza",
-    note:"Al termine, dialogo aperto con il pubblico."
+    video:"",
+    videoPoster:""
   },
   {
     titolo:"Incontro sulla cultura contemporanea",
     regia:"",
-    data:"2027-01-10", ora:"18:00",
+    data:"2027-01-10",
+    ora:"18:00",
     luogo:"Sede dell’associazione, Roma",
     descrizione:"Una conversazione pubblica su arte, comunità e nuove forme di partecipazione culturale.",
     immagine:"https://placehold.co/700x1050/c8102e/ffffff?text=Evento+futuro+3",
-    ingresso:"Libero",
-    prenotazione:"Non necessaria",
-    durata:"Circa 1 ora e mezza",
-    note:"Evento con ingresso libero e partecipazione aperta."
+    video:"",
+    videoPoster:""
+  },
+  {
+    titolo:"MAMBO MATERNICA",
+    regia:"Borbála Nagy",
+    data:"2026-11-15",
+    ora:"18:30",
+    luogo:"Sede dell’associazione, Roma",
+    descrizione:"Il film esplora la complessità e le sfide della maternità e dell'autodeterminazione attraverso le storie parallele di tre donne ungheresi che vivono in tre diverse città europee, le quali si trovano a dover prendere decisioni cruciali nell'arco di una sola giornata.",
+    immagine:"mambomaternica.jpg",
+    video:"mambo-maternica-trailer.mp4",
+    videoPoster:"mambomaternica.jpg"
   }
 ];
 
@@ -489,12 +529,6 @@ function formattaData(iso,ora){
   return `${d.getDate()} ${mesi[d.getMonth()]} ${d.getFullYear()} · ore ${ora}`;
 }
 
-function descrizioneBreve(testo){
-  if(!testo) return "";
-  const parole=testo.split(" ");
-  return parole.slice(0,14).join(" ") + (parole.length>14?"…":"");
-}
-
 eventi.forEach((e,i)=>{
   const past=new Date(e.data)<oggi;
 
@@ -502,35 +536,45 @@ eventi.forEach((e,i)=>{
   card.className='card'+(past?' past':'');
   card.dataset.index=i;
 
+  const media=e.video
+    ? `
+      <img
+        class="card-video-poster"
+        src="${e.videoPoster || e.immagine}"
+        alt="${e.titolo}"
+      >
+      <video
+        class="card-video"
+        src="${e.video}"
+        muted
+        loop
+        playsinline
+        preload="none"
+      ></video>
+    `
+    : `<img src="${e.immagine}" alt="${e.titolo}">`;
+
   card.innerHTML=`
     <div class="card-poster">
-      <img src="${e.immagine}" alt="${e.titolo}">
+      ${media}
       <div class="card-info">
         <span class="card-date">${formattaData(e.data,e.ora)}</span>
         <h3>${e.titolo}</h3>
         ${e.regia?`<p class="regia">Regia di ${e.regia}</p>`:""}
-        <p class="place">${e.luogo}</p>
-        <p class="short-desc">${descrizioneBreve(e.descrizione)}</p>
+        <button class="sinossi-btn" type="button">Sinossi</button>
       </div>
     </div>
 
     <div class="card-details">
       <p class="desc">${e.descrizione}</p>
-
-      <div class="details">
-        <div class="detail-row"><strong>Data</strong><span>${formattaData(e.data,e.ora)}</span></div>
-        ${e.regia?`<div class="detail-row"><strong>Regia</strong><span>${e.regia}</span></div>`:""}
-        <div class="detail-row"><strong>Luogo</strong><span>${e.luogo}</span></div>
-        <div class="detail-row"><strong>Ingresso</strong><span>${e.ingresso}</span></div>
-        <div class="detail-row"><strong>Prenotazione</strong><span>${e.prenotazione}</span></div>
-        <div class="detail-row"><strong>Durata</strong><span>${e.durata}</span></div>
-        <div class="detail-row"><strong>Note</strong><span>${e.note}</span></div>
-        <div class="detail-row"><strong>Contatti</strong><span><a href="mailto:info@langolodiamelie.it">info@langolodiamelie.it</a></span></div>
-      </div>
-
       <div class="close-hint">Clicca di nuovo per chiudere</div>
     </div>
   `;
+
+  card.querySelector('.sinossi-btn').addEventListener('click',event=>{
+    event.stopPropagation();
+    toggleCard(i);
+  });
 
   card.addEventListener('click',()=>toggleCard(i));
   track.appendChild(card);
@@ -540,6 +584,76 @@ const cards=[...document.querySelectorAll('.card')];
 
 function getStep(){
   return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--carousel-step')) || 280;
+}
+
+let videoTimer=null;
+
+function avviaVideoDopo3Secondi(){
+  clearTimeout(videoTimer);
+
+  const cardCorrente=cards[currentIndex];
+  const video=cardCorrente.querySelector('.card-video');
+
+  if(!video) return;
+
+  video.pause();
+  video.currentTime=0;
+  video.classList.remove('playing');
+
+  const poster=cardCorrente.querySelector('.card-video-poster');
+  if(poster) poster.classList.remove('hidden');
+
+  videoTimer=setTimeout(()=>{
+    const playPromise=video.play();
+
+    if(playPromise){
+      playPromise.then(()=>{
+        video.classList.add('playing');
+
+        const poster=cardCorrente.querySelector('.card-video-poster');
+        if(poster) poster.classList.add('hidden');
+      }).catch(()=>{
+        /* Se l’autoplay è bloccato, resta la locandina */
+      });
+    }
+  },3000);
+}
+
+function fermaVideo(){
+  clearTimeout(videoTimer);
+
+  cards.forEach(card=>{
+    const video=card.querySelector('.card-video');
+
+    if(video){
+      video.pause();
+      video.currentTime=0;
+      video.classList.remove('playing');
+    }
+
+    const poster=card.querySelector('.card-video-poster');
+    if(poster) poster.classList.remove('hidden');
+  });
+}
+
+function aggiornaVideoCorrente(){
+  cards.forEach((card,i)=>{
+    const video=card.querySelector('.card-video');
+    const poster=card.querySelector('.card-video-poster');
+
+    if(!video || !poster) return;
+
+    if(i===currentIndex){
+      if(video.paused){
+        avviaVideoDopo3Secondi();
+      }
+    }else{
+      video.pause();
+      video.currentTime=0;
+      video.classList.remove('playing');
+      poster.classList.remove('hidden');
+    }
+  });
 }
 
 function update(dragOffset=0){
@@ -572,6 +686,10 @@ function update(dragOffset=0){
 
     card.style.transform=`translate(-50%,-50%) translateX(${x}px) translateZ(${z}px) rotateY(${rot}deg) scale(${scale})`;
   });
+
+  if(!isDragging){
+    aggiornaVideoCorrente();
+  }
 
   document.getElementById('prevBtn').disabled=expandedIndex!==null||currentIndex===0;
   document.getElementById('nextBtn').disabled=expandedIndex!==null||currentIndex===cards.length-1;
