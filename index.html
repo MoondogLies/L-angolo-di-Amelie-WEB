@@ -122,10 +122,7 @@ main{
 }
 .track{position:relative;width:100%;height:100%;transform-style:preserve-3d}
 
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 .card{
   position:absolute;left:50%;top:50%;
   width:var(--card-w);
@@ -135,13 +132,10 @@ main{
   border:1px solid #eee;
   transition:transform .55s cubic-bezier(.22,.68,.32,1), opacity .45s, filter .45s, box-shadow .45s, width .45s;
   transform:translate(-50%,-50%);
-<<<<<<< Updated upstream
-=======
   transform-style:preserve-3d;
   backface-visibility:hidden;
   -webkit-backface-visibility:hidden;
   will-change:transform, opacity;
->>>>>>> Stashed changes
   touch-action:pan-y;
 }
 .card-poster{
@@ -149,13 +143,10 @@ main{
   aspect-ratio:2 / 3;
   background:#000;
   overflow:hidden;
-<<<<<<< Updated upstream
-=======
   transform:translateZ(0);
   backface-visibility:hidden;
   -webkit-backface-visibility:hidden;
   will-change:transform, opacity;
->>>>>>> Stashed changes
 }
 .card-poster img,
 .card-poster video{
@@ -163,12 +154,9 @@ main{
   height:100%;
   object-fit:cover;
   display:block;
-<<<<<<< Updated upstream
-=======
   backface-visibility:hidden;
   -webkit-backface-visibility:hidden;
   transform:translateZ(0);
->>>>>>> Stashed changes
 }
 .card-video-poster,
 .card-video{
@@ -179,12 +167,9 @@ main{
   object-fit:cover;
   display:block;
   transition:opacity .45s ease;
-<<<<<<< Updated upstream
-=======
   backface-visibility:hidden;
   -webkit-backface-visibility:hidden;
   transform:translateZ(0);
->>>>>>> Stashed changes
 }
 .card-video{
   opacity:0;
@@ -205,20 +190,12 @@ main{
   position:absolute;inset:0;
   background:linear-gradient(to top, rgba(0,0,0,.94) 0%, rgba(0,0,0,.6) 34%, rgba(0,0,0,0) 68%);
   z-index:3;
-<<<<<<< Updated upstream
-=======
   transform:translateZ(0);
   will-change:opacity;
->>>>>>> Stashed changes
 }
 .card-info{
   position:absolute;left:0;right:0;bottom:0;
   padding:16px 15px 15px;
-<<<<<<< Updated upstream
-  display:grid;gap:8px;
-  justify-items:start;
-  z-index:4;
-=======
   display:grid;gap:7px;
   justify-items:start;
   z-index:4;
@@ -227,7 +204,6 @@ main{
   backface-visibility:hidden;
   -webkit-backface-visibility:hidden;
   will-change:transform, opacity;
->>>>>>> Stashed changes
 }
 .card-date{
   width:max-content;background:var(--rosso);color:#fff;
@@ -239,11 +215,7 @@ main{
   font-size:1.35rem;line-height:1.08;
   text-shadow:0 2px 12px rgba(0,0,0,.85);
 }
-<<<<<<< Updated upstream
-.card .regia{
-=======
 .card .sottotitolo{
->>>>>>> Stashed changes
   margin:0;color:rgba(255,255,255,.85);
   font-size:.82rem;font-weight:700;letter-spacing:.3px;
 }
@@ -270,14 +242,6 @@ main{
 .card.current h3{font-size:1.5rem}
 .card.hidden{opacity:0;pointer-events:none}
 
-<<<<<<< Updated upstream
-.card-details{
-  display:none;
-  padding:clamp(14px,3vw,24px);
-  background:#fff;color:var(--testo);
-}
-
-=======
 
 .card-details{
   display:none;
@@ -286,15 +250,11 @@ main{
 }
 
 
->>>>>>> Stashed changes
 .card.expanded .card-details{
   display:block;
 }
 
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 .card.expanded{
   z-index:80;
   width:min(680px, 90vw);
@@ -319,16 +279,10 @@ main{
 .card.expanded h3{
   font-size:clamp(19px,3.4vw,30px);
 }
-<<<<<<< Updated upstream
-.card.expanded .regia{font-size:clamp(.85rem,2vw,1rem)}
-.card.expanded .sinossi-btn{display:none}
-
-=======
 .card.expanded .sottotitolo{font-size:clamp(.85rem,2vw,1rem)}
 .card.expanded .sinossi-btn{display:none}
 
 
->>>>>>> Stashed changes
 .card-details p.desc{
   margin:0;color:#444;font-size:clamp(.9rem,2vw,1rem);line-height:1.5;
 }
@@ -339,10 +293,7 @@ main{
   text-align:center;
 }
 
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 .nav-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:40;width:52px;height:52px;border-radius:50%;border:0;cursor:pointer;background:var(--rosso);color:#fff;font-size:23px;font-weight:800;box-shadow:var(--ombra);transition:.2s}
 .nav-arrow:hover{background:var(--rosso-scuro)}
 .nav-arrow.prev{left:10px}
@@ -410,16 +361,12 @@ footer{
   .nav-arrow.prev{left:5px}
   .nav-arrow.next{right:5px}
   .logo-bg{max-width:100%}
-<<<<<<< Updated upstream
-  main{padding-top:170px}
-=======
 
 
   main{
     padding-top:calc(clamp(160px, 12vw, 200px) + 22px);
   }
 
->>>>>>> Stashed changes
 
   .card.expanded{
     width:min(94vw, 680px);
@@ -457,23 +404,16 @@ footer{
     <p></p>
   </section>
 
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
   <section class="carousel-zone" id="carouselZone">
     <button class="nav-arrow prev" id="prevBtn" onclick="move(-1)" aria-label="Evento precedente">‹</button>
     <div class="track" id="track"></div>
     <button class="nav-arrow next" id="nextBtn" onclick="move(1)" aria-label="Evento successivo">›</button>
   </section>
 
-<<<<<<< Updated upstream
-  <p class="hint">Trascina le locandine verso destra o sinistra per sfogliare gli eventi.</p>
-=======
 
   <p class="hint">Trascina le locandine oppure clicca una card per portarla al centro.</p>
 
->>>>>>> Stashed changes
 
   <section class="corsi">
     <div class="section-title">
@@ -547,94 +487,6 @@ footer{
 <script>
 const eventi = [
   {
-<<<<<<< Updated upstream
-    titolo:"Recital di poesia e musica",
-    regia:"",
-    data:"2026-03-14",
-    ora:"18:30",
-    luogo:"Sede dell’associazione, Roma",
-    descrizione:"Incontro con poeti e musicisti per una serata dedicata alla parola e alla musica dal vivo.",
-    immagine:"https://placehold.co/700x1050/8e0b20/ffffff?text=Evento+passato+1",
-    video:"",
-    videoPoster:""
-  },
-  {
-    titolo:"Laboratorio di fotografia urbana",
-    regia:"",
-    data:"2026-04-11",
-    ora:"17:00",
-    luogo:"Centro culturale, Roma",
-    descrizione:"Percorso pratico di fotografia per raccontare la città con luce, composizione e sguardo personale.",
-    immagine:"https://placehold.co/700x1050/c8102e/ffffff?text=Evento+passato+2",
-    video:"",
-    videoPoster:""
-  },
-  {
-    titolo:"Cinema e discussione",
-    regia:"",
-    data:"2026-05-09",
-    ora:"19:00",
-    luogo:"Sala proiezioni, Roma",
-    descrizione:"Proiezione e conversazione aperta su cinema, memoria e rappresentazione del presente.",
-    immagine:"https://placehold.co/700x1050/8e0b20/ffffff?text=Evento+passato+3",
-    video:"",
-    videoPoster:""
-  },
-  {
-    titolo:"BLADE RUNNER 2049",
-    regia:"Denis Villeneuve",
-    data:"2026-11-15",
-    ora:"18:30",
-    luogo:"Sede dell’associazione, Roma",
-    descrizione:"Trent’anni dopo gli eventi del primo film, un nuovo blade runner scopre un segreto capace di cambiare il destino del mondo. La sua ricerca lo porta a confrontarsi con il passato, con la memoria e con ciò che resta dell’umanità.",
-    immagine:"bladerunner2049.jpg",
-    video:"bladerunner2049.mp4",
-    videoPoster:"bladerunner2049.jpg"
-  },
-  {
-    titolo:"FALLEN ANGELS",
-    regia:"Wong Kar-wai",
-    data:"2026-11-29",
-    ora:"17:00",
-    luogo:"L’Angolo di Amelie",
-    descrizione:"A Hong Kong, due solitari attraversano notti frenetiche e incontri casuali. Lui è un killer, lei una donna in fuga; entrambi cercano un legame in una città piena di luci, rumori e solitudine.",
-    immagine:"fallenangels.jpg",
-    video:"",
-    videoPoster:""
-  },
-  {
-    titolo:"Cinema e immagini del presente",
-    regia:"",
-    data:"2026-12-13",
-    ora:"19:00",
-    luogo:"Sala proiezioni, Roma",
-    descrizione:"Proiezione seguita da una discussione aperta su cinema, memoria e rappresentazione sociale.",
-    immagine:"https://placehold.co/700x1050/8e0b20/ffffff?text=Evento+futuro+2",
-    video:"",
-    videoPoster:""
-  },
-  {
-    titolo:"Incontro sulla cultura contemporanea",
-    regia:"",
-    data:"2027-01-10",
-    ora:"18:00",
-    luogo:"Sede dell’associazione, Roma",
-    descrizione:"Una conversazione pubblica su arte, comunità e nuove forme di partecipazione culturale.",
-    immagine:"https://placehold.co/700x1050/c8102e/ffffff?text=Evento+futuro+3",
-    video:"",
-    videoPoster:""
-  },
-  {
-    titolo:"MAMBO MATERNICA",
-    regia:"Borbála Nagy",
-    data:"2026-11-15",
-    ora:"18:30",
-    luogo:"Sede dell’associazione, Roma",
-    descrizione:"Il film esplora la complessità e le sfide della maternità e dell'autodeterminazione attraverso le storie parallele di tre donne ungheresi che vivono in tre diverse città europee, le quali si trovano a dover prendere decisioni cruciali nell'arco di una sola giornata.",
-    immagine:"mambomaternica.jpg",
-    video:"mambo-maternica-trailer.mp4",
-    videoPoster:"mambomaternica.jpg"
-=======
     tipo:"film",
     titolo:"FRAGOLE SELVATICHE",
     regia:"Tatyana Pandurska",
@@ -697,7 +549,6 @@ const eventi = [
     immagine:"aontas.jpeg",
     video:"aontas.mp4",
     videoPoster:"aontas.jpeg"
->>>>>>> Stashed changes
   }
   
 ];
@@ -734,10 +585,7 @@ eventi.forEach((e,i)=>{
   card.className='card'+(past?' past':'');
   card.dataset.index=i;
 
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
   const media=e.video
     ? `
       <img
@@ -751,18 +599,12 @@ eventi.forEach((e,i)=>{
         muted
         loop
         playsinline
-<<<<<<< Updated upstream
-        preload="none"
-=======
         webkit-playsinline
         preload="metadata"
->>>>>>> Stashed changes
       ></video>
     `
     : `<img src="${e.immagine}" alt="${e.titolo}">`;
 
-<<<<<<< Updated upstream
-=======
 
   const sottotitolo=e.tipo==="film"
     ? `Regia di ${e.regia} · ${e.paese}`
@@ -774,41 +616,24 @@ eventi.forEach((e,i)=>{
     : "Descrizione";
 
 
->>>>>>> Stashed changes
   card.innerHTML=`
     <div class="card-poster">
       ${media}
       <div class="card-info">
         <span class="card-date">${formattaData(e.data,e.ora)}</span>
         <h3>${e.titolo}</h3>
-<<<<<<< Updated upstream
-        ${e.regia?`<p class="regia">Regia di ${e.regia}</p>`:""}
-        <button class="sinossi-btn" type="button">Sinossi</button>
-      </div>
-    </div>
-
-=======
         <p class="sottotitolo">${sottotitolo}</p>
         <button class="sinossi-btn" type="button">${testoPulsante}</button>
       </div>
     </div>
 
 
->>>>>>> Stashed changes
     <div class="card-details">
       <p class="desc">${e.descrizione}</p>
       <div class="close-hint">Clicca di nuovo per chiudere</div>
     </div>
   `;
 
-<<<<<<< Updated upstream
-  card.querySelector('.sinossi-btn').addEventListener('click',event=>{
-    event.stopPropagation();
-    toggleCard(i);
-  });
-
-  card.addEventListener('click',()=>toggleCard(i));
-=======
 
   card.querySelector('.sinossi-btn').addEventListener('click',event=>{
     event.stopPropagation();
@@ -834,27 +659,17 @@ eventi.forEach((e,i)=>{
   });
 
 
->>>>>>> Stashed changes
   track.appendChild(card);
 });
 
 
 const cards=[...document.querySelectorAll('.card')];
 
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 function getStep(){
   return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--carousel-step')) || 280;
 }
 
-<<<<<<< Updated upstream
-let videoTimer=null;
-
-function avviaVideoDopo3Secondi(){
-  clearTimeout(videoTimer);
-=======
 
 let videoTimer=null;
 
@@ -868,34 +683,10 @@ function annullaVideoInAttesa(){
 function avviaVideoDopo3Secondi(){
   annullaVideoInAttesa();
 
->>>>>>> Stashed changes
 
   const cardCorrente=cards[currentIndex];
   const video=cardCorrente.querySelector('.card-video');
 
-<<<<<<< Updated upstream
-  if(!video) return;
-
-  video.pause();
-  video.currentTime=0;
-  video.classList.remove('playing');
-
-  const poster=cardCorrente.querySelector('.card-video-poster');
-  if(poster) poster.classList.remove('hidden');
-
-  videoTimer=setTimeout(()=>{
-    const playPromise=video.play();
-
-    if(playPromise){
-      playPromise.then(()=>{
-        video.classList.add('playing');
-
-        const poster=cardCorrente.querySelector('.card-video-poster');
-        if(poster) poster.classList.add('hidden');
-      }).catch(()=>{
-        /* Se l’autoplay è bloccato, resta la locandina */
-      });
-=======
 
   if(!video) return;
 
@@ -928,71 +719,46 @@ function avviaVideoDopo3Secondi(){
         .catch(()=>{
           /* Autoplay bloccato: resta la locandina */
         });
->>>>>>> Stashed changes
     }
   },3000);
 }
 
-<<<<<<< Updated upstream
-function fermaVideo(){
-  clearTimeout(videoTimer);
-=======
 
 function fermaVideo(){
   annullaVideoInAttesa();
 
->>>>>>> Stashed changes
 
   cards.forEach(card=>{
     const video=card.querySelector('.card-video');
 
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
     if(video){
       video.pause();
       video.currentTime=0;
       video.classList.remove('playing');
     }
 
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
     const poster=card.querySelector('.card-video-poster');
     if(poster) poster.classList.remove('hidden');
   });
 }
 
-<<<<<<< Updated upstream
-function aggiornaVideoCorrente(){
-=======
 
 function aggiornaVideoCorrente(){
   annullaVideoInAttesa();
 
 
->>>>>>> Stashed changes
   cards.forEach((card,i)=>{
     const video=card.querySelector('.card-video');
     const poster=card.querySelector('.card-video-poster');
 
-<<<<<<< Updated upstream
-    if(!video || !poster) return;
-
-    if(i===currentIndex){
-      if(video.paused){
-        avviaVideoDopo3Secondi();
-      }
-=======
 
     if(!video || !poster) return;
 
 
     if(i===currentIndex){
       avviaVideoDopo3Secondi();
->>>>>>> Stashed changes
     }else{
       video.pause();
       video.currentTime=0;
@@ -1002,17 +768,11 @@ function aggiornaVideoCorrente(){
   });
 }
 
-<<<<<<< Updated upstream
-function update(dragOffset=0){
-  const step=getStep();
-
-=======
 
 function update(dragOffset=0){
   const step=getStep();
 
 
->>>>>>> Stashed changes
   cards.forEach((card,i)=>{
     card.classList.toggle('current', i===currentIndex);
     card.classList.toggle('expanded', i===expandedIndex);
@@ -1027,10 +787,7 @@ function update(dragOffset=0){
 
     const offset=i-currentIndex;
     const x=offset*step+dragOffset;
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 
     if(Math.abs(offset)>2){
       card.classList.add('hidden');
@@ -1041,42 +798,25 @@ function update(dragOffset=0){
 
     card.classList.remove('hidden');
 
-<<<<<<< Updated upstream
-    const scale=offset===0?1.12:(Math.abs(offset)===1?.8:.6);
-    const z=-Math.abs(offset)*160;
-    const rot=offset*-6;
-=======
 
     const scale=offset===0?1.12:(Math.abs(offset)===1?.8:.6);
     const z=-Math.abs(offset)*160;
     const rot=offset*-6;
 
->>>>>>> Stashed changes
 
     card.style.transform=`translate(-50%,-50%) translateX(${x}px) translateZ(${z}px) rotateY(${rot}deg) scale(${scale})`;
   });
 
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
   if(!isDragging){
     aggiornaVideoCorrente();
   }
 
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
   document.getElementById('prevBtn').disabled=expandedIndex!==null||currentIndex===0;
   document.getElementById('nextBtn').disabled=expandedIndex!==null||currentIndex===cards.length-1;
 }
 
-<<<<<<< Updated upstream
-function move(step){
-  if(expandedIndex!==null || isDragging) return;
-  currentIndex=Math.min(cards.length-1,Math.max(0,currentIndex+step));
-=======
 
 function vaiAllaCard(i){
   if(isDragging) return;
@@ -1090,7 +830,6 @@ function vaiAllaCard(i){
   currentIndex=i;
 
   annullaVideoInAttesa();
->>>>>>> Stashed changes
   update();
 }
 
@@ -1107,10 +846,7 @@ function move(step){
 
 function toggleCard(i){
   if(isDragging) return;
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
   if(expandedIndex===i){
     expandedIndex=null;
   }else{
@@ -1122,26 +858,11 @@ function toggleCard(i){
   update();
 }
 
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 let isDragging=false;
 let startX=0;
 let currentDrag=0;
 
-<<<<<<< Updated upstream
-function iniziaDrag(x){
-  if(expandedIndex!==null) return;
-  isDragging=true;
-  startX=x;
-  currentDrag=0;
-  carouselZone.style.cursor='grabbing';
-}
-
-function trascinaDrag(x){
-  if(!isDragging) return;
-=======
 
 function iniziaDrag(x){
   if(expandedIndex!==null) return;
@@ -1158,20 +879,10 @@ function iniziaDrag(x){
 function trascinaDrag(x){
   if(!isDragging) return;
 
->>>>>>> Stashed changes
   currentDrag=x-startX;
   update(currentDrag);
 }
 
-<<<<<<< Updated upstream
-function terminaDrag(){
-  if(!isDragging) return;
-  isDragging=false;
-  carouselZone.style.cursor='';
-
-  const soglia=Math.min(90, getStep()*.3);
-
-=======
 
 function terminaDrag(){
   if(!isDragging) return;
@@ -1183,7 +894,6 @@ function terminaDrag(){
   const soglia=Math.min(90, getStep()*.3);
 
 
->>>>>>> Stashed changes
   if(Math.abs(currentDrag)>soglia){
     if(currentDrag<0 && currentIndex<cards.length-1){
       currentIndex++;
@@ -1192,12 +902,6 @@ function terminaDrag(){
     }
   }
 
-<<<<<<< Updated upstream
-  currentDrag=0;
-  update();
-}
-
-=======
 
   currentDrag=0;
 
@@ -1206,52 +910,34 @@ function terminaDrag(){
 }
 
 
->>>>>>> Stashed changes
 carouselZone.addEventListener('touchstart',e=>{
   iniziaDrag(e.touches[0].clientX);
 },{passive:true});
 
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 carouselZone.addEventListener('touchmove',e=>{
   trascinaDrag(e.touches[0].clientX);
 },{passive:true});
 
-<<<<<<< Updated upstream
-carouselZone.addEventListener('touchend',terminaDrag);
-carouselZone.addEventListener('touchcancel',terminaDrag);
-
-=======
 
 carouselZone.addEventListener('touchend',terminaDrag);
 carouselZone.addEventListener('touchcancel',terminaDrag);
 
 
->>>>>>> Stashed changes
 carouselZone.addEventListener('mousedown',e=>{
   if(e.target.closest('.nav-arrow')) return;
   iniziaDrag(e.clientX);
 });
 
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 window.addEventListener('mousemove',e=>{
   if(isDragging) trascinaDrag(e.clientX);
 });
 
-<<<<<<< Updated upstream
-window.addEventListener('mouseup',terminaDrag);
-
-=======
 
 window.addEventListener('mouseup',terminaDrag);
 
 
->>>>>>> Stashed changes
 const logoBg=document.getElementById('logoBg');
 const logoName=document.getElementById('logoName');
 const fadeRange=100;
@@ -1272,10 +958,7 @@ window.addEventListener('resize',()=>{
   update();
   aggiornaLogo();
 });
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape' && expandedIndex!==null){
