@@ -75,6 +75,31 @@ main{
 }
 
 
+.filtri{
+  text-align:center;
+  margin-bottom:30px;
+}
+
+.filtro-btn{
+  background:var(--rosso);
+  color:#fff;
+  border:0;
+  padding:12px 24px;
+  border-radius:999px;
+  font-weight:800;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+  cursor:pointer;
+  box-shadow:0 10px 26px rgba(0,0,0,.18);
+  transition:.2s;
+}
+
+.filtro-btn:hover{
+  background:var(--rosso-scuro);
+  transform:translateY(-2px);
+}
+
+
 .eventi-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
@@ -212,6 +237,13 @@ footer{
   </section>
 
 
+  <div class="filtri">
+    <button id="btnPassati" class="filtro-btn" onclick="togglePassati()">
+      Mostra eventi passati
+    </button>
+  </div>
+
+
   <section class="eventi-grid" id="eventiGrid"></section>
 
 
@@ -255,17 +287,37 @@ function formattaData(iso,ora){
 const eventiOrdinati=[...eventi].sort((a,b)=>new Date(a.data)-new Date(b.data));
 
 
+const eventiFuturi=eventiOrdinati.filter(e=>new Date(e.data)>=oggi);
+const eventiPassati=eventiOrdinati
+  .filter(e=>new Date(e.data)<oggi)
+  .sort((a,b)=>new Date(b.data)-new Date(a.data));
+
+
 const grid=document.getElementById('eventiGrid');
+const btnPassati=document.getElementById('btnPassati');
 
 
-eventiOrdinati.forEach(e=>{
+const btnAltri=document.createElement('button');
+btnAltri.className='filtro-btn';
+btnAltri.textContent='Mostra altri';
+btnAltri.style.display='none';
+btnAltri.style.marginTop='20px';
+btnAltri.onclick=mostraAltri;
+btnPassati.after(btnAltri);
+
+
+let visibili=0;
+const passo=3;
+
+
+function creaCard(e){
   const past=new Date(e.data)<oggi;
 
-const sottotitolo=e.tipo==="film"
-  ? `di ${e.regia} · ${e.paese}`
-  : (e.tipo==="concorso"
-      ? (e.sottotitolo || "Concorso di cortometraggi")
-      : `Con ${e.artista}`);
+  const sottotitolo=e.tipo==="film"
+    ? `di ${e.regia} · ${e.paese}`
+    : (e.tipo==="concorso"
+        ? (e.sottotitolo || "Concorso di cortometraggi")
+        : `Con ${e.artista}`);
 
   const nomiOspiti=e.ospiti
     ? e.ospiti.split(",").map(nome=>nome.trim()).filter(Boolean)
@@ -291,8 +343,63 @@ const sottotitolo=e.tipo==="film"
     </div>
   `;
 
-  grid.appendChild(card);
+  return card;
+}
+
+
+function renderGrid(){
+  const passatiDaMostrare=eventiPassati.slice(0,visibili);
+
+  const eventiVisibili=[
+    ...passatiDaMostrare,
+    ...eventiFuturi
+  ].sort((a,b)=>new Date(a.data)-new Date(b.data));
+
+  grid.innerHTML='';
+
+  eventiVisibili.forEach(e=>{
+    grid.appendChild(creaCard(e));
+  });
+}
+
+
+eventiFuturi.forEach(e=>{
+  grid.appendChild(creaCard(e));
 });
+
+
+function togglePassati(){
+  const sezioneVisibile=visibili>0;
+
+  if(!sezioneVisibile){
+    visibili=passo;
+    renderGrid();
+
+    btnPassati.textContent='Nascondi eventi passati';
+
+    if(visibili<eventiPassati.length){
+      btnAltri.style.display='inline-block';
+    }else{
+      btnAltri.style.display='none';
+    }
+  }else{
+    visibili=0;
+    renderGrid();
+
+    btnPassati.textContent='Mostra eventi passati';
+    btnAltri.style.display='none';
+  }
+}
+
+
+function mostraAltri(){
+  visibili=visibili+passo;
+  renderGrid();
+
+  if(visibili>=eventiPassati.length){
+    btnAltri.style.display='none';
+  }
+}
 
 
 document.getElementById('year').textContent=new Date().getFullYear();
