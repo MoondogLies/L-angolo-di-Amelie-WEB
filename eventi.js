@@ -8,12 +8,12 @@
 const sostenitori = [
   {
     nome: "Sostenitore",
-    logo: "https://placehold.co/600x200/c8102e/ffffff?text=Il+tuo+logo",
-    sito: ""
+    logo: "icm.png",
+    sito: "https://www.icmcomune.it"
   },
     {
     nome: "Sostenitore",
-    logo: "silhouette_capelli.png",
+    logo: "comunemonterotondo.jpg",
     sito: ""
   },
 ];
