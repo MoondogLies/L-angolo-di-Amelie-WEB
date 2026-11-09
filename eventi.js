@@ -108,7 +108,7 @@ const eventiCinema = [
     ora: '17:00',
     descrizione:
         'Sophie eccelle nel mondo accademico. Lascia la fattoria di famiglia per frequentare un corso di preparazione scientifica, ma di fronte a nuove sfide, scopre che il suo desiderio di frequentare il Politecnico è una vera lotta di ascesa sociale.',
-    ospiti: 'Susanna Pellis di Irish Film festa',
+    ospiti: '',
     immagine: 'lavoieroyale.jpg',
     video: 'lavoieroyale.mp4',
     videoPoster: 'lavoieroyale.jpg'
