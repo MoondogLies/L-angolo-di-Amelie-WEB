@@ -163,12 +163,14 @@ const datiBonifico = {
 // CARICAMENTO DEI MODULI DELLA HOME
 // ============================================================
 
-function caricaScript(percorso){
-  const script=document.createElement('script');
-  script.src=percorso;
-  document.body.appendChild(script);
-}
+const scriptSostenitori=document.createElement('script');
+scriptSostenitori.src='sostenitori.js';
+
+scriptSostenitori.onload=()=>{
+  const scriptDona=document.createElement('script');
+  scriptDona.src='dona.js';
+  document.body.appendChild(scriptDona);
+};
 
 
-caricaScript('sostenitori.js');
-caricaScript('dona.js');
+document.body.appendChild(scriptSostenitori);
