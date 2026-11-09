@@ -292,9 +292,9 @@ function inizializzaSostenitori(){
 
 const datiBonifico={
   intestatario:"L’Angolo di Amelie",
-  iban:"IT00 XXXX XXXX XXXX XXXX XXXX XXX",
+  iban:"IT72 F083 2739 2400 0000 0002 311",
   bic:"",
-  causale:"Donazione L’Angolo di Amelie"
+  causale:"Donazione"
 };
 
 
@@ -472,7 +472,6 @@ function inizializzaDona(){
       <h3>Supporta L’Angolo di Amelie</h3>
       <p>
         Puoi sostenere le attività dell’associazione con un bonifico bancario.
-        Questi sono i dati per effettuare la donazione:
       </p>
 
       <div class="dona-dato">
@@ -485,9 +484,6 @@ function inizializzaDona(){
         <span>${datiBonifico.iban}</span>
       </div>
 
-      <div class="dona-dato">
-        <strong>BIC / SWIFT</strong>
-        <span>${datiBonifico.bic || "Non necessario per bonifici nazionali"}</span>
       </div>
 
       <div class="dona-dato">
