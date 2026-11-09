@@ -10,6 +10,8 @@ function inizializzaCorsi(){
   corsi.forEach(corso=>{
     const card=document.createElement('article');
     card.className='course-card';
+    card.setAttribute('role','button');
+    card.setAttribute('tabindex','0');
 
     const nomeCorso=corso.categoria || corso.titolo || 'Corso';
     const contatti=corso.contatti || {};
@@ -20,13 +22,17 @@ function inizializzaCorsi(){
         <span class="course-tag">${nomeCorso}</span>
         <p>${corso.descrizione}</p>
       </div>
-      <button class="course-info-button" type="button">Clicca per informazioni</button>
     `;
 
-    const pulsanteInfo=card.querySelector('.course-info-button');
-
-    pulsanteInfo.addEventListener('click',()=>{
+    card.addEventListener('click',()=>{
       apriSchedaCorso(nomeCorso,contatti);
+    });
+
+    card.addEventListener('keydown',evento=>{
+      if(evento.key==='Enter' || evento.key===' '){
+        evento.preventDefault();
+        apriSchedaCorso(nomeCorso,contatti);
+      }
     });
 
     grigliaCorsi.appendChild(card);
