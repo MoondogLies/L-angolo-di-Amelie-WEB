@@ -42,7 +42,7 @@ function inizializzaCorsi(){
 
 
 function formattaDataBreve(iso){
-  if(!iso) return '';
+  if(!iso) return 'da definire';
 
   const data=new Date(iso+'T00:00:00');
   const mesi=['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'];
@@ -57,8 +57,6 @@ function apriSchedaCorso(nomeCorso,contatti,moduli){
   const overlay=document.createElement('div');
   overlay.className='course-info-overlay';
 
-  const referente=contatti.referente || 'Non disponibile';
-  const telefono=contatti.telefono || '';
   const email=contatti.email || '';
   const informazioni=contatti.informazioni || 'Informazioni in arrivo.';
 
@@ -69,7 +67,7 @@ function apriSchedaCorso(nomeCorso,contatti,moduli){
     <div class="course-modules">
       ${moduli.map(modulo=>{
         const fine=new Date(modulo.fine+'T23:59:59');
-        const concluso=fine<oggi;
+        const concluso=modulo.fine && fine<oggi;
 
         return `
           <div class="course-module${concluso?' scaduto':''}">
@@ -90,20 +88,9 @@ function apriSchedaCorso(nomeCorso,contatti,moduli){
 
       ${boxModuli}
 
-      <div class="course-info-row">
-        <strong>Referente</strong>
-        <span>${referente}</span>
-      </div>
-
-      ${telefono ? `
-      <div class="course-info-row">
-        <strong>Telefono</strong>
-        <a href="tel:${telefono.replace(/\s/g,'')}">${telefono}</a>
-      </div>` : ''}
-
       ${email ? `
       <div class="course-info-row">
-        <strong>Email</strong>
+        <strong>Per informazioni scrivi a</strong>
         <a href="mailto:${email}">${email}</a>
       </div>` : ''}
     </div>
