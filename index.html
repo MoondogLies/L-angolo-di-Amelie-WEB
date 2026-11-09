@@ -353,6 +353,7 @@ main{
 .course-card{
   background:#fff;border:1px solid #eee;border-radius:20px;overflow:hidden;
   box-shadow:0 10px 28px rgba(0,0,0,.09);transition:transform .25s, box-shadow .25s;
+  cursor:pointer;
 }
 .course-card:hover{transform:translateY(-5px);box-shadow:var(--ombra)}
 .course-card img{width:100%;height:200px;object-fit:cover;display:block}
@@ -363,6 +364,60 @@ main{
 }
 .course-card h3{margin:0;font-size:1.25rem;color:var(--rosso-scuro)}
 .course-card p{margin:0;color:var(--grigio);font-size:.93rem;line-height:1.55}
+
+
+.course-info-overlay{
+  position:fixed;inset:0;z-index:300;
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;
+  background:rgba(0,0,0,.65);
+}
+.course-info-modal{
+  position:relative;
+  background:#fff;color:var(--testo);
+  width:min(520px,100%);
+  max-height:82vh;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  border-radius:18px;
+  padding:clamp(22px,4vw,34px);
+  box-shadow:0 30px 80px rgba(0,0,0,.35);
+}
+.course-info-modal h3{
+  margin:0 0 14px;
+  color:var(--rosso);
+  font-size:clamp(22px,3.5vw,30px);
+}
+.course-info-text{
+  margin:0 0 20px;
+  color:#444;
+  line-height:1.6;
+}
+.course-info-row{
+  display:grid;
+  gap:4px;
+  padding:12px 0;
+  border-top:1px solid #eee;
+}
+.course-info-row strong{
+  color:var(--rosso-scuro);
+  font-size:.82rem;
+  text-transform:uppercase;
+  letter-spacing:.4px;
+}
+.course-info-row a{
+  color:var(--rosso);
+  font-weight:700;
+}
+.course-info-close{
+  position:absolute;top:12px;right:12px;
+  width:38px;height:38px;
+  border:0;border-radius:50%;
+  background:var(--rosso);color:#fff;
+  font-size:22px;font-weight:800;
+  cursor:pointer;
+}
+.course-info-close:hover{background:var(--rosso-scuro)}
 
 
 footer{
@@ -521,40 +576,11 @@ footer{
   <section class="corsi">
     <div class="section-title">
       <h2>I nostri corsi</h2>
-      <p>Attività e laboratori.</p>
+      <p>Clicca su una scheda per visualizzare informazioni e contatti.</p>
     </div>
 
 
-    <div class="course-grid">
-      <article class="course-card">
-        <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=900&q=80" alt="Corso di fotografia">
-        <div class="course-body">
-          <span class="course-tag">Fotografia</span>
-          <h3>Corso di fotografia</h3>
-          <p>Impara a osservare la luce, comporre l’inquadratura e raccontare storie attraverso la fotografia.</p>
-        </div>
-      </article>
-
-
-      <article class="course-card">
-        <img src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&fit=crop&w=900&q=80" alt="Corso di pianoforte">
-        <div class="course-body">
-          <span class="course-tag">Musica</span>
-          <h3>Corso di pianoforte</h3>
-          <p>Percorsi individuali e di gruppo per avvicinarsi allo strumento, alla lettura musicale e all’ascolto.</p>
-        </div>
-      </article>
-
-
-      <article class="course-card">
-        <img src="https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=900&q=80" alt="Corso di bonsai">
-        <div class="course-body">
-          <span class="course-tag">Natura</span>
-          <h3>Corso di bonsai</h3>
-          <p>Scopri le tecniche di cura, potatura e coltivazione per creare e mantenere un bonsai nel tempo.</p>
-        </div>
-      </article>
-    </div>
+    <div class="course-grid"></div>
   </section>
 </main>
 
@@ -1095,32 +1121,11 @@ function aggiornaLogo(){
 
 
 window.addEventListener('scroll',aggiornaLogo,{passive:true});
-window.addEventListener('resize',()=>{
-  update();
-  aggiornaLogo();
-});
+window.addEventListener('resize',aggiornaLogo);
 
 
-document.addEventListener('keydown',e=>{
-  if(e.key==='Escape' && expandedIndex!==null){
-    expandedIndex=null;
-    annullaVideoInAttesa();
-    update();
-  }
-
-  if(e.key==='Escape' && document.getElementById('legalOverlay').classList.contains('open')){
-    chiudiLegal();
-  }
-
-  if(e.key==='Escape' && document.getElementById('chiSiamoOverlay').classList.contains('open')){
-    chiudiScheda();
-  }
-
-  if(expandedIndex===null){
-    if(e.key==='ArrowLeft') move(-1);
-    if(e.key==='ArrowRight') move(1);
-  }
-});
+aggiornaLogo();
+update();
 
 
 function apriScheda(){
@@ -1140,13 +1145,8 @@ function apriLegal(tipo){
   const privacy=document.getElementById('privacyContent');
   const cookie=document.getElementById('cookieContent');
 
-  if(tipo==='privacy'){
-    privacy.style.display='block';
-    cookie.style.display='none';
-  }else{
-    privacy.style.display='none';
-    cookie.style.display='block';
-  }
+  privacy.style.display=tipo==='privacy'?'block':'none';
+  cookie.style.display=tipo==='cookie'?'block':'none';
 
   overlay.classList.add('open');
   document.body.style.overflow='hidden';
@@ -1159,25 +1159,7 @@ function chiudiLegal(){
 }
 
 
-document.getElementById('legalOverlay').addEventListener('click',e=>{
-  if(e.target===e.currentTarget){
-    chiudiLegal();
-  }
-});
-
-
-document.getElementById('chiSiamoOverlay').addEventListener('click',e=>{
-  if(e.target===e.currentTarget){
-    chiudiScheda();
-  }
-});
-
-
 document.getElementById('year').textContent=new Date().getFullYear();
-update();
-aggiornaLogo();
 </script>
-
-
 </body>
 </html>
