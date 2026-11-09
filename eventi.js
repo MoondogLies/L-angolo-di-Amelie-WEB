@@ -74,7 +74,7 @@ const eventiCinema = [
     titolo: 'MAMBO MATERNICA',
     regia: 'Borbála Nagy',
     paese: 'Ungheria',
-    data: '2027-01-10',
+    data: '2027-01-24',
     ora: '17:00',
     descrizione:
         'Il film esplora la complessità e le sfide della maternità e dell’autodeterminazione attraverso le storie parallele di tre donne ungheresi che vivono in tre diverse città europee, le quali si trovano a dover prendere decisioni cruciali nell’arco di una sola giornata.',
@@ -97,6 +97,21 @@ const eventiCinema = [
     immagine: 'aontas.jpeg',
     video: 'aontas.mp4',
     videoPoster: 'aontas.jpeg'
+  },
+
+  {
+    tipo: 'film',
+    titolo: 'LA VOIE ROYALE',
+    regia: 'Frédéric Mermoud',
+    paese: 'Francia',
+    data: '2027-01-10',
+    ora: '17:00',
+    descrizione:
+        'Sophie eccelle nel mondo accademico. Lascia la fattoria di famiglia per frequentare un corso di preparazione scientifica, ma di fronte a nuove sfide, scopre che il suo desiderio di frequentare il Politecnico è una vera lotta di ascesa sociale.',
+    ospiti: 'Susanna Pellis di Irish Film festa',
+    immagine: 'lavoieroyale.jpg',
+    video: 'lavoieroyale.mp4',
+    videoPoster: 'lavoieroyale.jpg'
   }
 ];
 
