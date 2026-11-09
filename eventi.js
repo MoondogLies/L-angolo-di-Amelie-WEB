@@ -160,9 +160,15 @@ const datiBonifico = {
 
 
 // ============================================================
-// CARICAMENTO DEL FUNZIONAMENTO DEL PULSANTE DONA
+// CARICAMENTO DEI MODULI DELLA HOME
 // ============================================================
 
-const scriptDona = document.createElement('script');
-scriptDona.src = 'dona.js';
-document.body.appendChild(scriptDona);
+function caricaScript(percorso){
+  const script=document.createElement('script');
+  script.src=percorso;
+  document.body.appendChild(script);
+}
+
+
+caricaScript('sostenitori.js');
+caricaScript('dona.js');
