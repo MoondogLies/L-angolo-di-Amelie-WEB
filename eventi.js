@@ -11,6 +11,11 @@ const sostenitori = [
     logo: "https://placehold.co/600x200/c8102e/ffffff?text=Il+tuo+logo",
     sito: ""
   }
+    {
+    nome: "Sostenitore",
+    logo: "silhouette_capelli.png",
+    sito: ""
+  }
 ];
 
 
