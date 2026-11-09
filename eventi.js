@@ -152,6 +152,7 @@ const eventi = [...eventiCinema, ...eventiMusica, ...eventiConcorsi];
 // Aggiungi, rimuovi o modifica i corsi qui.
 // Il campo "categoria" contiene il nome del corso mostrato nella casella rossa.
 // I campi in "contatti" vengono mostrati nella scheda "Clicca per informazioni".
+// I campi in "moduli" sono facoltativi: creano i box con docente e date.
 
 const corsi = [
   {
@@ -191,6 +192,39 @@ const corsi = [
       email: "info@langolodiamelie.it",
       informazioni: "Informazioni e modalità di iscrizione saranno presto disponibili."
     }
+  },
+
+  {
+    categoria: "A scuola di cinema",
+    titolo: "",
+    descrizione: "Un percorso cinematografico articolato in tre moduli: sceneggiatura, regia e recitazione.",
+    immagine: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=900&q=80",
+    contatti: {
+      referente: "Nome referente",
+      telefono: "+39 000 000 0000",
+      email: "info@langolodiamelie.it",
+      informazioni: "Informazioni e modalità di iscrizione saranno presto disponibili."
+    },
+    moduli: [
+      {
+        nome: "Sceneggiatura",
+        docente: "Nome docente",
+        inizio: "2026-09-01",
+        fine: "2026-10-31"
+      },
+      {
+        nome: "Regia",
+        docente: "Nome docente",
+        inizio: "2026-11-01",
+        fine: "2026-12-15"
+      },
+      {
+        nome: "Recitazione",
+        docente: "Nome docente",
+        inizio: "2027-01-10",
+        fine: "2027-02-28"
+      }
+    ]
   }
 ];
 
