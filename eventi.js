@@ -150,28 +150,47 @@ const eventi = [...eventiCinema, ...eventiMusica, ...eventiConcorsi];
 // CORSI
 // ============================================================
 // Aggiungi, rimuovi o modifica i corsi qui.
-// L’immagine può essere un file nella repository oppure un URL completo.
+// Il campo "categoria" contiene il nome del corso mostrato nella casella rossa.
+// I campi in "contatti" vengono mostrati nella scheda "Clicca per informazioni".
 
 const corsi = [
   {
     categoria: "Fotografia",
     titolo: "",
     descrizione: "Impara a osservare la luce, comporre l’inquadramento e raccontare storie attraverso la fotografia.",
-    immagine: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=900&q=80"
+    immagine: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=900&q=80",
+    contatti: {
+      referente: "Nome referente",
+      telefono: "+39 000 000 0000",
+      email: "info@langolodiamelie.it",
+      informazioni: "Informazioni e modalità di iscrizione saranno presto disponibili."
+    }
   },
 
   {
     categoria: "Pianoforte",
     titolo: "",
     descrizione: "Percorsi individuali e di gruppo per avvicinarsi allo strumento, alla lettura musicale e all’ascolto.",
-    immagine: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&fit=crop&w=900&q=80"
+    immagine: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&fit=crop&w=900&q=80",
+    contatti: {
+      referente: "Nome referente",
+      telefono: "+39 000 000 0000",
+      email: "info@langolodiamelie.it",
+      informazioni: "Informazioni e modalità di iscrizione saranno presto disponibili."
+    }
   },
 
   {
     categoria: "Bonsai",
     titolo: "",
     descrizione: "Scopri le tecniche di cura, potatura e coltivazione per creare e mantenere un bonsai nel tempo.",
-    immagine: "https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=900&q=80"
+    immagine: "https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=900&q=80",
+    contatti: {
+      referente: "Nome referente",
+      telefono: "+39 000 000 0000",
+      email: "info@langolodiamelie.it",
+      informazioni: "Informazioni e modalità di iscrizione saranno presto disponibili."
+    }
   }
 ];
 
