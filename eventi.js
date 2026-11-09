@@ -1,4 +1,20 @@
 // ============================================================
+// SPONSOR / SOSTENITORI
+// ============================================================
+// Aggiungi o rimuovi qui i loghi dei sostenitori.
+// Il logo può essere un file nella repository, ad esempio "logo.png",
+// oppure un URL completo che inizia con https://
+
+const sostenitori = [
+  {
+    nome: "Sostenitore",
+    logo: "https://placehold.co/600x200/c8102e/ffffff?text=Il+tuo+logo",
+    sito: ""
+  }
+];
+
+
+// ============================================================
 // EVENTI CINEMA
 // ============================================================
 
