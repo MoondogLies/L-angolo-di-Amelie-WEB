@@ -1,1 +1,1286 @@
-FULL_INDEX_HTML_WITHOUT_PHONE
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L'Angolo di Amelie — Programmazione e corsi</title>
+<style>
+:root{
+  --rosso:#c8102e;
+  --rosso-scuro:#8e0b20;
+  --ambra:#b7791f;
+  --bianco:#fff;
+  --testo:#262626;
+  --grigio:#6b6b6b;
+  --ombra:0 14px 35px rgba(0,0,0,.16);
+  --font-titoli:"Helvetica", "Helvetica Neue", Arial, sans-serif;
+  --font-dettagli:"Futura", "Futura PT", "Century Gothic", "Avenir Next", Arial, sans-serif;
+  --card-w:clamp(230px, 24vw, 330px);
+  --carousel-step:clamp(230px, 24vw, 300px);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;color:var(--testo);background:var(--bianco);
+  font-family:var(--font-dettagli);
+  min-height:100vh;display:flex;flex-direction:column;
+}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--font-dettagli)}
+
+
+.intro-overlay{
+  position:fixed;
+  inset:0;
+  z-index:999;
+  background:var(--bianco);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:18px;
+  transition:opacity .8s ease, visibility .8s ease;
+}
+.intro-overlay.hidden{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+.intro-logo{
+  height:clamp(120px, 18vw, 220px);
+  width:auto;
+  object-fit:contain;
+  animation:comparsaLogo 1s ease both;
+}
+.intro-text{
+  margin:0;
+  color:var(--rosso-scuro);
+  font-family:var(--font-titoli);
+  font-size:clamp(20px, 4vw, 34px);
+  font-weight:800;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  text-align:center;
+  animation:comparsaTesto 1s .2s ease both;
+}
+@keyframes comparsaLogo{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes comparsaTesto{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+
+h1,h2,h3,
+.card h3,
+.page-title h2,
+.section-title h2,
+.course-card h3{
+  font-family:var(--font-titoli);
+}
+
+
+small,p,span,a,button,
+.card-date,.card-ospiti,.card p,.place,.close-hint,
+.course-card p,
+.social-caption,.hint,.footer-links a{
+  font-family:var(--font-dettagli);
+}
+
+
+header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:transparent;color:#fff;
+  box-shadow:none;
+  pointer-events:none;
+}
+.header-inner{
+  max-width:1920px;margin:auto;padding:10px 20px;
+  display:flex;align-items:center;justify-content:center;
+  gap:16px;
+}
+
+
+.logo{
+  flex:1;
+  min-width:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.logo-bg{
+  position:relative;
+  width:100%;
+  max-width:560px;
+  height:clamp(160px, 12vw, 200px);
+  background-image:url("silhouette_capelli.png");
+  background-size:contain;
+  background-repeat:no-repeat;
+  background-position:center;
+  opacity:1;
+  transition:opacity .12s linear;
+  will-change:opacity;
+}
+.logo-name{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  height:clamp(160px, 12vw, 200px);
+  width:auto;
+  max-width:82%;
+  object-fit:contain;
+  opacity:1;
+  transition:opacity .12s linear;
+  filter:
+    drop-shadow(1px 0 0 #fff)
+    drop-shadow(-1px 0 0 #fff)
+    drop-shadow(0 1px 0 #fff)
+    drop-shadow(0 0px 0 #fff)
+    drop-shadow(0 0 3px rgba(255,255,255,.85))
+    drop-shadow(0 0 6px rgba(255,255,255,.1));
+}
+
+
+main{
+  width:100%;
+  max-width:1920px;
+  margin:0 auto;
+  padding:calc(clamp(160px, 12vw, 200px) + 28px) 18px 70px;
+  flex:1;
+}
+.page-title{
+  text-align:center;
+  margin-bottom:2px;
+}
+.page-title h2{color:var(--rosso);margin:0 0 8px;font-size:clamp(24px,4vw,38px)}
+.page-title p{margin:0;color:var(--grigio)}
+
+
+.carousel-zone{
+  position:relative;
+  height:clamp(520px, 78vh, 660px);
+  display:flex;align-items:center;justify-content:center;
+  perspective:1400px;overflow:hidden;
+  touch-action:pan-y;
+}
+.track{position:relative;width:100%;height:100%;transform-style:preserve-3d}
+
+
+.card{
+  position:absolute;left:50%;top:50%;
+  width:var(--card-w);
+  height:auto;
+  background:#fff;color:var(--testo);border-radius:14px;
+  box-shadow:var(--ombra);overflow:hidden;cursor:pointer;
+  border:1px solid #eee;
+  transition:transform .55s cubic-bezier(.22,.68,.32,1), opacity .45s, filter .45s, box-shadow .45s, width .45s;
+  transform:translate(-50%,-50%);
+  transform-style:preserve-3d;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  will-change:transform, opacity;
+  touch-action:pan-y;
+}
+.card-poster{
+  position:relative;
+  aspect-ratio:2 / 3;
+  background:#000;
+  overflow:hidden;
+  transform:translateZ(0);
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  will-change:transform, opacity;
+}
+.card-poster img,
+.card-poster video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  transform:translateZ(0);
+}
+.card-video-poster,
+.card-video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transition:opacity .45s ease;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  transform:translateZ(0);
+}
+.card-video{
+  opacity:0;
+  z-index:1;
+}
+.card-video.playing{
+  opacity:1;
+}
+.card-video-poster{
+  z-index:2;
+}
+.card-video-poster.hidden{
+  opacity:0;
+  pointer-events:none;
+}
+.card-poster::after{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,.94) 0%, rgba(0,0,0,.6) 34%, rgba(0,0,0,0) 68%);
+  z-index:3;
+  transform:translateZ(0);
+  will-change:opacity;
+}
+.card-info{
+  position:absolute;left:0;right:0;bottom:0;
+  padding:16px 15px 15px;
+  display:grid;gap:7px;
+  justify-items:start;
+  z-index:4;
+  isolation:isolate;
+  transform:translateZ(1px);
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  will-change:transform, opacity;
+}
+.card-date{
+  width:max-content;background:var(--rosso);color:#fff;
+  padding:5px 10px;border-radius:999px;
+  font-size:.68rem;font-weight:800;letter-spacing:.3px;
+}
+.card-ospiti{
+  width:max-content;
+  max-width:100%;
+  background:var(--ambra);
+  color:#fff;
+  padding:5px 10px;
+  border-radius:999px;
+  font-size:.68rem;
+  font-weight:800;
+  letter-spacing:.3px;
+  line-height:1.3;
+}
+.card h3{
+  margin:0;color:#fff;
+  font-size:1.35rem;line-height:1.08;
+  text-shadow:0 2px 12px rgba(0,0,0,.85);
+}
+.card .sottotitolo{
+  margin:0;color:rgba(255,255,255,.85);
+  font-size:.82rem;font-weight:700;letter-spacing:.3px;
+}
+.sinossi-btn{
+  margin-top:6px;
+  background:var(--rosso);
+  color:#fff;
+  border:0;
+  padding:8px 15px;
+  border-radius:999px;
+  font-size:.75rem;
+  font-weight:800;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+  cursor:pointer;
+  box-shadow:0 6px 18px rgba(0,0,0,.35);
+}
+.sinossi-btn:hover{
+  background:var(--rosso-scuro);
+}
+.card.past{filter:grayscale(1);opacity:.78}
+.card.past .card-date{background:#555}
+.card.past .card-ospiti{background:#777}
+.card.current{z-index:20;box-shadow:0 30px 70px rgba(0,0,0,.25)}
+.card.current h3{font-size:1.5rem}
+.card.hidden{opacity:0;pointer-events:none}
+
+
+.card-details{
+  display:none;
+  padding:clamp(14px,3vw,24px);
+  background:#fff;color:var(--testo);
+}
+
+
+.card.expanded .card-details{
+  display:block;
+}
+
+
+.card.expanded{
+  z-index:80;
+  width:min(680px, 90vw);
+  max-height:min(78vh, 760px);
+  height:auto;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  transform:translate(-50%,-50%) translateZ(0) scale(1);
+  box-shadow:0 40px 100px rgba(0,0,0,.35);
+  cursor:zoom-out;
+  background:#fff;
+  color:var(--testo);
+}
+.card.expanded .card-poster{
+  aspect-ratio:auto;
+  height:clamp(150px, 22vh, 280px);
+}
+.card.expanded .card-info{
+  position:absolute;
+  padding:clamp(14px,3vw,22px);
+}
+.card.expanded h3{
+  font-size:clamp(19px,3.4vw,30px);
+}
+.card.expanded .sottotitolo{font-size:clamp(.85rem,2vw,1rem)}
+.card.expanded .sinossi-btn{display:none}
+
+
+.card-details p.desc{
+  margin:0;color:#444;font-size:clamp(.9rem,2vw,1rem);line-height:1.5;
+}
+.close-hint{
+  margin-top:12px;
+  font-size:.78rem;
+  color:#999;
+  text-align:center;
+}
+
+
+.nav-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:40;width:52px;height:52px;border-radius:50%;border:0;cursor:pointer;background:var(--rosso);color:#fff;font-size:23px;font-weight:800;box-shadow:var(--ombra);transition:.2s}
+.nav-arrow:hover{background:var(--rosso-scuro)}
+.nav-arrow.prev{left:10px}
+.nav-arrow.next{right:10px}
+.nav-arrow:disabled{opacity:.28;cursor:not-allowed}
+
+
+.hint{text-align:center;color:var(--grigio);font-size:.9rem;margin-top:12px}
+
+
+.programma-btn-wrap{
+  text-align:center;
+  margin-top:26px;
+}
+.programma-btn{
+  display:inline-block;
+  background:var(--rosso);
+  color:#fff;
+  padding:14px 28px;
+  border-radius:999px;
+  font-weight:800;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+  box-shadow:0 10px 26px rgba(0,0,0,.18);
+  transition:.2s;
+}
+.programma-btn:hover{
+  background:var(--rosso-scuro);
+  transform:translateY(-2px);
+}
+
+
+.corsi{margin-top:80px}
+.section-title{text-align:center;margin-bottom:24px}
+.section-title h2{color:var(--rosso);margin:0 0 8px;font-size:clamp(24px,3.5vw,34px)}
+.section-title p{margin:0;color:var(--grigio)}
+
+
+.course-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+  gap:22px;
+}
+.course-card{
+  background:#fff;border:1px solid #eee;border-radius:20px;overflow:hidden;
+  box-shadow:0 10px 28px rgba(0,0,0,.09);transition:transform .25s, box-shadow .25s;
+  cursor:pointer;
+}
+.course-card:hover{transform:translateY(-5px);box-shadow:var(--ombra)}
+.course-card img{width:100%;height:200px;object-fit:cover;display:block}
+.course-body{padding:20px;display:grid;gap:9px}
+.course-tag{
+  width:max-content;background:var(--rosso);color:#fff;
+  padding:6px 12px;border-radius:999px;font-size:.74rem;font-weight:800;letter-spacing:.3px;
+}
+.course-card h3{margin:0;font-size:1.25rem;color:var(--rosso-scuro)}
+.course-card p{margin:0;color:var(--grigio);font-size:.93rem;line-height:1.55}
+
+
+.course-info-overlay{
+  position:fixed;inset:0;z-index:300;
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;
+  background:rgba(0,0,0,.65);
+}
+.course-info-modal{
+  position:relative;
+  background:#fff;color:var(--testo);
+  width:min(520px,100%);
+  max-height:82vh;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  border-radius:18px;
+  padding:clamp(22px,4vw,34px);
+  box-shadow:0 30px 80px rgba(0,0,0,.35);
+}
+.course-info-modal h3{
+  margin:0 0 14px;
+  color:var(--rosso);
+  font-size:clamp(22px,3.5vw,30px);
+}
+.course-info-text{
+  margin:0 0 20px;
+  color:#444;
+  line-height:1.6;
+}
+.course-modules{
+  display:grid;
+  gap:12px;
+  margin:0 0 20px;
+}
+.course-module{
+  border:1px solid #eee;
+  border-left:4px solid var(--rosso);
+  border-radius:12px;
+  padding:14px 16px;
+  background:#fff;
+}
+.course-module h4{
+  margin:0 0 8px;
+  color:var(--rosso-scuro);
+  font-size:1.05rem;
+}
+.course-module p{
+  margin:4px 0 0;
+  color:#444;
+  font-size:.92rem;
+  line-height:1.5;
+}
+.course-module.scaduto{
+  border-color:#ddd;
+  border-left-color:#9a9a9a;
+  background:#f4f4f4;
+}
+.course-module.scaduto h4{
+  color:#777;
+}
+.course-module.scaduto p{
+  color:#8a8a8a;
+}
+.course-info-row{
+  display:grid;
+  gap:4px;
+  padding:12px 0;
+  border-top:1px solid #eee;
+}
+.course-info-row strong{
+  color:var(--rosso-scuro);
+  font-size:.82rem;
+  text-transform:uppercase;
+  letter-spacing:.4px;
+}
+.course-info-row a{
+  color:var(--rosso);
+  font-weight:700;
+}
+.course-info-close{
+  position:absolute;top:12px;right:12px;
+  width:38px;height:38px;
+  border:0;border-radius:50%;
+  background:var(--rosso);color:#fff;
+  font-size:22px;font-weight:800;
+  cursor:pointer;
+}
+.course-info-close:hover{background:var(--rosso-scuro)}
+
+
+footer{
+  background:var(--rosso-scuro);color:#fff;
+  padding:34px 20px;text-align:center;margin-top:auto;
+}
+.footer-links{
+  display:flex;justify-content:center;flex-wrap:wrap;gap:12px;
+  margin-bottom:18px;
+}
+.footer-links a{
+  background:rgba(255,255,255,.13);
+  border:1px solid rgba(255,255,255,.3);
+  padding:11px 20px;border-radius:12px;
+  font-weight:700;font-size:.95rem;transition:.2s;
+  cursor:pointer;
+}
+.footer-links a:hover{background:#fff;color:var(--rosso-scuro)}
+.footer-info{font-size:.9rem;opacity:.92;line-height:1.7}
+.footer-info a{border-bottom:1px dotted rgba(255,255,255,.6)}
+
+
+.legal-overlay{
+  position:fixed;
+  inset:0;
+  z-index:200;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(0,0,0,.65);
+}
+.legal-overlay.open{
+  display:flex;
+}
+.legal-box{
+  background:#fff;
+  color:var(--testo);
+  width:min(820px, 100%);
+  max-height:82vh;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  border-radius:18px;
+  padding:clamp(20px,4vw,36px);
+  box-shadow:0 30px 80px rgba(0,0,0,.35);
+}
+.legal-box h2{
+  color:var(--rosso);
+  margin:0 0 18px;
+  font-size:clamp(22px,3.5vw,30px);
+}
+.legal-box h3{
+  color:var(--rosso-scuro);
+  margin:22px 0 8px;
+  font-size:1.1rem;
+}
+.legal-box p,
+.legal-box li{
+  font-size:.95rem;
+  line-height:1.65;
+  color:#444;
+}
+.legal-box ul{
+  padding-left:20px;
+  margin:8px 0;
+}
+.legal-close{
+  margin-top:24px;
+  background:var(--rosso);
+  color:#fff;
+  border:0;
+  padding:12px 22px;
+  border-radius:999px;
+  font-weight:800;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+  cursor:pointer;
+}
+.legal-close:hover{
+  background:var(--rosso-scuro);
+}
+
+
+@media(max-width:760px){
+  :root{
+    --card-w:min(58vw, 280px);
+    --carousel-step:min(58vw, 280px);
+  }
+  .carousel-zone{height:clamp(480px, 70vh, 560px)}
+  .card-info{padding:13px 12px 12px}
+  .card h3{font-size:1.12rem}
+  .card.current h3{font-size:1.25rem}
+  .nav-arrow{width:42px;height:42px;font-size:18px}
+  .nav-arrow.prev{left:5px}
+  .nav-arrow.next{right:5px}
+  .logo-bg{max-width:100%}
+
+
+  main{
+    padding-top:calc(clamp(160px, 12vw, 200px) + 22px);
+  }
+
+
+  .card.expanded{
+    width:min(94vw, 680px);
+    max-height:min(76vh, 720px);
+  }
+  .card.expanded .card-poster{
+    height:clamp(130px, 20vh, 220px);
+  }
+  .card.expanded h3{
+    font-size:clamp(17px,5vw,22px);
+  }
+  .card.expanded .card-details{
+    padding:14px;
+  }
+}
+</style>
+</head>
+<body>
+
+
+<div class="intro-overlay" id="introOverlay">
+  <img class="intro-logo" src="silhouette_capelli.png" alt="L’Angolo di Amelie">
+  <p class="intro-text">L’Angolo di Amelie</p>
+</div>
+
+
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-bg" id="logoBg">
+        <img class="logo-name" id="logoName" src="angolo_di_amelie.png" alt="L’Angolo di Amelie">
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<main>
+  <section class="page-title">
+    <h2>Programmazione</h2>
+    <p></p>
+  </section>
+
+
+  <section class="carousel-zone" id="carouselZone">
+    <button class="nav-arrow prev" id="prevBtn" onclick="move(-1)" aria-label="Evento precedente">‹</button>
+    <div class="track" id="track"></div>
+    <button class="nav-arrow next" id="nextBtn" onclick="move(1)" aria-label="Evento successivo">›</button>
+  </section>
+
+
+  <p class="hint">Trascina le locandine oppure clicca una card per portarla al centro.</p>
+
+
+  <div class="programma-btn-wrap">
+    <a class="programma-btn" href="programmazione.html">Programmazione completa</a>
+  </div>
+
+
+  <section class="corsi">
+    <div class="section-title">
+      <h2>I nostri corsi</h2>
+      <p>Clicca su una scheda per visualizzare informazioni e contatti.</p>
+    </div>
+
+
+    <div class="course-grid"></div>
+  </section>
+</main>
+
+
+<footer>
+  <nav class="footer-links">
+    <a onclick="apriScheda()">Chi siamo</a>
+    <a href="#contatti">Contatti</a>
+    <a onclick="apriLegal('privacy')">Privacy Policy</a>
+    <a onclick="apriLegal('cookie')">Cookie Policy</a>
+  </nav>
+
+
+  <div class="footer-info" id="contatti">
+    <strong>L’Angolo di Amelie</strong> è un’associazione culturale dedicata a incontri, laboratori,
+    musica, fotografia, natura e momenti di condivisione.<br>
+    Email: <a href="mailto:info@langolodiamelie.it">info@langolodiamelie.it</a> ·
+    Via dell’Esempio 1, 00100 Roma (RM)
+  </div>
+
+
+  <p style="margin:18px 0 0;font-size:.85rem;opacity:.8">
+    © <span id="year"></span> L’Angolo di Amelie — Associazione culturale
+  </p>
+</footer>
+
+
+<div class="legal-overlay" id="chiSiamoOverlay">
+  <div class="legal-box">
+    <h2>Chi siamo</h2>
+
+    <p>
+      <strong>L’Angolo di Amelie</strong> è un’associazione culturale che promuove incontri,
+      proiezioni, serate, laboratori e attività dedicate alla musica, alla fotografia, alla natura
+      e alla condivisione.
+    </p>
+
+    <p>
+      L’associazione nasce con l’obiettivo di creare uno spazio aperto alla partecipazione,
+      alla scoperta e al confronto, rivolto a chi desidera vivere la cultura in modo attivo
+      e condiviso.
+    </p>
+
+    <h3>Statuto dell’associazione</h3>
+
+    <p>
+      Lo statuto dell’associazione è disponibile e può essere consultato su richiesta
+      scrivendo a
+      <a href="mailto:info@langolodiamelie.it">info@langolodiamelie.it</a>.
+    </p>
+
+    <p>
+      <a class="programma-btn" href="statuto.pdf" target="_blank" rel="noopener">
+        Scarica lo statuto
+      </a>
+    </p>
+
+    <button class="legal-close" onclick="chiudiScheda()">Chiudi</button>
+  </div>
+</div>
+
+
+<div class="legal-overlay" id="legalOverlay">
+  <div class="legal-box">
+    <div id="privacyContent">
+      <h2>Privacy Policy</h2>
+
+      <p>
+        La presente informativa descrive il trattamento dei dati personali effettuato tramite il sito
+        <strong>L’Angolo di Amelie</strong>, ai sensi del Regolamento (UE) 2016/679 (“GDPR”).
+      </p>
+
+      <h3>1. Titolare del trattamento</h3>
+      <p>
+        <strong>L’Angolo di Amelie</strong><br>
+        Via dell’Esempio 1, 00100 Roma (RM)<br>
+        Email: <a href="mailto:info@langolodiamelie.it">info@langolodiamelie.it</a>
+      </p>
+
+      <h3>2. Dati trattati</h3>
+      <p>
+        Il sito non utilizza moduli di contatto, non consente iscrizioni online, non gestisce newsletter
+        e non richiede la creazione di account. Pertanto, attraverso il sito non vengono raccolti
+        dati personali quali nome, cognome, indirizzo email, numero di telefono o dati di pagamento.
+      </p>
+      <p>
+        Il sito pubblica esclusivamente informazioni relative ad eventi, corsi e attività dell’associazione.
+        I dati di contatto pubblicati nel piè di pagina sono riferiti all’associazione e hanno finalità
+        di contatto istituzionale.
+      </p>
+
+      <h3>3. Cookie e strumenti di tracciamento</h3>
+      <p>
+        Il sito non utilizza cookie di profilazione, cookie analitici, pixel di tracciamento,
+        strumenti pubblicitari o sistemi di tracciamento di terze parti.
+      </p>
+
+      <h3>4. Contatti volontari</h3>
+      <p>
+        Se l’utente contatta spontaneamente l’associazione tramite email o telefono, i dati comunicati
+        verranno utilizzati esclusivamente per rispondere alla richiesta ricevuta e per le eventuali
+        successive comunicazioni strettamente necessarie alla gestione della stessa.
+      </p>
+
+      <h3>5. Conservazione dei dati</h3>
+      <p>
+        Gli eventuali dati comunicati volontariamente sono conservati per il tempo necessario a gestire
+        la richiesta e, successivamente, per il periodo eventualmente richiesto dalla legge.
+      </p>
+
+      <h3>6. Diritti dell’interessato</h3>
+      <p>
+        L’interessato può chiedere in ogni momento l’accesso ai propri dati, la loro rettifica,
+        la cancellazione, la limitazione del trattamento, nonché opporsi al trattamento nei casi
+        previsti dal GDPR, scrivendo a:
+        <a href="mailto:info@langolodiamelie.it">info@langolodiamelie.it</a>.
+      </p>
+      <p>
+        L’interessato ha inoltre il diritto di proporre reclamo al Garante per la protezione dei dati personali.
+      </p>
+
+      <h3>7. Aggiornamenti</h3>
+      <p>
+        La presente informativa può essere aggiornata per adeguarla a modifiche normative o alle
+        caratteristiche del sito. La versione pubblicata su questa pagina è quella vigente.
+      </p>
+    </div>
+
+    <div id="cookieContent" style="display:none">
+      <h2>Cookie Policy</h2>
+
+      <p>
+        Il sito <strong>L’Angolo di Amelie</strong> non utilizza cookie di profilazione, cookie analitici,
+        cookie pubblicitari, pixel di tracciamento o altri strumenti di monitoraggio di terze parti.
+      </p>
+
+      <h3>Cookie tecnici</h3>
+      <p>
+        Il sito non installa cookie tecnici persistenti. Le preferenze di visualizzazione del carosello
+        sono gestite esclusivamente durante la navigazione e non vengono memorizzate sul dispositivo
+        dell’utente dopo la chiusura della pagina.
+      </p>
+
+      <h3>Servizi di terze parti</h3>
+      <p>
+        Il sito può visualizzare immagini ospitate da servizi esterni esclusivamente per finalità
+        illustrative. Questi contenuti non sono utilizzati per profilare l’utente né per raccogliere
+        dati personali tramite questo sito.
+      </p>
+
+      <h3>Gestione delle preferenze</h3>
+      <p>
+        Poiché il sito non utilizza cookie non necessari, non è richiesto alcun consenso preventivo
+        né è presente un banner di accettazione dei cookie.
+      </p>
+    </div>
+
+    <button class="legal-close" onclick="chiudiLegal()">Chiudi</button>
+  </div>
+</div>
+
+
+<script src="eventi.js"></script>
+
+<script>
+console.log("Script caricato correttamente");
+
+
+const introOverlay=document.getElementById('introOverlay');
+
+
+document.body.style.overflow='hidden';
+
+
+setTimeout(()=>{
+  introOverlay.classList.add('hidden');
+  document.body.style.overflow='';
+
+  setTimeout(()=>{
+    introOverlay.remove();
+  },900);
+},2500);
+
+
+const oggi=new Date();
+oggi.setHours(0,0,0,0);
+
+
+// Ordina gli eventi per data, dalla più vicina alla più lontana
+eventi.sort((a,b)=>new Date(a.data)-new Date(b.data));
+
+
+let currentIndex=eventi.findIndex(e=>new Date(e.data)>=oggi);
+if(currentIndex<0) currentIndex=eventi.length-1;
+let expandedIndex=null;
+
+
+const track=document.getElementById('track');
+const carouselZone=document.getElementById('carouselZone');
+const mesi=["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
+
+
+function formattaData(iso,ora){
+  const d=new Date(iso+"T00:00:00");
+  return `${d.getDate()} ${mesi[d.getMonth()]} ${d.getFullYear()} · ore ${ora}`;
+}
+
+
+eventi.forEach((e,i)=>{
+  const past=new Date(e.data)<oggi;
+
+  const card=document.createElement('article');
+  card.className='card'+(past?' past':'');
+  card.dataset.index=i;
+
+  const media=e.video
+    ? `
+      <img
+        class="card-video-poster"
+        src="${e.videoPoster || e.immagine}"
+        alt="${e.titolo}"
+      >
+      <video
+        class="card-video"
+        src="${e.video}"
+        muted
+        loop
+        playsinline
+        webkit-playsinline
+        preload="metadata"
+      ></video>
+    `
+    : `<img src="${e.immagine}" alt="${e.titolo}">`;
+
+  const sottotitolo=e.tipo==="film"
+    ? `di ${e.regia} · ${e.paese}`
+    : `Con ${e.artista}`;
+
+  const testoPulsante=e.tipo==="film"
+    ? "Sinossi"
+    : "Descrizione";
+
+  const nomiOspiti=e.ospiti
+    ? e.ospiti.split(",").map(nome=>nome.trim()).filter(Boolean)
+    : [];
+
+  const etichettaOspiti=nomiOspiti.length===1 ? "Ospite" : "Ospiti";
+
+  const ospiti=nomiOspiti.length
+    ? `<span class="card-ospiti">${etichettaOspiti}: ${nomiOspiti.join(", ")}</span>`
+    : "";
+
+  card.innerHTML=`
+    <div class="card-poster">
+      ${media}
+      <div class="card-info">
+        <span class="card-date">${formattaData(e.data,e.ora)}</span>
+        ${ospiti}
+        <h3>${e.titolo}</h3>
+        <p class="sottotitolo">${sottotitolo}</p>
+        <button class="sinossi-btn" type="button">${testoPulsante}</button>
+      </div>
+    </div>
+
+    <div class="card-details">
+      <p class="desc">${e.descrizione || "La descrizione dell’evento sarà presto disponibile."}</p>
+      <div class="close-hint">Clicca in qualsiasi punto per chiudere</div>
+    </div>
+  `;
+
+  track.appendChild(card);
+});
+
+
+const cards=[...document.querySelectorAll('.card')];
+
+
+function getStep(){
+  return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--carousel-step')) || 280;
+}
+
+
+let videoTimer=null;
+
+
+function annullaVideoInAttesa(){
+  clearTimeout(videoTimer);
+  videoTimer=null;
+}
+
+
+function avviaVideoDopo3Secondi(){
+  annullaVideoInAttesa();
+
+  const cardCorrente=cards[currentIndex];
+  const video=cardCorrente.querySelector('.card-video');
+
+  if(!video) return;
+
+  video.muted=true;
+  video.defaultMuted=true;
+  video.playsInline=true;
+  video.setAttribute('playsinline','');
+  video.currentTime=0;
+  video.classList.remove('playing');
+
+  const poster=cardCorrente.querySelector('.card-video-poster');
+  if(poster) poster.classList.remove('hidden');
+
+  videoTimer=setTimeout(()=>{
+    const playPromise=video.play();
+
+    if(playPromise){
+      playPromise
+        .then(()=>{
+          video.classList.add('playing');
+
+          const poster=cardCorrente.querySelector('.card-video-poster');
+          if(poster) poster.classList.add('hidden');
+        })
+        .catch(()=>{
+          /* Autoplay bloccato: resta la locandina */
+        });
+    }
+  },3000);
+}
+
+
+function fermaVideo(){
+  annullaVideoInAttesa();
+
+  cards.forEach(card=>{
+    const video=card.querySelector('.card-video');
+
+    if(video){
+      video.pause();
+      video.currentTime=0;
+      video.classList.remove('playing');
+    }
+
+    const poster=card.querySelector('.card-video-poster');
+    if(poster) poster.classList.remove('hidden');
+  });
+}
+
+
+function aggiornaVideoCorrente(){
+  annullaVideoInAttesa();
+
+  cards.forEach((card,i)=>{
+    const video=card.querySelector('.card-video');
+    const poster=card.querySelector('.card-video-poster');
+
+    if(!video || !poster) return;
+
+    if(i===currentIndex){
+      avviaVideoDopo3Secondi();
+    }else{
+      video.pause();
+      video.currentTime=0;
+      video.classList.remove('playing');
+      poster.classList.remove('hidden');
+    }
+  });
+}
+
+
+function update(dragOffset=0){
+  const step=getStep();
+
+  cards.forEach((card,i)=>{
+    card.classList.toggle('current', i===currentIndex);
+    card.classList.toggle('expanded', i===expandedIndex);
+
+    if(i===expandedIndex){
+      card.classList.remove('hidden');
+      card.style.transform='translate(-50%,-50%) translateZ(0) scale(1)';
+      return;
+    }
+
+    const offset=i-currentIndex;
+    const x=offset*step+dragOffset;
+
+    if(Math.abs(offset)>2){
+      card.classList.add('hidden');
+      card.style.transform=`translate(-50%,-50%) translateX(${x}px) scale(.55)`;
+      return;
+    }
+
+    card.classList.remove('hidden');
+
+    const scale=offset===0?1.12:(Math.abs(offset)===1?.8:.6);
+    const z=-Math.abs(offset)*160;
+    const rot=offset*-6;
+
+    card.style.transform=`translate(-50%,-50%) translateX(${x}px) translateZ(${z}px) rotateY(${rot}deg) scale(${scale})`;
+  });
+
+  if(!isDragging){
+    aggiornaVideoCorrente();
+  }
+
+  document.getElementById('prevBtn').disabled=expandedIndex!==null||currentIndex===0;
+  document.getElementById('nextBtn').disabled=expandedIndex!==null||currentIndex===cards.length-1;
+}
+
+
+function vaiAllaCard(i){
+  console.log("vaiAllaCard:", i);
+
+  expandedIndex=null;
+  currentIndex=i;
+
+  annullaVideoInAttesa();
+  update();
+}
+
+
+function move(step){
+  if(expandedIndex!==null || isDragging) return;
+
+  currentIndex=Math.min(cards.length-1,Math.max(0,currentIndex+step));
+
+  annullaVideoInAttesa();
+  update();
+}
+
+
+function toggleCard(i){
+  if(expandedIndex===i){
+    expandedIndex=null;
+  }else{
+    expandedIndex=i;
+    currentIndex=i;
+  }
+
+  annullaVideoInAttesa();
+  update();
+}
+
+
+function chiudiCardAperta(){
+  if(expandedIndex===null) return false;
+
+  expandedIndex=null;
+  annullaVideoInAttesa();
+  update();
+
+  return true;
+}
+
+
+let isDragging=false;
+let startX=0;
+let currentDrag=0;
+let swipeInCorso=false;
+
+
+carouselZone.addEventListener('pointerdown',e=>{
+  if(e.target.closest('.nav-arrow')) return;
+
+  if(chiudiCardAperta()){
+    return;
+  }
+
+  isDragging=true;
+  swipeInCorso=false;
+  startX=e.clientX;
+  currentDrag=0;
+
+  annullaVideoInAttesa();
+
+  try{
+    carouselZone.setPointerCapture(e.pointerId);
+  }catch(err){}
+
+  carouselZone.style.cursor='grabbing';
+});
+
+
+carouselZone.addEventListener('pointermove',e=>{
+  if(!isDragging) return;
+
+  currentDrag=e.clientX-startX;
+
+  if(Math.abs(currentDrag)>10){
+    swipeInCorso=true;
+  }
+
+  update(currentDrag);
+});
+
+
+carouselZone.addEventListener('pointerup',e=>{
+  if(!isDragging) return;
+
+  isDragging=false;
+  carouselZone.style.cursor='';
+
+  const movimento=Math.abs(currentDrag);
+  const soglia=Math.min(90, getStep()*.3);
+
+  if(movimento>soglia){
+    if(currentDrag<0 && currentIndex<cards.length-1){
+      currentIndex++;
+    }else if(currentDrag>0 && currentIndex>0){
+      currentIndex--;
+    }
+
+    currentDrag=0;
+    annullaVideoInAttesa();
+    update();
+
+    setTimeout(()=>{
+      swipeInCorso=false;
+    },100);
+
+    return;
+  }
+
+  const elemento=document.elementFromPoint(e.clientX,e.clientY);
+  const card=elemento ? elemento.closest('.card') : null;
+
+  console.log("Elemento toccato:", elemento);
+  console.log("Card trovata:", card);
+
+  if(card){
+    const indice=Number(card.dataset.index);
+
+    console.log("Indice card toccata:", indice);
+    console.log("Indice card centrale:", currentIndex);
+
+    if(indice===currentIndex){
+      toggleCard(indice);
+    }else{
+      vaiAllaCard(indice);
+    }
+  }
+
+  currentDrag=0;
+  annullaVideoInAttesa();
+  update();
+});
+
+
+carouselZone.addEventListener('pointercancel',()=>{
+  isDragging=false;
+  swipeInCorso=false;
+  currentDrag=0;
+  carouselZone.style.cursor='';
+  annullaVideoInAttesa();
+  update();
+});
+
+
+document.addEventListener('pointerdown',e=>{
+  if(e.target.closest('.carousel-zone') || e.target.closest('.nav-arrow')) return;
+
+  chiudiCardAperta();
+});
+
+
+const logoBg=document.getElementById('logoBg');
+const logoName=document.getElementById('logoName');
+const fadeRange=100;
+
+
+function aggiornaLogo(){
+  const p=Math.min(window.scrollY/fadeRange,1);
+  const opacita=1-p;
+
+  logoBg.style.opacity=opacita;
+  logoName.style.opacity=opacita;
+}
+
+
+window.addEventListener('scroll',aggiornaLogo,{passive:true});
+window.addEventListener('resize',aggiornaLogo);
+
+
+aggiornaLogo();
+update();
+
+
+function apriScheda(){
+  document.getElementById('chiSiamoOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+
+function chiudiScheda(){
+  document.getElementById('chiSiamoOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+
+function apriLegal(tipo){
+  const overlay=document.getElementById('legalOverlay');
+  const privacy=document.getElementById('privacyContent');
+  const cookie=document.getElementById('cookieContent');
+
+  privacy.style.display=tipo==='privacy'?'block':'none';
+  cookie.style.display=tipo==='cookie'?'block':'none';
+
+  overlay.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+
+function chiudiLegal(){
+  document.getElementById('legalOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+
+document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
