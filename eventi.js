@@ -281,7 +281,7 @@ function inizializzaSostenitori(){
     setInterval(()=>{
       indiceAttivo=(indiceAttivo+1)%loghi.length;
       mostraSponsor(indiceAttivo);
-    },2000);
+    },5000);
   }
 }
 
