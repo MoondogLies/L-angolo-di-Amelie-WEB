@@ -174,7 +174,7 @@ const corsi = [
     immagine: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&fit=crop&w=900&q=80",
     contatti: {
       referente: "Leonardo",
-      email: "",
+      email: "leonardo.cupelli@gmail.com",
       informazioni: "Informazioni e modalità di iscrizione saranno presto disponibili."
     }
   },
