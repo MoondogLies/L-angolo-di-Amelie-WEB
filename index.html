@@ -437,6 +437,40 @@ main{
   color:#444;
   line-height:1.6;
 }
+.course-modules{
+  display:grid;
+  gap:12px;
+  margin:0 0 20px;
+}
+.course-module{
+  border:1px solid #eee;
+  border-left:4px solid var(--rosso);
+  border-radius:12px;
+  padding:14px 16px;
+  background:#fff;
+}
+.course-module h4{
+  margin:0 0 8px;
+  color:var(--rosso-scuro);
+  font-size:1.05rem;
+}
+.course-module p{
+  margin:4px 0 0;
+  color:#444;
+  font-size:.92rem;
+  line-height:1.5;
+}
+.course-module.scaduto{
+  border-color:#ddd;
+  border-left-color:#9a9a9a;
+  background:#f4f4f4;
+}
+.course-module.scaduto h4{
+  color:#777;
+}
+.course-module.scaduto p{
+  color:#8a8a8a;
+}
 .course-info-row{
   display:grid;
   gap:4px;
@@ -898,7 +932,7 @@ eventi.forEach((e,i)=>{
 
     <div class="card-details">
       <p class="desc">${e.descrizione || "La descrizione dell’evento sarà presto disponibile."}</p>
-      <div class="close-hint">Clicca di nuovo per chiudere</div>
+      <div class="close-hint">Clicca in qualsiasi punto per chiudere</div>
     </div>
   `;
 
@@ -1073,6 +1107,17 @@ function toggleCard(i){
 }
 
 
+function chiudiCardAperta(){
+  if(expandedIndex===null) return false;
+
+  expandedIndex=null;
+  annullaVideoInAttesa();
+  update();
+
+  return true;
+}
+
+
 let isDragging=false;
 let startX=0;
 let currentDrag=0;
@@ -1081,6 +1126,10 @@ let swipeInCorso=false;
 
 carouselZone.addEventListener('pointerdown',e=>{
   if(e.target.closest('.nav-arrow')) return;
+
+  if(chiudiCardAperta()){
+    return;
+  }
 
   isDragging=true;
   swipeInCorso=false;
@@ -1169,6 +1218,13 @@ carouselZone.addEventListener('pointercancel',()=>{
   carouselZone.style.cursor='';
   annullaVideoInAttesa();
   update();
+});
+
+
+document.addEventListener('pointerdown',e=>{
+  if(e.target.closest('.carousel-zone') || e.target.closest('.nav-arrow')) return;
+
+  chiudiCardAperta();
 });
 
 
