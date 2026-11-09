@@ -170,10 +170,10 @@ const corsi = [
   {
     categoria: "Pianoforte",
     titolo: "",
-    descrizione: "Percorsi individuali e di gruppo per avvicinarsi allo strumento, alla lettura musicale e all’ascolto.",
+    descrizione: "Percorsi individuali per avvicinarsi allo strumento, alla lettura musicale e all’ascolto.",
     immagine: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&fit=crop&w=900&q=80",
     contatti: {
-      referente: "Nome referente",
+      referente: "Leonardo",
       email: "info@langolodiamelie.it",
       informazioni: "Informazioni e modalità di iscrizione saranno presto disponibili."
     }
@@ -204,21 +204,21 @@ const corsi = [
     moduli: [
       {
         nome: "Sceneggiatura",
-        docente: "Nome docente",
+        docente: "Geraldine Ottier",
         inizio: "2026-09-01",
         fine: "2026-10-31"
       },
       {
         nome: "Regia",
-        docente: "Nome docente",
-        inizio: "2026-11-01",
-        fine: "2026-12-15"
+        docente: "Geraldine Ottier",
+        inizio: "",
+        fine: ""
       },
       {
         nome: "Recitazione",
         docente: "Nome docente",
-        inizio: "2027-01-10",
-        fine: "2027-02-28"
+        inizio: "",
+        fine: ""
       }
     ]
   }
