@@ -162,7 +162,6 @@ const corsi = [
     immagine: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=900&q=80",
     contatti: {
       referente: "Nome referente",
-      telefono: "+39 000 000 0000",
       email: "info@langolodiamelie.it",
       informazioni: "Informazioni e modalità di iscrizione saranno presto disponibili."
     }
@@ -175,7 +174,6 @@ const corsi = [
     immagine: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&fit=crop&w=900&q=80",
     contatti: {
       referente: "Nome referente",
-      telefono: "+39 000 000 0000",
       email: "info@langolodiamelie.it",
       informazioni: "Informazioni e modalità di iscrizione saranno presto disponibili."
     }
@@ -188,7 +186,6 @@ const corsi = [
     immagine: "https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=900&q=80",
     contatti: {
       referente: "Nome referente",
-      telefono: "+39 000 000 0000",
       email: "info@langolodiamelie.it",
       informazioni: "Informazioni e modalità di iscrizione saranno presto disponibili."
     }
@@ -201,7 +198,6 @@ const corsi = [
     immagine: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=900&q=80",
     contatti: {
       referente: "Nome referente",
-      telefono: "+39 000 000 0000",
       email: "info@langolodiamelie.it",
       informazioni: "Informazioni e modalità di iscrizione saranno presto disponibili."
     },
