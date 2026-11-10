@@ -474,6 +474,68 @@ inizializzaSostenitori();
 
 
 // ============================================================
+// SUPPORTO NELLE CARD
+// ============================================================
+
+function inizializzaSupporto(){
+  const stile=document.createElement('style');
+  stile.textContent=`
+    .card-supporto{
+      position:absolute;
+      right:10px;
+      bottom:10px;
+      z-index:5;
+      display:flex;
+      align-items:center;
+      gap:6px;
+      max-width:45%;
+    }
+
+    .card-supporto img{
+      max-height:34px;
+      max-width:90px;
+      object-fit:contain;
+      display:block;
+    }
+
+    .card-supporto-testo{
+      display:none;
+      font-size:.7rem;
+      color:#fff;
+      text-shadow:0 1px 6px rgba(0,0,0,.8);
+    }
+
+    .card.expanded .card-supporto-testo{
+      display:inline;
+    }
+  `;
+
+  document.head.appendChild(stile);
+
+  document.querySelectorAll('.card').forEach(card=>{
+    const poster=card.querySelector('.card-poster');
+
+    if(!poster){
+      return;
+    }
+
+    const supporto=document.createElement('div');
+    supporto.className='card-supporto';
+
+    supporto.innerHTML=`
+      <span class="card-supporto-testo">con il supporto di</span>
+      <img src="icm.png" alt="Sostenitore">
+    `;
+
+    poster.appendChild(supporto);
+  });
+}
+
+
+document.addEventListener('DOMContentLoaded', inizializzaSupporto);
+
+
+// ============================================================
 // CARICAMENTO DI CORSI E DONA
 // ============================================================
 
