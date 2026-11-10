@@ -198,9 +198,9 @@ const corsi = [
         'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=900&q=80',
     contatti: {
       referente: 'Nome referente',
-      email: '',
+      email: 'massimo.fagioli@gmail.com',
       informazioni:
-          'Informazioni e modalità di iscrizione saranno presto disponibili.'
+          'Impara a guardare il mondo con occhi nuovi e a trasformare un istante in un ricordo. Un percorso pratico per conoscere la tua macchina fotografica, capire la luce, comporre l’inquadratura e raccontare storie attraverso le immagini. Imparerai a osservare dettagli che prima ti sfuggivano e a dare voce, attraverso le foto, al tuo modo personale di vedere il mondo.'
     }
   },
 
@@ -215,7 +215,7 @@ const corsi = [
       referente: 'Leonardo',
       email: 'leonardo.cupelli@gmail.com',
       informazioni:
-          'Informazioni e modalità di iscrizione saranno presto disponibili.'
+          'Impara a suonare il pianoforte partendo da ciò che senti, non solo da ciò che leggi. Un percorso individuale per avvicinarti allo strumento con gradualità: prime note, lettura musicale, ritmo e ascolto.Che tu sia alle prime armi o voglia riprendere dopo anni, troverai uno spazio sereno per costruire confiance, esprimerti e scoprire il piacere di fare musica con le tue mani.'
     }
   },
 
@@ -230,7 +230,7 @@ const corsi = [
       referente: 'Nome referente',
       email: '',
       informazioni:
-          'Informazioni e modalità di iscrizione saranno presto disponibili.'
+          'Coltiva pazienza, attenzione e bellezza in un piccolo albero che cresce con te. Un percorso per avvicinarti all’arte del bonsai: dalla scelta della pianta alle tecniche di potatura, irrigazione e cura nel tempo.Imparerai a osservare, intervenire con delicatezza e costruire, stagione dopo stagione, un piccolo paesaggio vivo da tenere accanto a te.'
     }
   },
 
@@ -245,17 +245,17 @@ const corsi = [
       referente: 'Nome referente',
       email: '',
       informazioni:
-          'Informazioni e modalità di iscrizione saranno presto disponibili.'
+          'Dall’idea alla scena: scopri come nasce un film attraverso sceneggiatura, regia e recitazione. Tre percorsi per dare forma alle storie, guidare lo sguardo e vivere le emozioni davanti alla macchina da presa.'
     },
     moduli: [
       {
         nome: 'Sceneggiatura',
         docente: 'Geraldine Ottier',
-        inizio: '2026-09-01',
-        fine: '2026-10-31'
+        inizio: '2026-10-24',
+        fine: '2026-12-12'
       },
       {nome: 'Regia', docente: 'Geraldine Ottier', inizio: '', fine: ''},
-      {nome: 'Recitazione', docente: 'Nome docente', inizio: '', fine: ''}
+      {nome: 'Recitazione', docente: 'da definire', inizio: '', fine: ''}
     ]
   }
 ];
