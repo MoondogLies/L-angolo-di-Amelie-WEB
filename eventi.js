@@ -64,7 +64,7 @@ const eventiCinema = [
     immagine: 'fragoleselvatiche.jpeg',
     video: 'fragoleselvatiche.mp4',
     videoPoster: 'fragoleselvatiche.jpeg',
-    supporto: ''
+    supporto: 'istitutobulgarodicultura.png'
   },
 
   {
