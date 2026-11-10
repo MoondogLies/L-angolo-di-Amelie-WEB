@@ -1,1 +1,501 @@
-<CONTENUTO COMPLETO REALE DI programmazione.html con overlay supporto condizionato>
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>L'Angolo di Amelie — Programmazione completa</title>
+<style>
+:root{
+  --rosso:#c8102e;
+  --rosso-scuro:#8e0b20;
+  --ambra:#b7791f;
+  --bianco:#fff;
+  --testo:#262626;
+  --grigio:#6b6b6b;
+  --ombra:0 14px 35px rgba(0,0,0,.16);
+  --font-titoli:"Helvetica", "Helvetica Neue", Arial, sans-serif;
+  --font-dettagli:"Futura", "Futura PT", "Century Gothic", "Avenir Next", Arial, sans-serif;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;color:var(--testo);background:var(--bianco);
+  font-family:var(--font-dettagli);
+  min-height:100vh;display:flex;flex-direction:column;
+}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--font-dettagli)}
+
+
+h1,h2,h3{
+  font-family:var(--font-titoli);
+}
+
+
+header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:transparent;color:#fff;
+  box-shadow:none;
+  pointer-events:none;
+}
+.header-inner{
+  max-width:3840px;margin:auto;padding:10px 20px;
+  display:flex;align-items:center;justify-content:center;
+  gap:16px;
+}
+.logo{
+  flex:1;
+  min-width:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.logo-bg{
+  position:relative;
+  width:100%;
+  max-width:560px;
+  height:clamp(160px, 12vw, 200px);
+  background-image:url("silhouette_capelli.png");
+  background-size:contain;
+  background-repeat:no-repeat;
+  background-position:center;
+  opacity:1;
+  transition:opacity .12s linear;
+  will-change:opacity;
+}
+.logo-name{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  height:clamp(160px, 12vw, 200px);
+  width:auto;
+  max-width:82%;
+  object-fit:contain;
+  opacity:1;
+  transition:opacity .12s linear;
+  filter:
+    drop-shadow(1px 0 0 #fff)
+    drop-shadow(-1px 0 0 #fff)
+    drop-shadow(0 1px 0 #fff)
+    drop-shadow(0 0px 0 #fff)
+    drop-shadow(0 0 3px rgba(255,255,255,.85))
+    drop-shadow(0 0 6px rgba(255,255,255,.1));
+}
+
+
+main{
+  width:100%;
+  max-width:1200px;
+  margin:0 auto;
+  padding:calc(clamp(160px, 12vw, 200px) + 28px) 18px 70px;
+  flex:1;
+}
+.page-title{
+  text-align:center;
+  margin-bottom:30px;
+}
+.page-title h1{
+  color:var(--rosso);
+  margin:0 0 10px;
+  font-size:clamp(26px,5vw,40px);
+}
+.page-title p{
+  margin:0;
+  color:var(--grigio);
+}
+
+
+.filtri{
+  text-align:center;
+  margin:30px 0;
+}
+
+.filtro-btn{
+  background:var(--rosso);
+  color:#fff;
+  border:0;
+  padding:12px 24px;
+  border-radius:999px;
+  font-weight:800;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+  cursor:pointer;
+  box-shadow:0 10px 26px rgba(0,0,0,.18);
+  transition:.2s;
+}
+
+.filtro-btn:hover{
+  background:var(--rosso-scuro);
+  transform:translateY(-2px);
+}
+
+
+.eventi-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:24px;
+}
+.evento-card{
+  background:#fff;
+  border:1px solid #eee;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:var(--ombra);
+  display:flex;
+  flex-direction:column;
+}
+.evento-card img{
+  width:100%;
+  height:320px;
+  object-fit:cover;
+  display:block;
+}
+.evento-poster{
+  position:relative;
+}
+.card-supporto{
+  position:absolute;
+  right:12px;
+  bottom:12px;
+  z-index:5;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  max-width:60%;
+}
+.card-supporto img{
+  max-height:44px;
+  max-width:120px;
+  object-fit:contain;
+  display:block;
+}
+.card-supporto-testo{
+  font-size:.8rem;
+  color:#fff;
+  text-shadow:0 1px 6px rgba(0,0,0,.8);
+  white-space:nowrap;
+}
+.evento-info{
+  padding:18px;
+  display:grid;
+  gap:10px;
+}
+.evento-data{
+  width:max-content;
+  background:var(--rosso);
+  color:#fff;
+  padding:6px 12px;
+  border-radius:999px;
+  font-size:.75rem;
+  font-weight:800;
+  letter-spacing:.3px;
+}
+.evento-ospiti{
+  width:max-content;
+  max-width:100%;
+  background:var(--ambra);
+  color:#fff;
+  padding:6px 12px;
+  border-radius:999px;
+  font-size:.75rem;
+  font-weight:800;
+  letter-spacing:.3px;
+  line-height:1.3;
+}
+.evento-card h3{
+  margin:0;
+  color:var(--rosso-scuro);
+  font-size:1.3rem;
+  line-height:1.2;
+}
+.evento-card .sottotitolo{
+  margin:0;
+  color:var(--grigio);
+  font-size:.9rem;
+  font-weight:700;
+}
+.evento-card .descrizione{
+  margin:0;
+  color:#444;
+  font-size:.95rem;
+  line-height:1.55;
+}
+.past{
+  filter:grayscale(1);
+  opacity:.8;
+}
+
+
+.torna-home{
+  display:inline-block;
+  margin-top:30px;
+  background:var(--rosso);
+  color:#fff;
+  padding:12px 24px;
+  border-radius:999px;
+  font-weight:800;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+  box-shadow:0 10px 26px rgba(0,0,0,.18);
+  transition:.2s;
+}
+.torna-home:hover{
+  background:var(--rosso-scuro);
+  transform:translateY(-2px);
+}
+
+
+footer{
+  background:var(--rosso-scuro);
+  color:#fff;
+  padding:30px 20px;
+  text-align:center;
+  margin-top:auto;
+}
+.footer-info{
+  font-size:.9rem;
+  opacity:.92;
+  line-height:1.7;
+}
+.footer-info a{
+  border-bottom:1px dotted rgba(255,255,255,.6);
+}
+
+
+@media(max-width:600px){
+  .evento-card img{
+    height:240px;
+  }
+  .evento-info{
+    padding:14px;
+  }
+  .evento-card h3{
+    font-size:1.1rem;
+  }
+}
+</style>
+</head>
+<body>
+
+
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-bg" id="logoBg">
+        <img class="logo-name" id="logoName" src="angolo_di_amelie.png" alt="L’Angolo di Amelie">
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<main>
+  <section class="page-title">
+    <h1>Programmazione completa</h1>
+    <p>Tutti gli eventi e le attività de L’Angolo di Amelie.</p>
+  </section>
+
+  <div class="filtri">
+    <button id="btnPassati" class="filtro-btn" onclick="togglePassati()">
+      Mostra eventi passati
+    </button>
+  </div>
+
+  <section class="eventi-grid" id="eventiGrid"></section>
+
+  <div class="filtri" id="contenitoreAltriFuturi">
+    <button id="btnAltriFuturi" class="filtro-btn" onclick="mostraAltriFuturi()">
+      Mostra altri
+    </button>
+  </div>
+
+  <div class="filtri" id="contenitoreAltriPassati" style="display:none">
+    <button id="btnAltriPassati" class="filtro-btn" onclick="mostraAltriPassati()">
+      Mostra altri eventi passati
+    </button>
+  </div>
+
+  <div style="text-align:center;">
+    <a class="torna-home" href="index.html">Torna alla home</a>
+  </div>
+</main>
+
+
+<footer>
+  <div class="footer-info">
+    <strong>L’Angolo di Amelie</strong> è un’associazione culturale dedicata a incontri, laboratori,
+    musica, fotografia, natura e momenti di condivisione.<br>
+    Email: <a href="mailto:info@langolodiamelie.it">info@langolodiamelie.it</a> ·
+    Via dell’Esempio 1, 00100 Roma (RM)
+  </div>
+
+  <p style="margin:18px 0 0;font-size:.85rem;opacity:.8">
+    © <span id="year"></span> L’Angolo di Amelie — Associazione culturale
+  </p>
+</footer>
+
+
+<script src="eventi.js"></script>
+
+<script>
+const oggi=new Date();
+oggi.setHours(0,0,0,0);
+
+
+const mesi=["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
+
+
+function formattaData(iso,ora){
+  const d=new Date(iso+"T00:00:00");
+  return `${d.getDate()} ${mesi[d.getMonth()]} ${d.getFullYear()} · ore ${ora}`;
+}
+
+
+const eventiOrdinati=[...eventi].sort((a,b)=>new Date(a.data)-new Date(b.data));
+
+
+const eventiFuturi=eventiOrdinati.filter(e=>new Date(e.data)>=oggi);
+const eventiPassati=eventiOrdinati
+  .filter(e=>new Date(e.data)<oggi)
+  .sort((a,b)=>new Date(b.data)-new Date(a.data));
+
+
+const grid=document.getElementById('eventiGrid');
+const btnPassati=document.getElementById('btnPassati');
+const btnAltriFuturi=document.getElementById('btnAltriFuturi');
+const btnAltriPassati=document.getElementById('btnAltriPassati');
+const contenitoreAltriFuturi=document.getElementById('contenitoreAltriFuturi');
+const contenitoreAltriPassati=document.getElementById('contenitoreAltriPassati');
+
+
+let futuriVisibili=3;
+let passatiVisibili=0;
+const passo=3;
+
+
+function creaCard(e){
+  const past=new Date(e.data)<oggi;
+
+  const sottotitolo=e.tipo==="film"
+    ? `di ${e.regia} · ${e.paese}`
+    : (e.tipo==="concorso"
+        ? (e.sottotitolo || "Concorso di cortometraggi")
+        : `Con ${e.artista}`);
+
+  const nomiOspiti=e.ospiti
+    ? e.ospiti.split(",").map(nome=>nome.trim()).filter(Boolean)
+    : [];
+
+  const etichettaOspiti=nomiOspiti.length===1 ? "Ospite" : "Ospiti";
+
+  const ospiti=nomiOspiti.length
+    ? `<span class="evento-ospiti">${etichettaOspiti}: ${nomiOspiti.join(", ")}</span>`
+    : "";
+
+  const supporto=e.supporto
+    ? `<div class="card-supporto"><span class="card-supporto-testo">con il supporto di</span><img src="${e.supporto}" alt="Sostenitore"></div>`
+    : "";
+
+  const card=document.createElement('article');
+  card.className='evento-card'+(past?' past':'');
+
+  card.innerHTML=`
+    <div class="evento-poster">
+      <img src="${e.immagine}" alt="${e.titolo}">
+      ${supporto}
+    </div>
+    <div class="evento-info">
+      <span class="evento-data">${formattaData(e.data,e.ora)}</span>
+      ${ospiti}
+      <h3>${e.titolo}</h3>
+      <p class="sottotitolo">${sottotitolo}</p>
+      <p class="descrizione">${e.descrizione || "La descrizione dell’evento sarà presto disponibile."}</p>
+    </div>
+  `;
+
+  return card;
+}
+
+
+function renderGrid(){
+  const futuriDaMostrare=eventiFuturi.slice(0,futuriVisibili);
+  const passatiDaMostrare=eventiPassati.slice(0,passatiVisibili);
+
+  const eventiVisibili=[
+    ...futuriDaMostrare,
+    ...passatiDaMostrare
+  ].sort((a,b)=>new Date(a.data)-new Date(b.data));
+
+  grid.innerHTML='';
+
+  eventiVisibili.forEach(e=>{
+    grid.appendChild(creaCard(e));
+  });
+
+  contenitoreAltriFuturi.style.display=
+    futuriVisibili<eventiFuturi.length ? 'block' : 'none';
+
+  contenitoreAltriPassati.style.display=
+    passatiVisibili>0 && passatiVisibili<eventiPassati.length ? 'block' : 'none';
+}
+
+
+function togglePassati(){
+  const sezioneVisibile=passatiVisibili>0;
+
+  if(!sezioneVisibile){
+    passatiVisibili=passo;
+    btnPassati.textContent='Nascondi eventi passati';
+  }else{
+    passatiVisibili=0;
+    btnPassati.textContent='Mostra eventi passati';
+  }
+
+  renderGrid();
+}
+
+
+function mostraAltriFuturi(){
+  futuriVisibili=Math.min(futuriVisibili+passo,eventiFuturi.length);
+  renderGrid();
+}
+
+
+function mostraAltriPassati(){
+  passatiVisibili=Math.min(passatiVisibili+passo,eventiPassati.length);
+  renderGrid();
+}
+
+
+renderGrid();
+
+
+document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+
+
+<script>
+const logoBg=document.getElementById('logoBg');
+const logoName=document.getElementById('logoName');
+const fadeRange=100;
+
+
+function aggiornaLogo(){
+  const p=Math.min(window.scrollY/fadeRange,1);
+  const opacita=1-p;
+
+  logoBg.style.opacity=opacita;
+  logoName.style.opacity=opacita;
+}
+
+
+window.addEventListener('scroll',aggiornaLogo,{passive:true});
+window.addEventListener('resize',aggiornaLogo);
+
+
+aggiornaLogo();
+</script>
+
+
+</body>
+</html>
