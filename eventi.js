@@ -1,21 +1,33 @@
 // ============================================================
 // SPONSOR / SOSTENITORI
 // ============================================================
-// Aggiungi o rimuovi qui i loghi dei sostenitori.
+// Due box affiancati per i sostenitori.
+// Per aggiungere un logo in un box, inserisci un nuovo oggetto
+// dentro l’array "loghi" del box desiderato.
 // Il logo può essere un file nella repository, ad esempio "logo.png",
 // oppure un URL completo che inizia con https://
 
-const sostenitori = [
+const sostenitoriBox = [
   {
-    nome: "Sostenitore",
-    logo: "icm.png",
-    sito: "https://www.icmcomune.it"
+    titolo: "Sostenitori",
+    loghi: [
+      {
+        nome: "Sostenitore",
+        logo: "icm.png",
+        sito: "https://www.icmcomune.it"
+      }
+    ]
   },
-    {
-    nome: "Sostenitore",
-    logo: "comunemonterotondo.jpg",
-    sito: ""
-  },
+  {
+    titolo: "Sostenitori",
+    loghi: [
+      {
+        nome: "Sostenitore",
+        logo: "comunemonterotondo.jpg",
+        sito: ""
+      }
+    ]
+  }
 ];
 
 
@@ -32,7 +44,7 @@ const eventiCinema = [
     data: '2026-12-27',
     ora: '17:00',
     descrizione:
-        'Dora, una giovane donna che vive in una periferia romana, lavora consegnando la spesa a domicilio e cerca di costruire una vita migliore per sé e per i suoi fratellini. L’incontro con Andrea le offre una prospettiva di cambiamento, ma il passato e le difficoltà del quartiere continuano a pesare sul presente.',
+        'Dora, una giovane donna che vive in una periferia romana, lavora consegnando la spesa a domicilio e cerca di costruire una vita migliore per sé e per i fratellini. L’incontro con Andrea le offre una prospettiva di cambiamento, ma il passato e le difficoltà del quartiere continuano a pesare sul presente.',
     ospiti: 'Ciro Formisano, Daniela Poggi',
     immagine: 'lanimainpace.jpg',
     video: 'lanimainpace.mp4',
@@ -62,7 +74,7 @@ const eventiCinema = [
     data: '2027-02-21',
     ora: '17:00',
     descrizione:
-        'Il protagonista è Izumi (interpretata da Kento Hayashi), un giovane abbandonato dai genitori che vive di furti e aggressioni. Dopo un tentato omicidio, fugge in un villaggio rurale (Shiiba Village, prefettura di Miyazaki), dove soccorre un’anziana signora ferita (Etsuko Ichihara) e viene scambiato per suo nipote, iniziando un percorso di redenzione.',
+        'Il protagonista è Izumi (interpretata da Kento Hayashi), un giovane abbandonato dai genitori che vive di furti e aggressioni. Dopo un tentato omicidio, fugge in un villaggio rurale (Shiiba Village, prefettura di Miyazaki), dove soccorre un’anziana signora ferita (Etsuko Ichihara), e viene scambiato per suo nipote, iniziando un percorso di redenzione.',
     ospiti: '',
     immagine: 'bolladisapone.jpg',
     video: 'bolladisapone.mp4',
