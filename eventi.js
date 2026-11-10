@@ -13,8 +13,8 @@ const sostenitoriBox = [
     loghi: [
       {
         nome: "Sostenitore",
-        logo: "icm.png",
-        sito: "https://www.icmcomune.it"
+        logo: "bcc.jpg",
+        sito: ""
       }
     ]
   },
@@ -25,6 +25,11 @@ const sostenitoriBox = [
         nome: "Sostenitore",
         logo: "comunemonterotondo.jpg",
         sito: ""
+      },
+      {
+        nome: "Sostenitore",
+        logo: "icm.png",
+        sito: "https://www.icmcomune.it"
       }
     ]
   }
