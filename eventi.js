@@ -455,6 +455,13 @@ inizializzaSostenitori();
 function inizializzaSupporto() {
   const stile = document.createElement('style');
   stile.textContent = `
+    body.card-aperta .nav-arrow{
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+      transition:none;
+    }
+
     .card-supporto{
       position:absolute;
       right:10px;
