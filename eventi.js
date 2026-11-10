@@ -55,7 +55,7 @@ const sostenitoriBox = [
         nome: "Sostenitore",
         logo: "valery.pdf",
         sito: ""
-      },
+      }
     ]
   }
 ];
