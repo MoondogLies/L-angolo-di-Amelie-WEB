@@ -23,7 +23,7 @@ const sostenitoriBox = [
     loghi: [
       {
         nome: "Sostenitore",
-        logo: "delavallee.pdf",
+        logo: "delavallee.png",
         sito: ""
       },
       {
@@ -43,7 +43,7 @@ const sostenitoriBox = [
       },
       {
         nome: "Sostenitore",
-        logo: "iezzi.pdf",
+        logo: "iezzi.png",
         sito: ""
       },
       {
@@ -53,12 +53,12 @@ const sostenitoriBox = [
       },
       {
         nome: "Sostenitore",
-        logo: "fioridipina.pdf",
+        logo: "fioridipina.png",
         sito: ""
       },
       {
         nome: "Sostenitore",
-        logo: "valery.pdf",
+        logo: "valery.png",
         sito: ""
       }
     ]
