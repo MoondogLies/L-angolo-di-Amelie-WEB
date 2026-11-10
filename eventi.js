@@ -490,6 +490,12 @@ function inizializzaSupporto() {
     .card.expanded .card-supporto-testo{
       display:inline;
     }
+
+    @media(min-width:1400px){
+      .card.expanded{
+        width:min(1100px, 92vw);
+      }
+    }
   `;
 
   document.head.appendChild(stile);
