@@ -512,7 +512,6 @@ function inizializzaSupporto() {
     supporto.className = 'card-supporto';
 
     supporto.innerHTML = `
-      <span class="card-supporto-testo">con il supporto di</span>
       <img src="${logoSupporto}" alt="Sostenitore">
     `;
 
