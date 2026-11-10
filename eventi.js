@@ -275,7 +275,7 @@ const datiBonifico = {
 // ============================================================
 
 const scriptSostenitori=document.createElement('script');
-scriptSostenitori.src='sostenitori.js';
+scriptSostenitori.src='sostenitori.js?v=20261110-2';
 
 scriptSostenitori.onload=()=>{
   const scriptCorsi=document.createElement('script');
