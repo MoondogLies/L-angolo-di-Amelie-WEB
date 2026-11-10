@@ -33,6 +33,11 @@ const sostenitoriBox = [
       },
       {
         nome: "Sostenitore",
+        logo: "dascenzi.png",
+        sito: ""
+      },
+      {
+        nome: "Sostenitore",
         logo: "isolaceliaca.png",
         sito: ""
       },
