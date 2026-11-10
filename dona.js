@@ -1,4 +1,8 @@
 function inizializzaDona(){
+  if(document.querySelector('.dona-btn')){
+    return;
+  }
+
   const sezioneSostenitori=document.querySelector('.sostenitori-e-section');
 
   if(!sezioneSostenitori){
