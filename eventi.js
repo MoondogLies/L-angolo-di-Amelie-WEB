@@ -495,10 +495,15 @@ function inizializzaSupporto() {
       .card.expanded{
         left:0;
         right:0;
+        top:50%;
+        bottom:auto;
         margin-left:auto;
         margin-right:auto;
         width:min(1100px, 92vw);
-        transform:none;
+        height:auto;
+        max-height:calc(100vh - 40px);
+        overflow-y:auto;
+        transform:translateY(-50%) !important;
       }
     }
   `;
