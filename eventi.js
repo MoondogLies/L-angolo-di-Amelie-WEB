@@ -9,58 +9,20 @@
 
 const sostenitoriBox = [
   {
-    titolo: "Sostenitori",
-    loghi: [
-      {
-        nome: "Sostenitore",
-        logo: "bcc.jpg",
-        sito: ""
-      }
-    ]
+    titolo: 'Sostenitori',
+    loghi: [{nome: 'Sostenitore', logo: 'bcc.jpg', sito: ''}]
   },
   {
-    titolo: "Sostenitori",
+    titolo: 'Sostenitori',
     loghi: [
-      {
-        nome: "Sostenitore",
-        logo: "delavallee.png",
-        sito: ""
-      },
-      {
-        nome: "Sostenitore",
-        logo: "papili.jpeg",
-        sito: ""
-      },
-      {
-        nome: "Sostenitore",
-        logo: "dascenzi.png",
-        sito: ""
-      },
-      {
-        nome: "Sostenitore",
-        logo: "isolaceliaca.png",
-        sito: ""
-      },
-      {
-        nome: "Sostenitore",
-        logo: "iezzi.png",
-        sito: ""
-      },
-      {
-        nome: "Sostenitore",
-        logo: "unieuro.jpg",
-        sito: ""
-      },
-      {
-        nome: "Sostenitore",
-        logo: "fioridipina.png",
-        sito: ""
-      },
-      {
-        nome: "Sostenitore",
-        logo: "valery.png",
-        sito: ""
-      }
+      {nome: 'Sostenitore', logo: 'delavallee.png', sito: ''},
+      {nome: 'Sostenitore', logo: 'papili.jpeg', sito: ''},
+      {nome: 'Sostenitore', logo: 'dascenzi.png', sito: ''},
+      {nome: 'Sostenitore', logo: 'isolaceliaca.png', sito: ''},
+      {nome: 'Sostenitore', logo: 'iezzi.png', sito: ''},
+      {nome: 'Sostenitore', logo: 'unieuro.jpg', sito: ''},
+      {nome: 'Sostenitore', logo: 'fioridipina.png', sito: ''},
+      {nome: 'Sostenitore', logo: 'valery.png', sito: ''}
     ]
   }
 ];
@@ -134,7 +96,7 @@ const eventiCinema = [
     immagine: 'mambomaternica.jpg',
     video: 'mambo-maternica-trailer.mp4',
     videoPoster: 'mambomaternica.jpg',
-    supporto: ''
+    supporto: 'nationalfilmhungary.jpg'
   },
 
   {
@@ -166,7 +128,7 @@ const eventiCinema = [
     immagine: 'lavoieroyale.jpg',
     video: 'lavoieroyale.mp4',
     videoPoster: 'lavoieroyale.jpg',
-    supporto: ''
+    supporto: 'ifcinema.png'
   }
 ];
 
@@ -228,70 +190,72 @@ const eventi = [...eventiCinema, ...eventiMusica, ...eventiConcorsi];
 
 const corsi = [
   {
-    categoria: "Fotografia",
-    titolo: "",
-    descrizione: "Impara a osservare la luce, comporre l’inquadramento e raccontare storie attraverso la fotografia.",
-    immagine: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=900&q=80",
+    categoria: 'Fotografia',
+    titolo: '',
+    descrizione:
+        'Impara a osservare la luce, comporre l’inquadramento e raccontare storie attraverso la fotografia.',
+    immagine:
+        'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=900&q=80',
     contatti: {
-      referente: "Nome referente",
-      email: "",
-      informazioni: "Informazioni e modalità di iscrizione saranno presto disponibili."
+      referente: 'Nome referente',
+      email: '',
+      informazioni:
+          'Informazioni e modalità di iscrizione saranno presto disponibili.'
     }
   },
 
   {
-    categoria: "Pianoforte",
-    titolo: "",
-    descrizione: "Percorsi individuali per avvicinarsi allo strumento, alla lettura musicale e all’ascolto.",
-    immagine: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&fit=crop&w=900&q=80",
+    categoria: 'Pianoforte',
+    titolo: '',
+    descrizione:
+        'Percorsi individuali per avvicinarsi allo strumento, alla lettura musicale e all’ascolto.',
+    immagine:
+        'https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&fit=crop&w=900&q=80',
     contatti: {
-      referente: "Leonardo",
-      email: "leonardo.cupelli@gmail.com",
-      informazioni: "Informazioni e modalità di iscrizione saranno presto disponibili."
+      referente: 'Leonardo',
+      email: 'leonardo.cupelli@gmail.com',
+      informazioni:
+          'Informazioni e modalità di iscrizione saranno presto disponibili.'
     }
   },
 
   {
-    categoria: "Bonsai",
-    titolo: "",
-    descrizione: "Scopri le tecniche di cura, potatura e coltivazione per creare e mantenere un bonsai nel tempo.",
-    immagine: "https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=900&q=80",
+    categoria: 'Bonsai',
+    titolo: '',
+    descrizione:
+        'Scopri le tecniche di cura, potatura e coltivazione per creare e mantenere un bonsai nel tempo.',
+    immagine:
+        'https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=900&q=80',
     contatti: {
-      referente: "Nome referente",
-      email: "",
-      informazioni: "Informazioni e modalità di iscrizione saranno presto disponibili."
+      referente: 'Nome referente',
+      email: '',
+      informazioni:
+          'Informazioni e modalità di iscrizione saranno presto disponibili.'
     }
   },
 
   {
-    categoria: "A scuola di cinema",
-    titolo: "",
-    descrizione: "Un percorso cinematografico articolato in tre moduli: sceneggiatura, regia e recitazione.",
-    immagine: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=900&q=80",
+    categoria: 'A scuola di cinema',
+    titolo: '',
+    descrizione:
+        'Un percorso cinematografico articolato in tre moduli: sceneggiatura, regia e recitazione.',
+    immagine:
+        'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=900&q=80',
     contatti: {
-      referente: "Nome referente",
-      email: "",
-      informazioni: "Informazioni e modalità di iscrizione saranno presto disponibili."
+      referente: 'Nome referente',
+      email: '',
+      informazioni:
+          'Informazioni e modalità di iscrizione saranno presto disponibili.'
     },
     moduli: [
       {
-        nome: "Sceneggiatura",
-        docente: "Geraldine Ottier",
-        inizio: "2026-09-01",
-        fine: "2026-10-31"
+        nome: 'Sceneggiatura',
+        docente: 'Geraldine Ottier',
+        inizio: '2026-09-01',
+        fine: '2026-10-31'
       },
-      {
-        nome: "Regia",
-        docente: "Geraldine Ottier",
-        inizio: "",
-        fine: ""
-      },
-      {
-        nome: "Recitazione",
-        docente: "Nome docente",
-        inizio: "",
-        fine: ""
-      }
+      {nome: 'Regia', docente: 'Geraldine Ottier', inizio: '', fine: ''},
+      {nome: 'Recitazione', docente: 'Nome docente', inizio: '', fine: ''}
     ]
   }
 ];
@@ -303,10 +267,10 @@ const corsi = [
 // Modifica solo questi campi per aggiornare la scheda del bonifico.
 
 const datiBonifico = {
-  intestatario: "L’Angolo di Amelie",
-  iban: "IT72 F083 2739 2400 0000 0002 311",
-  bic: "",
-  causale: "Donazione"
+  intestatario: 'L’Angolo di Amelie',
+  iban: 'IT72 F083 2739 2400 0000 0002 311',
+  bic: '',
+  causale: 'Donazione'
 };
 
 
@@ -314,16 +278,16 @@ const datiBonifico = {
 // SOSTENITORI/E: RENDERING DIRETTO (SENZA FILE ESTERNO)
 // ============================================================
 
-function inizializzaSostenitori(){
-  const pulsanteProgrammazione=document.querySelector('.programma-btn-wrap');
+function inizializzaSostenitori() {
+  const pulsanteProgrammazione = document.querySelector('.programma-btn-wrap');
 
-  if(!pulsanteProgrammazione){
+  if (!pulsanteProgrammazione) {
     console.warn('Sostenitori: contenitore .programma-btn-wrap non trovato');
     return;
   }
 
-  const stile=document.createElement('style');
-  stile.textContent=`
+  const stile = document.createElement('style');
+  stile.textContent = `
     .sostenitori-e-section{
       margin-top:70px;
       text-align:center;
@@ -408,10 +372,10 @@ function inizializzaSostenitori(){
 
   document.head.appendChild(stile);
 
-  const sezione=document.createElement('section');
-  sezione.className='sostenitori-e-section';
+  const sezione = document.createElement('section');
+  sezione.className = 'sostenitori-e-section';
 
-  sezione.innerHTML=`
+  sezione.innerHTML = `
     <div class="section-title">
       <h2>I nostri sostenitori</h2>
       <p>Grazie a chi sostiene le attività de L’Angolo di Amelie.</p>
@@ -421,36 +385,37 @@ function inizializzaSostenitori(){
 
   pulsanteProgrammazione.after(sezione);
 
-  const grid=document.getElementById('sostenitoriEGrid');
+  const grid = document.getElementById('sostenitoriEGrid');
 
-  sostenitoriBox.forEach(box=>{
-    const boxElemento=document.createElement('div');
-    boxElemento.className='sostenitori-e-box';
+  sostenitoriBox.forEach(box => {
+    const boxElemento = document.createElement('div');
+    boxElemento.className = 'sostenitori-e-box';
 
-    const stage=document.createElement('div');
-    stage.className='sostenitori-e-stage';
+    const stage = document.createElement('div');
+    stage.className = 'sostenitori-e-stage';
     boxElemento.appendChild(stage);
 
-    const loghi=[];
+    const loghi = [];
 
-    (box.loghi || []).forEach(sostenitore=>{
-      const elemento=document.createElement('div');
-      elemento.className='sostenitori-e-logo';
+    (box.loghi || []).forEach(sostenitore => {
+      const elemento = document.createElement('div');
+      elemento.className = 'sostenitori-e-logo';
 
-      const immagine=document.createElement('img');
-      immagine.src=sostenitore.logo;
-      immagine.alt=sostenitore.nome || 'Sostenitore';
-      immagine.loading='lazy';
+      const immagine = document.createElement('img');
+      immagine.src = sostenitore.logo;
+      immagine.alt = sostenitore.nome || 'Sostenitore';
+      immagine.loading = 'lazy';
 
-      if(sostenitore.sito){
-        const link=document.createElement('a');
-        link.href=sostenitore.sito;
-        link.target='_blank';
-        link.rel='noopener';
-        link.setAttribute('aria-label',sostenitore.nome || 'Sito del sostenitore');
+      if (sostenitore.sito) {
+        const link = document.createElement('a');
+        link.href = sostenitore.sito;
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.setAttribute(
+            'aria-label', sostenitore.nome || 'Sito del sostenitore');
         link.appendChild(immagine);
         elemento.appendChild(link);
-      }else{
+      } else {
         elemento.appendChild(immagine);
       }
 
@@ -460,21 +425,21 @@ function inizializzaSostenitori(){
 
     grid.appendChild(boxElemento);
 
-    let indiceAttivo=0;
+    let indiceAttivo = 0;
 
-    function mostraSostenitore(indice){
-      loghi.forEach((logo,i)=>{
-        logo.classList.toggle('attivo',i===indice);
+    function mostraSostenitore(indice) {
+      loghi.forEach((logo, i) => {
+        logo.classList.toggle('attivo', i === indice);
       });
     }
 
     mostraSostenitore(indiceAttivo);
 
-    if(loghi.length>1){
-      setInterval(()=>{
-        indiceAttivo=(indiceAttivo+1)%loghi.length;
+    if (loghi.length > 1) {
+      setInterval(() => {
+        indiceAttivo = (indiceAttivo + 1) % loghi.length;
         mostraSostenitore(indiceAttivo);
-      },5000);
+      }, 5000);
     }
   });
 }
@@ -487,9 +452,9 @@ inizializzaSostenitori();
 // SUPPORTO NELLE CARD
 // ============================================================
 
-function inizializzaSupporto(){
-  const stile=document.createElement('style');
-  stile.textContent=`
+function inizializzaSupporto() {
+  const stile = document.createElement('style');
+  stile.textContent = `
     .card-supporto{
       position:absolute;
       right:10px;
@@ -522,31 +487,31 @@ function inizializzaSupporto(){
 
   document.head.appendChild(stile);
 
-  const cards=document.querySelectorAll('.card');
+  const cards = document.querySelectorAll('.card');
 
-  eventi.forEach((evento,i)=>{
-    const card=cards[i];
+  eventi.forEach((evento, i) => {
+    const card = cards[i];
 
-    if(!card){
+    if (!card) {
       return;
     }
 
-    const poster=card.querySelector('.card-poster');
+    const poster = card.querySelector('.card-poster');
 
-    if(!poster){
+    if (!poster) {
       return;
     }
 
-    const logoSupporto=evento.supporto;
+    const logoSupporto = evento.supporto;
 
-    if(!logoSupporto){
+    if (!logoSupporto) {
       return;
     }
 
-    const supporto=document.createElement('div');
-    supporto.className='card-supporto';
+    const supporto = document.createElement('div');
+    supporto.className = 'card-supporto';
 
-    supporto.innerHTML=`
+    supporto.innerHTML = `
       <span class="card-supporto-testo">con il supporto di</span>
       <img src="${logoSupporto}" alt="Sostenitore">
     `;
@@ -563,12 +528,12 @@ document.addEventListener('DOMContentLoaded', inizializzaSupporto);
 // CARICAMENTO DI CORSI E DONA
 // ============================================================
 
-const scriptCorsi=document.createElement('script');
-scriptCorsi.src='corsi.js';
+const scriptCorsi = document.createElement('script');
+scriptCorsi.src = 'corsi.js';
 
-scriptCorsi.onload=()=>{
-  const scriptDona=document.createElement('script');
-  scriptDona.src='dona.js';
+scriptCorsi.onload = () => {
+  const scriptDona = document.createElement('script');
+  scriptDona.src = 'dona.js';
   document.body.appendChild(scriptDona);
 };
 
