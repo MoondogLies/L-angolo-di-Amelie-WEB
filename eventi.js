@@ -493,7 +493,10 @@ function inizializzaSupporto() {
 
     @media(min-width:1400px){
       .card.expanded{
+        left:50%;
+        right:auto;
         width:min(1100px, 92vw);
+        transform:translateX(-50%);
       }
     }
   `;
