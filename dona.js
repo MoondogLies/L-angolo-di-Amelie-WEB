@@ -1,5 +1,5 @@
 function inizializzaDona(){
-  const sezioneSostenitori=document.querySelector('.sostenitori');
+  const sezioneSostenitori=document.querySelector('.sostenitori-e-section');
 
   if(!sezioneSostenitori){
     return;
@@ -18,10 +18,11 @@ function inizializzaDona(){
       display:inline-block;
       border:0;
       cursor:pointer;
-      padding:16px 42px;
+      padding:24px 64px;
+      min-width:280px;
       border-radius:999px;
       font-family:var(--font-dettagli);
-      font-size:1.05rem;
+      font-size:1.5rem;
       font-weight:800;
       letter-spacing:1.5px;
       text-transform:uppercase;
