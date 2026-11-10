@@ -134,7 +134,7 @@ const eventiCinema = [
     immagine: 'mambomaternica.jpg',
     video: 'mambo-maternica-trailer.mp4',
     videoPoster: 'mambomaternica.jpg',
-    supporto: ''
+    supporto: 'nationalfilmhungary.jpg'
   },
 
   {
@@ -166,7 +166,7 @@ const eventiCinema = [
     immagine: 'lavoieroyale.jpg',
     video: 'lavoieroyale.mp4',
     videoPoster: 'lavoieroyale.jpg',
-    supporto: ''
+    supporto: 'ifcinema.png'
   }
 ];
 
