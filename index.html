@@ -314,31 +314,47 @@ main{
 
 
 .card.expanded{
-  z-index:80;
-  width:min(680px, 90vw);
-  max-height:min(78vh, 760px);
-  height:auto;
+  position:fixed;
+  inset:0;
+  z-index:500;
+  width:100vw;
+  height:100vh;
+  height:100dvh;
+  max-height:none;
+  border-radius:0;
   overflow-y:auto;
   -webkit-overflow-scrolling:touch;
-  transform:translate(-50%,-50%) translateZ(0) scale(1);
-  box-shadow:0 40px 100px rgba(0,0,0,.35);
+  transform:none;
+  box-shadow:none;
   cursor:zoom-out;
   background:#fff;
   color:var(--testo);
 }
 .card.expanded .card-poster{
   aspect-ratio:auto;
-  height:clamp(150px, 22vh, 280px);
+  height:clamp(240px, 38vh, 460px);
 }
 .card.expanded .card-info{
   position:absolute;
-  padding:clamp(14px,3vw,22px);
+  padding:clamp(18px,4vw,30px);
 }
 .card.expanded h3{
-  font-size:clamp(19px,3.4vw,30px);
+  font-size:clamp(26px,6vw,46px);
 }
-.card.expanded .sottotitolo{font-size:clamp(.85rem,2vw,1rem)}
+.card.expanded .sottotitolo{font-size:clamp(1rem,2.6vw,1.3rem)}
 .card.expanded .sinossi-btn{display:none}
+.card.expanded .card-date,
+.card.expanded .card-ospiti{
+  font-size:clamp(.8rem,2.2vw,1rem);
+}
+.card.expanded .card-details p.desc{
+  font-size:clamp(1.05rem,2.8vw,1.4rem);
+  line-height:1.7;
+}
+.card.expanded .close-hint{
+  font-size:clamp(.85rem,2.2vw,1rem);
+  padding-bottom:calc(16px + env(safe-area-inset-bottom));
+}
 
 
 .card-details p.desc{
@@ -599,18 +615,15 @@ footer{
   }
 
 
-  .card.expanded{
-    width:min(94vw, 680px);
-    max-height:min(76vh, 720px);
-  }
   .card.expanded .card-poster{
-    height:clamp(130px, 20vh, 220px);
+    height:clamp(200px, 30vh, 320px);
   }
   .card.expanded h3{
-    font-size:clamp(17px,5vw,22px);
+    font-size:clamp(22px,6.5vw,32px);
   }
   .card.expanded .card-details{
-    padding:14px;
+    padding:16px;
+    padding-bottom:calc(16px + env(safe-area-inset-bottom));
   }
 }
 </style>
@@ -1041,7 +1054,7 @@ function update(dragOffset=0){
 
     if(i===expandedIndex){
       card.classList.remove('hidden');
-      card.style.transform='translate(-50%,-50%) translateZ(0) scale(1)';
+      card.style.transform='none';
       return;
     }
 
@@ -1093,12 +1106,38 @@ function move(step){
 }
 
 
+function portaCardAFullscreen(i){
+  const card=cards[i];
+
+  if(!card || card.parentElement===document.body){
+    return;
+  }
+
+  document.body.appendChild(card);
+}
+
+
+function rimettiCardNelTrack(i){
+  const card=cards[i];
+
+  if(!card || card.parentElement===track){
+    return;
+  }
+
+  const riferimento=track.children[i] || null;
+
+  track.insertBefore(card,riferimento);
+}
+
+
 function toggleCard(i){
   if(expandedIndex===i){
     expandedIndex=null;
+    rimettiCardNelTrack(i);
   }else{
     expandedIndex=i;
     currentIndex=i;
+    portaCardAFullscreen(i);
   }
 
   annullaVideoInAttesa();
@@ -1110,6 +1149,7 @@ function chiudiCardAperta(){
   if(expandedIndex===null) return false;
 
   expandedIndex=null;
+  rimettiCardNelTrack(expandedIndex===null?0:expandedIndex);
   annullaVideoInAttesa();
   update();
 
@@ -1135,13 +1175,7 @@ carouselZone.addEventListener('pointerdown',e=>{
   startX=e.clientX;
   currentDrag=0;
 
-  annullaVideoInAttesa();
-
-  try{
-    carouselZone.setPointerCapture(e.pointerId);
-  }catch(err){}
-
-  carouselZone.style.cursor='grabbing';
+  track.setPointerCapture(e.pointerId);
 });
 
 
@@ -1158,129 +1192,67 @@ carouselZone.addEventListener('pointermove',e=>{
 });
 
 
-carouselZone.addEventListener('pointerup',e=>{
+function terminaDrag(){
   if(!isDragging) return;
 
   isDragging=false;
-  carouselZone.style.cursor='';
 
-  const movimento=Math.abs(currentDrag);
-  const soglia=Math.min(90, getStep()*.3);
+  const step=getStep();
 
-  if(movimento>soglia){
-    if(currentDrag<0 && currentIndex<cards.length-1){
-      currentIndex++;
-    }else if(currentDrag>0 && currentIndex>0){
-      currentIndex--;
-    }
+  if(Math.abs(currentDrag)>step/3){
+    currentIndex+=currentDrag<0?1:-1;
+    currentIndex=Math.min(cards.length-1,Math.max(0,currentIndex));
+  }
 
-    currentDrag=0;
-    annullaVideoInAttesa();
-    update();
+  currentDrag=0;
+  update();
+}
 
-    setTimeout(()=>{
+
+carouselZone.addEventListener('pointerup',terminaDrag);
+carouselZone.addEventListener('pointercancel',terminaDrag);
+
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowLeft'){
+    move(-1);
+  }
+
+  if(e.key==='ArrowRight'){
+    move(1);
+  }
+});
+
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    chiudiCardAperta();
+  }
+});
+
+
+cards.forEach((card,i)=>{
+  card.addEventListener('click',()=>{
+    if(swipeInCorso){
       swipeInCorso=false;
-    },100);
-
-    return;
-  }
-
-  const elemento=document.elementFromPoint(e.clientX,e.clientY);
-  const card=elemento ? elemento.closest('.card') : null;
-
-  console.log("Elemento toccato:", elemento);
-  console.log("Card trovata:", card);
-
-  if(card){
-    const indice=Number(card.dataset.index);
-
-    console.log("Indice card toccata:", indice);
-    console.log("Indice card centrale:", currentIndex);
-
-    if(indice===currentIndex){
-      toggleCard(indice);
-    }else{
-      vaiAllaCard(indice);
+      return;
     }
-  }
 
-  currentDrag=0;
-  annullaVideoInAttesa();
-  update();
+    toggleCard(i);
+  });
 });
 
 
-carouselZone.addEventListener('pointercancel',()=>{
-  isDragging=false;
-  swipeInCorso=false;
-  currentDrag=0;
-  carouselZone.style.cursor='';
-  annullaVideoInAttesa();
-  update();
-});
-
-
-document.addEventListener('pointerdown',e=>{
-  if(e.target.closest('.carousel-zone') || e.target.closest('.nav-arrow')) return;
-
-  chiudiCardAperta();
-});
-
-
-const logoBg=document.getElementById('logoBg');
-const logoName=document.getElementById('logoName');
-const fadeRange=100;
-
-
-function aggiornaLogo(){
-  const p=Math.min(window.scrollY/fadeRange,1);
-  const opacita=1-p;
-
-  logoBg.style.opacity=opacita;
-  logoName.style.opacity=opacita;
-}
-
-
-window.addEventListener('scroll',aggiornaLogo,{passive:true});
-window.addEventListener('resize',aggiornaLogo);
-
-
-aggiornaLogo();
 update();
-
-
-function apriScheda(){
-  document.getElementById('chiSiamoOverlay').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-
-
-function chiudiScheda(){
-  document.getElementById('chiSiamoOverlay').classList.remove('open');
-  document.body.style.overflow='';
-}
-
-
-function apriLegal(tipo){
-  const overlay=document.getElementById('legalOverlay');
-  const privacy=document.getElementById('privacyContent');
-  const cookie=document.getElementById('cookieContent');
-
-  privacy.style.display=tipo==='privacy'?'block':'none';
-  cookie.style.display=tipo==='cookie'?'block':'none';
-
-  overlay.classList.add('open');
-  document.body.style.overflow='hidden';
-}
-
-
-function chiudiLegal(){
-  document.getElementById('legalOverlay').classList.remove('open');
-  document.body.style.overflow='';
-}
 
 
 document.getElementById('year').textContent=new Date().getFullYear();
 </script>
+
+
+<script src="corsi.js"></script>
+<script src="dona.js"></script>
+
+
 </body>
 </html>
