@@ -308,24 +308,18 @@ function inizializzaSostenitori(){
       display:grid;
       grid-template-columns:repeat(2, minmax(0, 1fr));
       gap:24px;
-      align-items:stretch;
+      align-items:center;
     }
 
     .partner-box{
-      background:#fff;
-      border:1px solid #eee;
-      border-radius:18px;
-      box-shadow:var(--ombra);
-      padding:18px;
+      background:transparent;
+      border:none;
+      box-shadow:none;
+      padding:0;
       display:flex;
       flex-direction:column;
-      gap:12px;
-    }
-
-    .partner-box h3{
-      margin:0;
-      color:var(--rosso-scuro);
-      font-size:1.1rem;
+      align-items:center;
+      justify-content:center;
     }
 
     .partner-stage{
@@ -392,10 +386,6 @@ function inizializzaSostenitori(){
   sostenitoriBox.forEach(box=>{
     const boxElemento=document.createElement('div');
     boxElemento.className='partner-box';
-
-    const titolo=document.createElement('h3');
-    titolo.textContent=box.titolo || 'Sostenitori';
-    boxElemento.appendChild(titolo);
 
     const stage=document.createElement('div');
     stage.className='partner-stage';
