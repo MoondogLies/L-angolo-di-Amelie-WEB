@@ -24,6 +24,9 @@ body{
   font-family:var(--font-dettagli);
   min-height:100vh;display:flex;flex-direction:column;
 }
+body.card-aperta{
+  overflow:hidden;
+}
 a{color:inherit;text-decoration:none}
 button{font-family:var(--font-dettagli)}
 
@@ -82,7 +85,7 @@ h1,h2,h3,
 
 
 small,p,span,a,button,
-.card-date,.card-ospiti,.card p,.place,.close-hint,
+.card-date,.card-ospiti,.card p,.place,
 .course-card p,
 .social-caption,.hint,.footer-links a{
   font-family:var(--font-dettagli);
@@ -325,10 +328,11 @@ main{
   -webkit-overflow-scrolling:touch;
   transform:none;
   box-shadow:none;
-  cursor:zoom-out;
+  cursor:default;
   background:#fff;
   color:var(--testo);
   transition:none;
+  will-change:auto;
 }
 .card.expanded .card-poster{
   aspect-ratio:auto;
@@ -351,20 +355,50 @@ main{
   font-size:clamp(1.05rem,2.8vw,1.4rem);
   line-height:1.7;
 }
-.card.expanded .close-hint{
-  font-size:clamp(.85rem,2.2vw,1rem);
-  padding-bottom:calc(16px + env(safe-area-inset-bottom));
+
+
+.card-backdrop{
+  position:fixed;
+  inset:0;
+  z-index:499;
+  display:none;
+  background:rgba(255,255,255,.3);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+.card-backdrop.attivo{
+  display:block;
+}
+
+
+.card-close{
+  display:none;
+  position:fixed;
+  top:calc(14px + env(safe-area-inset-top));
+  right:calc(14px + env(safe-area-inset-right));
+  z-index:501;
+  width:40px;
+  height:40px;
+  border:0;
+  border-radius:50%;
+  background:var(--rosso);
+  color:#fff;
+  font-size:24px;
+  font-weight:800;
+  line-height:1;
+  cursor:pointer;
+  box-shadow:0 6px 18px rgba(0,0,0,.25);
+}
+.card-close:hover{
+  background:var(--rosso-scuro);
+}
+.card.expanded .card-close{
+  display:block;
 }
 
 
 .card-details p.desc{
   margin:0;color:#444;font-size:clamp(.9rem,2vw,1rem);line-height:1.5;
-}
-.close-hint{
-  margin-top:12px;
-  font-size:.78rem;
-  color:#999;
-  text-align:center;
 }
 
 
@@ -629,6 +663,9 @@ footer{
 </style>
 </head>
 <body>
+
+
+<div class="card-backdrop" id="cardBackdrop"></div>
 
 
 <div class="intro-overlay" id="introOverlay">
@@ -944,9 +981,15 @@ eventi.forEach((e,i)=>{
 
     <div class="card-details">
       <p class="desc">${e.descrizione || "La descrizione dell’evento sarà presto disponibile."}</p>
-      <div class="close-hint">Clicca in qualsiasi punto per chiudere</div>
     </div>
+
+    <button class="card-close" type="button" aria-label="Chiudi">&times;</button>
   `;
+
+  card.querySelector('.card-close').addEventListener('click',evento=>{
+    evento.stopPropagation();
+    chiudiCardEspansa();
+  });
 
   track.appendChild(card);
 });
@@ -1080,6 +1123,9 @@ function update(dragOffset=0){
     aggiornaVideoCorrente();
   }
 
+  document.body.classList.toggle('card-aperta', expandedIndex!==null);
+  document.getElementById('cardBackdrop').classList.toggle('attivo', expandedIndex!==null);
+
   document.getElementById('prevBtn').disabled=expandedIndex!==null||currentIndex===0;
   document.getElementById('nextBtn').disabled=expandedIndex!==null||currentIndex===cards.length-1;
 }
@@ -1108,13 +1154,23 @@ function move(step){
 
 function toggleCard(i){
   if(expandedIndex===i){
-    expandedIndex=null;
-    carouselZone.style.perspective='1400px';
-  }else{
-    expandedIndex=i;
-    currentIndex=i;
-    carouselZone.style.perspective='none';
+    return;
   }
+
+  expandedIndex=i;
+  currentIndex=i;
+  carouselZone.style.perspective='none';
+
+  annullaVideoInAttesa();
+  update();
+}
+
+
+function chiudiCardEspansa(){
+  if(expandedIndex===null) return;
+
+  expandedIndex=null;
+  carouselZone.style.perspective='1400px';
 
   annullaVideoInAttesa();
   update();
@@ -1124,10 +1180,7 @@ function toggleCard(i){
 function chiudiCardAperta(){
   if(expandedIndex===null) return false;
 
-  expandedIndex=null;
-  carouselZone.style.perspective='1400px';
-  annullaVideoInAttesa();
-  update();
+  chiudiCardEspansa();
 
   return true;
 }
