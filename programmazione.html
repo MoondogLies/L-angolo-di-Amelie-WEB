@@ -32,24 +32,54 @@ h1,h2,h3{
 
 
 header{
-  background:var(--rosso-scuro);
-  color:#fff;
-  padding:18px 20px;
-  text-align:center;
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:transparent;color:#fff;
+  box-shadow:none;
+  pointer-events:none;
 }
 .header-inner{
-  max-width:1200px;
-  margin:auto;
+  max-width:3840px;margin:auto;padding:10px 20px;
+  display:flex;align-items:center;justify-content:center;
+  gap:16px;
+}
+.logo{
+  flex:1;
+  min-width:0;
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:16px;
+}
+.logo-bg{
+  position:relative;
+  width:100%;
+  max-width:560px;
+  height:clamp(160px, 12vw, 200px);
+  background-image:url("silhouette_capelli.png");
+  background-size:contain;
+  background-repeat:no-repeat;
+  background-position:center;
+  opacity:1;
+  transition:opacity .12s linear;
+  will-change:opacity;
 }
 .logo-name{
-  height:70px;
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  height:clamp(160px, 12vw, 200px);
   width:auto;
-  max-width:80%;
+  max-width:82%;
   object-fit:contain;
+  opacity:1;
+  transition:opacity .12s linear;
+  filter:
+    drop-shadow(1px 0 0 #fff)
+    drop-shadow(-1px 0 0 #fff)
+    drop-shadow(0 1px 0 #fff)
+    drop-shadow(0 0px 0 #fff)
+    drop-shadow(0 0 3px rgba(255,255,255,.85))
+    drop-shadow(0 0 6px rgba(255,255,255,.1));
 }
 
 
@@ -57,7 +87,7 @@ main{
   width:100%;
   max-width:1200px;
   margin:0 auto;
-  padding:40px 18px 70px;
+  padding:calc(clamp(160px, 12vw, 200px) + 28px) 18px 70px;
   flex:1;
 }
 .page-title{
@@ -225,7 +255,11 @@ footer{
 
 <header>
   <div class="header-inner">
-    <img class="logo-name" src="angolo_di_amelie.png" alt="L’Angolo di Amelie">
+    <div class="logo">
+      <div class="logo-bg" id="logoBg">
+        <img class="logo-name" id="logoName" src="angolo_di_amelie.png" alt="L’Angolo di Amelie">
+      </div>
+    </div>
   </div>
 </header>
 
@@ -405,6 +439,29 @@ renderGrid();
 
 
 document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+
+
+<script>
+const logoBg=document.getElementById('logoBg');
+const logoName=document.getElementById('logoName');
+const fadeRange=100;
+
+
+function aggiornaLogo(){
+  const p=Math.min(window.scrollY/fadeRange,1);
+  const opacita=1-p;
+
+  logoBg.style.opacity=opacita;
+  logoName.style.opacity=opacita;
+}
+
+
+window.addEventListener('scroll',aggiornaLogo,{passive:true});
+window.addEventListener('resize',aggiornaLogo);
+
+
+aggiornaLogo();
 </script>
 
 
