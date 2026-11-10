@@ -1,1 +1,1 @@
-<eventi.js con .card-supporto img max-height:44px; max-width:120px>
+<CONTENUTO COMPLETO REALE DI eventi.js con .card-supporto img a 44x120>
