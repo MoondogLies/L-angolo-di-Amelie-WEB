@@ -1,11 +1,26 @@
 function inizializzaSostenitori(){
-  if(!Array.isArray(sostenitoriBox) || sostenitoriBox.length===0){
-    return;
-  }
-
   const pulsanteProgrammazione=document.querySelector('.programma-btn-wrap');
 
   if(!pulsanteProgrammazione){
+    console.warn('Sostenitori: contenitore .programma-btn-wrap non trovato');
+    return;
+  }
+
+  let boxDaUsare=[];
+
+  if(typeof sostenitoriBox!=='undefined' && Array.isArray(sostenitoriBox) && sostenitoriBox.length>0){
+    boxDaUsare=sostenitoriBox;
+  }else if(typeof sostenitori!=='undefined' && Array.isArray(sostenitori) && sostenitori.length>0){
+    const meta=sostenitori.length/2;
+    const primo=sostenitori.slice(0,Math.ceil(meta));
+    const secondo=sostenitori.slice(Math.ceil(meta));
+
+    boxDaUsare=[
+      {titolo:'Sostenitori', loghi:primo},
+      {titolo:'Sostenitori', loghi:secondo}
+    ];
+  }else{
+    console.warn('Sostenitori: nessun dato disponibile');
     return;
   }
 
@@ -116,7 +131,7 @@ function inizializzaSostenitori(){
 
   const grid=document.getElementById('sostenitoriGrid');
 
-  sostenitoriBox.forEach((box,indiceBox)=>{
+  boxDaUsare.forEach(box=>{
     const boxElemento=document.createElement('div');
     boxElemento.className='sponsor-box';
 
