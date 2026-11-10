@@ -27,6 +27,9 @@ body{
 body.card-aperta{
   overflow:hidden;
 }
+body.card-aperta .carousel-zone{
+  touch-action:auto;
+}
 body.card-aperta header,
 body.card-aperta footer,
 body.card-aperta main > *:not(.carousel-zone){
@@ -340,6 +343,7 @@ main{
   color:var(--testo);
   transition:none;
   will-change:auto;
+  touch-action:auto;
 }
 .card.expanded .card-poster{
   aspect-ratio:auto;
