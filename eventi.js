@@ -23,14 +23,39 @@ const sostenitoriBox = [
     loghi: [
       {
         nome: "Sostenitore",
-        logo: "comunemonterotondo.jpg",
+        logo: "delavallee.pdf",
         sito: ""
       },
       {
         nome: "Sostenitore",
-        logo: "icm.png",
-        sito: "https://www.icmcomune.it"
-      }
+        logo: "papili.jpeg",
+        sito: ""
+      },
+      {
+        nome: "Sostenitore",
+        logo: "isolaceliaca.png",
+        sito: ""
+      },
+      {
+        nome: "Sostenitore",
+        logo: "iezzi.pdf",
+        sito: ""
+      },
+      {
+        nome: "Sostenitore",
+        logo: "unieuro.jpg",
+        sito: ""
+      },
+      {
+        nome: "Sostenitore",
+        logo: "fioridipina.pdf",
+        sito: ""
+      },
+      {
+        nome: "Sostenitore",
+        logo: "valery.pdf",
+        sito: ""
+      },
     ]
   }
 ];
