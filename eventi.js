@@ -69,6 +69,8 @@ const sostenitoriBox = [
 // ============================================================
 // EVENTI CINEMA
 // ============================================================
+// Il campo "supporto" contiene il logo mostrato in basso a destra
+// nella card. Puoi cambiarlo per ogni evento.
 
 const eventiCinema = [
   {
@@ -83,7 +85,8 @@ const eventiCinema = [
     ospiti: 'Ciro Formisano, Daniela Poggi',
     immagine: 'lanimainpace.jpg',
     video: 'lanimainpace.mp4',
-    videoPoster: 'lanimainpace.jpg'
+    videoPoster: 'lanimainpace.jpg',
+    supporto: 'icm.png'
   },
 
   {
@@ -98,7 +101,8 @@ const eventiCinema = [
     ospiti: 'Tatyana Pandurska',
     immagine: 'fragoleselvatiche.jpeg',
     video: 'fragoleselvatiche.mp4',
-    videoPoster: 'fragoleselvatiche.jpeg'
+    videoPoster: 'fragoleselvatiche.jpeg',
+    supporto: 'icm.png'
   },
 
   {
@@ -113,7 +117,8 @@ const eventiCinema = [
     ospiti: '',
     immagine: 'bolladisapone.jpg',
     video: 'bolladisapone.mp4',
-    videoPoster: 'bolladisapone.jpg'
+    videoPoster: 'bolladisapone.jpg',
+    supporto: 'icm.png'
   },
 
   {
@@ -128,7 +133,8 @@ const eventiCinema = [
     ospiti: 'Borbála Nagy',
     immagine: 'mambomaternica.jpg',
     video: 'mambo-maternica-trailer.mp4',
-    videoPoster: 'mambomaternica.jpg'
+    videoPoster: 'mambomaternica.jpg',
+    supporto: 'icm.png'
   },
 
   {
@@ -143,7 +149,8 @@ const eventiCinema = [
     ospiti: 'Susanna Pellis di Irish Film festa',
     immagine: 'aontas.jpeg',
     video: 'aontas.mp4',
-    videoPoster: 'aontas.jpeg'
+    videoPoster: 'aontas.jpeg',
+    supporto: 'icm.png'
   },
 
   {
@@ -158,7 +165,8 @@ const eventiCinema = [
     ospiti: '',
     immagine: 'lavoieroyale.jpg',
     video: 'lavoieroyale.mp4',
-    videoPoster: 'lavoieroyale.jpg'
+    videoPoster: 'lavoieroyale.jpg',
+    supporto: 'icm.png'
   }
 ];
 
@@ -178,7 +186,8 @@ const eventiMusica = [{
   ospiti: 'Artisti ospiti',
   immagine: 'https://placehold.co/700x1050/c8102e/ffffff?text=Evento+musicale',
   video: '',
-  videoPoster: ''
+  videoPoster: '',
+  supporto: 'icm.png'
 }];
 
 
@@ -197,7 +206,8 @@ const eventiConcorsi = [{
   ospiti: '',
   immagine: 'https://placehold.co/700x1050/c8102e/ffffff?text=Amelie+in+Corto',
   video: '',
-  videoPoster: ''
+  videoPoster: '',
+  supporto: 'icm.png'
 }];
 
 
@@ -512,19 +522,29 @@ function inizializzaSupporto(){
 
   document.head.appendChild(stile);
 
-  document.querySelectorAll('.card').forEach(card=>{
+  const cards=document.querySelectorAll('.card');
+
+  eventi.forEach((evento,i)=>{
+    const card=cards[i];
+
+    if(!card){
+      return;
+    }
+
     const poster=card.querySelector('.card-poster');
 
     if(!poster){
       return;
     }
 
+    const logoSupporto=evento.supporto || 'icm.png';
+
     const supporto=document.createElement('div');
     supporto.className='card-supporto';
 
     supporto.innerHTML=`
       <span class="card-supporto-testo">con il supporto di</span>
-      <img src="icm.png" alt="Sostenitore">
+      <img src="${logoSupporto}" alt="Sostenitore">
     `;
 
     poster.appendChild(supporto);
