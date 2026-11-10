@@ -1,5 +1,5 @@
 // ============================================================
-// SPONSOR / SOSTENITORI
+// SOSTENITORI/E
 // ============================================================
 // Due box affiancati per i sostenitori.
 // Per aggiungere un logo in un box, inserisci un nuovo oggetto
@@ -271,7 +271,7 @@ const datiBonifico = {
 
 
 // ============================================================
-// SOSTENITORI: RENDERING DIRETTO (SENZA FILE ESTERNO)
+// SOSTENITORI/E: RENDERING DIRETTO (SENZA FILE ESTERNO)
 // ============================================================
 
 function inizializzaSostenitori(){
@@ -284,34 +284,34 @@ function inizializzaSostenitori(){
 
   const stile=document.createElement('style');
   stile.textContent=`
-    .partner-section{
+    .sostenitori-e-section{
       margin-top:70px;
       text-align:center;
     }
 
-    .partner-section .section-title{
+    .sostenitori-e-section .section-title{
       margin-bottom:22px;
     }
 
-    .partner-section h2{
+    .sostenitori-e-section h2{
       color:var(--rosso);
       margin:0 0 8px;
       font-size:clamp(24px,3.5vw,34px);
     }
 
-    .partner-section p{
+    .sostenitori-e-section p{
       margin:0;
       color:var(--grigio);
     }
 
-    .partner-grid{
+    .sostenitori-e-grid{
       display:grid;
       grid-template-columns:repeat(2, minmax(0, 1fr));
       gap:24px;
       align-items:center;
     }
 
-    .partner-box{
+    .sostenitori-e-box{
       background:transparent;
       border:none;
       box-shadow:none;
@@ -322,13 +322,13 @@ function inizializzaSostenitori(){
       justify-content:center;
     }
 
-    .partner-stage{
+    .sostenitori-e-stage{
       position:relative;
       width:100%;
       height:150px;
     }
 
-    .partner-logo{
+    .sostenitori-e-logo{
       position:absolute;
       inset:0;
       display:flex;
@@ -339,12 +339,12 @@ function inizializzaSostenitori(){
       pointer-events:none;
     }
 
-    .partner-logo.attivo{
+    .sostenitori-e-logo.attivo{
       opacity:1;
       pointer-events:auto;
     }
 
-    .partner-logo img{
+    .sostenitori-e-logo img{
       max-width:100%;
       max-height:130px;
       object-fit:contain;
@@ -352,15 +352,15 @@ function inizializzaSostenitori(){
     }
 
     @media(max-width:600px){
-      .partner-grid{
+      .sostenitori-e-grid{
         grid-template-columns:1fr;
       }
 
-      .partner-stage{
+      .sostenitori-e-stage{
         height:110px;
       }
 
-      .partner-logo img{
+      .sostenitori-e-logo img{
         max-height:95px;
       }
     }
@@ -369,45 +369,45 @@ function inizializzaSostenitori(){
   document.head.appendChild(stile);
 
   const sezione=document.createElement('section');
-  sezione.className='partner-section';
+  sezione.className='sostenitori-e-section';
 
   sezione.innerHTML=`
     <div class="section-title">
       <h2>I nostri sostenitori</h2>
       <p>Grazie a chi sostiene le attività de L’Angolo di Amelie.</p>
     </div>
-    <div class="partner-grid" id="partnerGrid"></div>
+    <div class="sostenitori-e-grid" id="sostenitoriEGrid"></div>
   `;
 
   pulsanteProgrammazione.after(sezione);
 
-  const grid=document.getElementById('partnerGrid');
+  const grid=document.getElementById('sostenitoriEGrid');
 
   sostenitoriBox.forEach(box=>{
     const boxElemento=document.createElement('div');
-    boxElemento.className='partner-box';
+    boxElemento.className='sostenitori-e-box';
 
     const stage=document.createElement('div');
-    stage.className='partner-stage';
+    stage.className='sostenitori-e-stage';
     boxElemento.appendChild(stage);
 
     const loghi=[];
 
-    (box.loghi || []).forEach(sponsor=>{
+    (box.loghi || []).forEach(sostenitore=>{
       const elemento=document.createElement('div');
-      elemento.className='partner-logo';
+      elemento.className='sostenitori-e-logo';
 
       const immagine=document.createElement('img');
-      immagine.src=sponsor.logo;
-      immagine.alt=sponsor.nome || 'Sostenitore';
+      immagine.src=sostenitore.logo;
+      immagine.alt=sostenitore.nome || 'Sostenitore';
       immagine.loading='lazy';
 
-      if(sponsor.sito){
+      if(sostenitore.sito){
         const link=document.createElement('a');
-        link.href=sponsor.sito;
+        link.href=sostenitore.sito;
         link.target='_blank';
         link.rel='noopener';
-        link.setAttribute('aria-label',sponsor.nome || 'Sito del sostenitore');
+        link.setAttribute('aria-label',sostenitore.nome || 'Sito del sostenitore');
         link.appendChild(immagine);
         elemento.appendChild(link);
       }else{
@@ -422,18 +422,18 @@ function inizializzaSostenitori(){
 
     let indiceAttivo=0;
 
-    function mostraSponsor(indice){
+    function mostraSostenitore(indice){
       loghi.forEach((logo,i)=>{
         logo.classList.toggle('attivo',i===indice);
       });
     }
 
-    mostraSponsor(indiceAttivo);
+    mostraSostenitore(indiceAttivo);
 
     if(loghi.length>1){
       setInterval(()=>{
         indiceAttivo=(indiceAttivo+1)%loghi.length;
-        mostraSponsor(indiceAttivo);
+        mostraSostenitore(indiceAttivo);
       },5000);
     }
   });
