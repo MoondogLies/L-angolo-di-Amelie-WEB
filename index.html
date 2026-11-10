@@ -371,8 +371,8 @@ main{
 .card-close{
   display:none;
   position:fixed;
-  top:calc(14px + env(safe-area-inset-top));
-  right:calc(14px + env(safe-area-inset-right));
+  top:14px;
+  right:14px;
   z-index:501;
   width:40px;
   height:40px;
@@ -631,7 +631,11 @@ footer{
     --card-w:min(58vw, 280px);
     --carousel-step:min(58vw, 280px);
   }
-  .carousel-zone{height:clamp(480px, 70vh, 560px)}
+  .carousel-zone{
+    height:clamp(480px, 70vh, 560px);
+    margin-left:-18px;
+    margin-right:-18px;
+  }
   .card-info{padding:13px 12px 12px}
   .card h3{font-size:1.12rem}
   .card.current h3{font-size:1.25rem}
@@ -654,7 +658,7 @@ footer{
   }
   .card.expanded .card-details{
     padding:16px;
-    padding-bottom:calc(16px + env(safe-area-inset-bottom));
+    padding-bottom:16px;
   }
 }
 </style>
