@@ -70,7 +70,7 @@ const sostenitoriBox = [
 // EVENTI CINEMA
 // ============================================================
 // Il campo "supporto" contiene il logo mostrato in basso a destra
-// nella card. Puoi cambiarlo per ogni evento.
+// nella card. Se lasci vuoto, non compare nulla.
 
 const eventiCinema = [
   {
@@ -86,7 +86,7 @@ const eventiCinema = [
     immagine: 'lanimainpace.jpg',
     video: 'lanimainpace.mp4',
     videoPoster: 'lanimainpace.jpg',
-    supporto: 'icm.png'
+    supporto: ''
   },
 
   {
@@ -102,7 +102,7 @@ const eventiCinema = [
     immagine: 'fragoleselvatiche.jpeg',
     video: 'fragoleselvatiche.mp4',
     videoPoster: 'fragoleselvatiche.jpeg',
-    supporto: 'icm.png'
+    supporto: ''
   },
 
   {
@@ -118,7 +118,7 @@ const eventiCinema = [
     immagine: 'bolladisapone.jpg',
     video: 'bolladisapone.mp4',
     videoPoster: 'bolladisapone.jpg',
-    supporto: 'icm.png'
+    supporto: ''
   },
 
   {
@@ -134,7 +134,7 @@ const eventiCinema = [
     immagine: 'mambomaternica.jpg',
     video: 'mambo-maternica-trailer.mp4',
     videoPoster: 'mambomaternica.jpg',
-    supporto: 'icm.png'
+    supporto: ''
   },
 
   {
@@ -150,7 +150,7 @@ const eventiCinema = [
     immagine: 'aontas.jpeg',
     video: 'aontas.mp4',
     videoPoster: 'aontas.jpeg',
-    supporto: 'icm.png'
+    supporto: ''
   },
 
   {
@@ -166,7 +166,7 @@ const eventiCinema = [
     immagine: 'lavoieroyale.jpg',
     video: 'lavoieroyale.mp4',
     videoPoster: 'lavoieroyale.jpg',
-    supporto: 'icm.png'
+    supporto: ''
   }
 ];
 
@@ -187,7 +187,7 @@ const eventiMusica = [{
   immagine: 'https://placehold.co/700x1050/c8102e/ffffff?text=Evento+musicale',
   video: '',
   videoPoster: '',
-  supporto: 'icm.png'
+  supporto: ''
 }];
 
 
@@ -207,7 +207,7 @@ const eventiConcorsi = [{
   immagine: 'https://placehold.co/700x1050/c8102e/ffffff?text=Amelie+in+Corto',
   video: '',
   videoPoster: '',
-  supporto: 'icm.png'
+  supporto: ''
 }];
 
 
@@ -537,7 +537,11 @@ function inizializzaSupporto(){
       return;
     }
 
-    const logoSupporto=evento.supporto || 'icm.png';
+    const logoSupporto=evento.supporto;
+
+    if(!logoSupporto){
+      return;
+    }
 
     const supporto=document.createElement('div');
     supporto.className='card-supporto';
