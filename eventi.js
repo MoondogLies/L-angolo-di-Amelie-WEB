@@ -178,8 +178,8 @@ const eventiConcorsi = [{
   descrizione:
       'Serata dedicata alla proiezione di tre cortometraggi selezionati per il concorso Amelie in Corto: “Pinocchio reborn” di Matteo Cirillo, “Una notte ancora” di Carmelo Segreto e “Jolanta” di Geraldine Ottier. Un incontro per scoprire nuove voci del cinema indipendente e sostenere la creatività emergente.',
   ospiti: 'Geraldine Ottier, matteo Cirillo, Carmelo Segreto',
-  immagine: '',
-  immagini: [https://www.google.com/url?sa=t&source=web&rct=j&url=https%3A%2F%2Fpathosdistribution.com%2F2025%2F10%2F17%2Funa-notte-ancora%2F&ved=0CBcQjRxqFwoTCPCAq9T8_5cDFQAAAAAdAAAAABBq&opi=89978449],
+  immagine: 'https://placehold.co/700x1050/c8102e/ffffff?text=Amelie+in+Corto',
+  immagini: [],
   video: '',
   videoPoster: '',
   supporto: ''
