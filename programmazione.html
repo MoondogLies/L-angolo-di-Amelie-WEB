@@ -169,15 +169,10 @@ main{
   object-fit:contain;
   display:block;
 }
-.card-supporto-testo{
-  font-size:.8rem;
-  color:#fff;
-  text-shadow:0 1px 6px rgba(0,0,0,.8);
-  white-space:nowrap;
-}
 .evento-info{
   padding:18px;
   display:grid;
+  grid-template-columns:minmax(0,1fr);
   gap:10px;
 }
 .evento-data{
@@ -191,7 +186,7 @@ main{
   letter-spacing:.3px;
 }
 .evento-ospiti{
-  width:max-content;
+  width:auto;
   max-width:100%;
   background:var(--ambra);
   color:#fff;
@@ -201,6 +196,13 @@ main{
   font-weight:800;
   letter-spacing:.3px;
   line-height:1.3;
+  white-space:normal;
+  overflow-wrap:anywhere;
+  text-align:left;
+}
+.evento-ospiti.multi{
+  border-radius:12px;
+  line-height:1.25;
 }
 .evento-card h3{
   margin:0;
@@ -378,9 +380,7 @@ function creaCard(e){
 
   const sottotitolo=e.tipo==="film"
     ? `di ${e.regia} · ${e.paese}`
-    : (e.tipo==="concorso"
-        ? (e.sottotitolo || "Concorso di cortometraggi")
-        : `Con ${e.artista}`);
+    : (e.tipo==="concorso" ? "" : `Con ${e.artista}`);
 
   const nomiOspiti=e.ospiti
     ? e.ospiti.split(",").map(nome=>nome.trim()).filter(Boolean)
@@ -393,7 +393,7 @@ function creaCard(e){
     : "";
 
   const supporto=e.supporto
-    ? `<div class="card-supporto"><span class="card-supporto-testo">con il supporto di</span><img src="${e.supporto}" alt="Sostenitore"></div>`
+    ? `<div class="card-supporto"><img src="${e.supporto}" alt="Sostenitore"></div>`
     : "";
 
   const card=document.createElement('article');
@@ -408,12 +408,19 @@ function creaCard(e){
       <span class="evento-data">${formattaData(e.data,e.ora)}</span>
       ${ospiti}
       <h3>${e.titolo}</h3>
-      <p class="sottotitolo">${sottotitolo}</p>
+      ${sottotitolo?`<p class="sottotitolo">${sottotitolo}</p>`:""}
       <p class="descrizione">${e.descrizione || "La descrizione dell’evento sarà presto disponibile."}</p>
     </div>
   `;
 
   return card;
+}
+
+
+function aggiornaBadgeOspiti(){
+  document.querySelectorAll('.evento-ospiti').forEach(badge=>{
+    badge.classList.toggle('multi', badge.getClientRects().length>1);
+  });
 }
 
 
@@ -431,6 +438,8 @@ function renderGrid(){
   eventiVisibili.forEach(e=>{
     grid.appendChild(creaCard(e));
   });
+
+  aggiornaBadgeOspiti();
 
   contenitoreAltriFuturi.style.display=
     futuriVisibili<eventiFuturi.length ? 'block' : 'none';
@@ -468,6 +477,7 @@ function mostraAltriPassati(){
 
 
 renderGrid();
+window.addEventListener('resize',aggiornaBadgeOspiti);
 
 
 document.getElementById('year').textContent=new Date().getFullYear();
