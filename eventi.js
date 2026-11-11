@@ -22,6 +22,7 @@ const sostenitoriBox = [
       {nome: 'Sostenitore', logo: 'iezzi.png', sito: ''},
       {nome: 'Sostenitore', logo: 'unieuro.jpg', sito: ''},
       {nome: 'Sostenitore', logo: 'fioridipina.png', sito: ''},
+      {nome: 'Sostenitore', logo: 'agenziatosca.jpg', sito: ''},
       {nome: 'Sostenitore', logo: 'valery.png', sito: ''}
     ]
   }
