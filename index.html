@@ -150,7 +150,6 @@ header{
   filter:
     drop-shadow(1px 0 0 #fff)
     drop-shadow(-1px 0 0 #fff)
-    drop-shadow(-1px 0 0 #fff)
     drop-shadow(0 1px 0 #fff)
     drop-shadow(0 0px 0 #fff)
     drop-shadow(0 0 3px rgba(255,255,255,.85))
@@ -1169,7 +1168,7 @@ function update(dragOffset=0){
 
     if(i===expandedIndex){
       card.classList.remove('hidden');
-      card.style.transform='none';
+      card.style.removeProperty('transform');
       return;
     }
 
