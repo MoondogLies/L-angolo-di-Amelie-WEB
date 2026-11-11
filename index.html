@@ -972,7 +972,7 @@ eventi.forEach((e,i)=>{
 
   const sottotitolo=e.tipo==="film"
     ? `di ${e.regia} · ${e.paese}`
-    : `Con ${e.artista}`;
+    : (e.tipo==="concorso" ? "" : `Con ${e.artista}`);
 
   const testoPulsante=e.tipo==="film"
     ? "Sinossi"
@@ -995,7 +995,7 @@ eventi.forEach((e,i)=>{
         <span class="card-date">${formattaData(e.data,e.ora)}</span>
         ${ospiti}
         <h3>${e.titolo}</h3>
-        <p class="sottotitolo">${sottotitolo}</p>
+        ${sottotitolo?`<p class="sottotitolo">${sottotitolo}</p>`:""}
         <button class="sinossi-btn" type="button">${testoPulsante}</button>
       </div>
     </div>
