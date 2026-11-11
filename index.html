@@ -271,7 +271,9 @@ main{
 .card-info{
   position:absolute;left:0;right:0;bottom:0;
   padding:16px 15px 15px;
-  display:grid;gap:7px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:7px;
   justify-items:start;
   z-index:4;
   isolation:isolate;
@@ -286,7 +288,7 @@ main{
   font-size:.68rem;font-weight:800;letter-spacing:.3px;
 }
 .card-ospiti{
-  width:max-content;
+  width:auto;
   max-width:100%;
   background:var(--ambra);
   color:#fff;
@@ -1028,7 +1030,7 @@ const cards=[...document.querySelectorAll('.card')];
 
 function aggiornaBadgeOspiti(){
   document.querySelectorAll('.card-ospiti').forEach(badge=>{
-    badge.classList.toggle('multi', badge.scrollWidth>badge.clientWidth+1);
+    badge.classList.toggle('multi', badge.getClientRects().length>1);
   });
 }
 
