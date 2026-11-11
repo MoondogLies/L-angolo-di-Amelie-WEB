@@ -1168,6 +1168,22 @@ function update(dragOffset=0){
 }
 
 
+function move(direction){
+  if(expandedIndex!==null){
+    return;
+  }
+
+  const nuovoIndice=currentIndex+direction;
+
+  if(nuovoIndice<0||nuovoIndice>=eventi.length){
+    return;
+  }
+
+  currentIndex=nuovoIndice;
+  update();
+}
+
+
 let isDragging=false;
 let startX=0;
 let currentX=0;
@@ -1292,6 +1308,18 @@ function chiudiLegal(){
 
 
 document.getElementById('year').textContent=new Date().getFullYear();
+
+
+const logoBg=document.getElementById('logoBg');
+const logoName=document.getElementById('logoName');
+
+
+window.addEventListener('scroll',()=>{
+  const trasparente=window.scrollY>50;
+
+  logoBg.style.opacity=trasparente?'0':'1';
+  logoName.style.opacity=trasparente?'0':'1';
+});
 
 
 update();
