@@ -10,20 +10,20 @@
 const sostenitoriBox = [
   {
     titolo: 'Sostenitori',
-    loghi: [{nome: 'Sostenitore', logo: 'bcc.jpg', sito: ''}]
+    loghi: [{nome: 'Sostenitore', logo: 'bcc.jpg', sito: 'https://www.bccroma.it'}]
   },
   {
     titolo: 'Sostenitori',
     loghi: [
-      {nome: 'Sostenitore', logo: 'delavallee.png', sito: ''},
+      {nome: 'Sostenitore', logo: 'delavallee.png', sito: 'https://www.delavallee.it'},
       {nome: 'Sostenitore', logo: 'papili.jpeg', sito: ''},
-      {nome: 'Sostenitore', logo: 'dascenzi.png', sito: ''},
-      {nome: 'Sostenitore', logo: 'isolaceliaca.png', sito: ''},
-      {nome: 'Sostenitore', logo: 'iezzi.png', sito: ''},
-      {nome: 'Sostenitore', logo: 'unieuro.jpg', sito: ''},
+      {nome: 'Sostenitore', logo: 'dascenzi.png', sito: 'https://www.dascenzi.it'},
+      {nome: 'Sostenitore', logo: 'isolaceliaca.png', sito: 'https://lisolaceliaca.it/affiliato/monterotondo/'},
+      {nome: 'Sostenitore', logo: 'iezzi.png', sito: 'https://www.gruppoiezzi.it'},
+      {nome: 'Sostenitore', logo: 'unieuro.jpg', sito: 'https://www.unieuro.it/online/negozi/Unieuro-Monterotondo-Scalo'},
       {nome: 'Sostenitore', logo: 'fioridipina.png', sito: ''},
       {nome: 'Sostenitore', logo: 'agenziatosca.jpg', sito: ''},
-      {nome: 'Sostenitore', logo: 'valery.png', sito: ''}
+      {nome: 'Sostenitore', logo: 'valery.png', sito: 'https://www.hotelvalery.it'}
     ]
   }
 ];
