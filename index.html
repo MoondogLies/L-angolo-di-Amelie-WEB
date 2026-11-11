@@ -944,6 +944,8 @@ eventi.sort((a,b)=>new Date(a.data)-new Date(b.data));
 let currentIndex=eventi.findIndex(e=>new Date(e.data)>=oggi);
 if(currentIndex<0) currentIndex=eventi.length-1;
 let expandedIndex=null;
+let cardOriginParent=null;
+let cardOriginNext=null;
 
 
 const track=document.getElementById('track');
@@ -1297,12 +1299,23 @@ cards.forEach(card=>{
     }
 
     expandedIndex=Number(card.dataset.index);
+    cardOriginParent=card.parentNode;
+    cardOriginNext=card.nextSibling;
+    document.body.appendChild(card);
     update();
   });
 });
 
 
 function chiudiCardEspansa(){
+  if(expandedIndex!==null){
+    const card=cards[expandedIndex];
+
+    if(card&&cardOriginParent){
+      cardOriginParent.insertBefore(card,cardOriginNext);
+    }
+  }
+
   expandedIndex=null;
   update();
 }
