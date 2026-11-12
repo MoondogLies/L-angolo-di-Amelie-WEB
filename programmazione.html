@@ -22,6 +22,9 @@ body{
   font-family:var(--font-dettagli);
   min-height:100vh;display:flex;flex-direction:column;
 }
+body.card-aperta{
+  overflow:hidden;
+}
 a{color:inherit;text-decoration:none}
 button{font-family:var(--font-dettagli)}
 
@@ -143,21 +146,55 @@ main{
   box-shadow:var(--ombra);
   display:flex;
   flex-direction:column;
+  cursor:pointer;
+  transition:transform .25s, box-shadow .25s;
 }
-.evento-card img{
-  width:100%;
-  height:320px;
-  object-fit:cover;
-  display:block;
+.evento-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 20px 45px rgba(0,0,0,.18);
 }
 .evento-poster{
   position:relative;
+  aspect-ratio:2 / 3;
+  background:#000;
+  overflow:hidden;
+}
+.evento-poster img,
+.evento-poster video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.card-slideshow{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+}
+.card-slideshow img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:0;
+  transition:opacity .8s ease;
+}
+.card-slideshow img.attivo{
+  opacity:1;
+}
+.evento-poster::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,.85) 0%, rgba(0,0,0,.35) 40%, rgba(0,0,0,0) 70%);
+  z-index:2;
 }
 .card-supporto{
   position:absolute;
   right:12px;
   bottom:12px;
-  z-index:5;
+  z-index:3;
   display:flex;
   align-items:center;
   gap:8px;
@@ -172,7 +209,6 @@ main{
 .evento-info{
   padding:18px;
   display:grid;
-  grid-template-columns:minmax(0,1fr);
   gap:10px;
 }
 .evento-data{
@@ -228,6 +264,137 @@ main{
 }
 
 
+.card-overlay{
+  position:fixed;
+  inset:0;
+  z-index:400;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+  background:rgba(0,0,0,.65);
+}
+.card-overlay.open{
+  display:flex;
+}
+.card-expanded{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  width:min(720px, 100%);
+  max-height:calc(100dvh - 32px);
+  background:#fff;
+  color:var(--testo);
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.35);
+}
+.card-expanded .card-poster{
+  position:relative;
+  flex:0 0 auto;
+  height:clamp(200px, 34vh, 420px);
+  background:#000;
+  overflow:hidden;
+}
+.card-expanded .card-poster img,
+.card-expanded .card-poster video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.card-expanded .card-poster::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,.9) 0%, rgba(0,0,0,.45) 40%, rgba(0,0,0,0) 70%);
+  z-index:2;
+}
+.card-expanded .card-info{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  padding:clamp(18px,4vw,30px);
+  display:grid;
+  gap:8px;
+  justify-items:start;
+  z-index:3;
+}
+.card-expanded .card-date{
+  width:max-content;
+  background:var(--rosso);
+  color:#fff;
+  padding:6px 12px;
+  border-radius:999px;
+  font-size:.8rem;
+  font-weight:800;
+}
+.card-expanded .card-ospiti{
+  width:auto;
+  max-width:100%;
+  background:var(--ambra);
+  color:#fff;
+  padding:6px 12px;
+  border-radius:999px;
+  font-size:.8rem;
+  font-weight:800;
+  line-height:1.3;
+  white-space:normal;
+  overflow-wrap:anywhere;
+  text-align:left;
+}
+.card-expanded .card-ospiti.multi{
+  border-radius:12px;
+}
+.card-expanded h3{
+  margin:0;
+  color:#fff;
+  font-size:clamp(24px,5vw,40px);
+  text-shadow:0 2px 12px rgba(0,0,0,.8);
+}
+.card-expanded .sottotitolo{
+  margin:0;
+  color:rgba(255,255,255,.9);
+  font-size:clamp(1rem,2.6vw,1.3rem);
+  font-weight:700;
+}
+.card-expanded .card-details{
+  flex:1 1 auto;
+  min-height:0;
+  padding:clamp(16px,3vw,26px);
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+}
+.card-expanded .card-details p.desc{
+  margin:0;
+  color:#444;
+  font-size:clamp(1rem,2.6vw,1.25rem);
+  line-height:1.7;
+}
+.card-close{
+  position:absolute;
+  top:12px;
+  right:12px;
+  z-index:5;
+  width:40px;
+  height:40px;
+  border:0;
+  border-radius:50%;
+  background:var(--rosso);
+  color:#fff;
+  font-size:24px;
+  font-weight:800;
+  line-height:1;
+  cursor:pointer;
+  box-shadow:0 6px 18px rgba(0,0,0,.25);
+}
+.card-close:hover{
+  background:var(--rosso-scuro);
+}
+
+
 .torna-home{
   display:inline-block;
   margin-top:30px;
@@ -254,6 +421,27 @@ footer{
   text-align:center;
   margin-top:auto;
 }
+.footer-links{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-bottom:18px;
+}
+.footer-links a{
+  background:rgba(255,255,255,.13);
+  border:1px solid rgba(255,255,255,.3);
+  padding:11px 20px;
+  border-radius:12px;
+  font-weight:700;
+  font-size:.95rem;
+  transition:.2s;
+  cursor:pointer;
+}
+.footer-links a:hover{
+  background:#fff;
+  color:var(--rosso-scuro);
+}
 .footer-info{
   font-size:.9rem;
   opacity:.92;
@@ -261,6 +449,87 @@ footer{
 }
 .footer-info a{
   border-bottom:1px dotted rgba(255,255,255,.6);
+}
+
+
+.legal-overlay{
+  position:fixed;
+  inset:0;
+  z-index:500;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:rgba(0,0,0,.65);
+}
+.legal-overlay.open{
+  display:flex;
+}
+.legal-box{
+  position:relative;
+  background:#fff;
+  color:var(--testo);
+  width:min(820px, 100%);
+  max-height:82vh;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  border-radius:18px;
+  padding:clamp(20px,4vw,36px);
+  box-shadow:0 30px 80px rgba(0,0,0,.35);
+}
+.legal-box h2{
+  color:var(--rosso);
+  margin:0 0 18px;
+  font-size:clamp(22px,3.5vw,30px);
+}
+.legal-box h3{
+  color:var(--rosso-scuro);
+  margin:22px 0 8px;
+  font-size:1.1rem;
+}
+.legal-box p,
+.legal-box li{
+  font-size:.95rem;
+  line-height:1.65;
+  color:#444;
+}
+.legal-box ul{
+  padding-left:20px;
+  margin:8px 0;
+}
+.legal-close-btn{
+  position:absolute;
+  top:12px;
+  right:12px;
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:50%;
+  background:var(--rosso);
+  color:#fff;
+  font-size:22px;
+  font-weight:800;
+  line-height:1;
+  cursor:pointer;
+  box-shadow:0 6px 18px rgba(0,0,0,.25);
+}
+.legal-close-btn:hover{
+  background:var(--rosso-scuro);
+}
+.legal-close{
+  margin-top:24px;
+  background:var(--rosso);
+  color:#fff;
+  border:0;
+  padding:12px 22px;
+  border-radius:999px;
+  font-weight:800;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+  cursor:pointer;
+}
+.legal-close:hover{
+  background:var(--rosso-scuro);
 }
 
 
@@ -324,11 +593,19 @@ footer{
 
 
 <footer>
-  <div class="footer-info">
+  <nav class="footer-links">
+    <a onclick="apriScheda()">Chi siamo</a>
+    <a href="#contatti">Contatti</a>
+    <a id="facebookFooterLink" href="#" target="_blank" rel="noopener">Facebook</a>
+    <a onclick="apriLegal('privacy')">Privacy Policy</a>
+    <a onclick="apriLegal('cookie')">Cookie Policy</a>
+  </nav>
+
+  <div class="footer-info" id="contatti">
     <strong>L’Angolo di Amelie</strong> è un’associazione culturale dedicata a incontri, laboratori,
     musica, fotografia, natura e momenti di condivisione.<br>
-    Email: <a href="mailto:info@langolodiamelie.it">info@langolodiamelie.it</a> ·
-    Via dell’Esempio 1, 00100 Roma (RM)
+    <span id="indirizzoFooter"></span><br>
+    Email: <a id="emailFooterLink" href="#"></a>
   </div>
 
   <p style="margin:18px 0 0;font-size:.85rem;opacity:.8">
@@ -337,9 +614,196 @@ footer{
 </footer>
 
 
-<script src="eventi.js"></script>
+<div class="card-overlay" id="cardOverlay">
+  <div class="card-expanded" id="cardEspansa">
+    <button class="card-close" onclick="chiudiCard()" aria-label="Chiudi">&times;</button>
+    <div class="card-poster" id="cardPoster"></div>
+    <div class="card-info" id="cardInfo"></div>
+    <div class="card-details">
+      <p class="desc" id="cardDesc"></p>
+    </div>
+  </div>
+</div>
+
+
+<div class="legal-overlay" id="chiSiamoOverlay">
+  <div class="legal-box">
+    <button class="legal-close-btn" onclick="chiudiScheda()" aria-label="Chiudi">&times;</button>
+
+    <h2>Chi siamo</h2>
+
+    <p>
+      <strong>L’Angolo di Amelie</strong> è un’associazione culturale che promuove incontri,
+      proiezioni, serate, laboratori e attività dedicate alla musica, alla fotografia, alla natura
+      e alla condivisione.
+    </p>
+
+    <p>
+      L’associazione nasce con l’obiettivo di creare uno spazio aperto alla partecipazione,
+      alla scoperta e al confronto, rivolto a chi desidera vivere la cultura in modo attivo
+      e condiviso.
+    </p>
+
+    <h3>Contatti</h3>
+
+    <p id="indirizzoChiSiamo"></p>
+
+    <p>
+      Email: <a id="emailChiSiamoLink" href="#"></a><br>
+      <a id="facebookChiSiamoLink" href="#" target="_blank" rel="noopener">Seguici su Facebook</a>
+    </p>
+
+    <h3>Statuto dell’associazione</h3>
+
+    <p>
+      Lo statuto dell’associazione è disponibile e può essere consultato su richiesta
+      scrivendo all’indirizzo email indicato sopra.
+    </p>
+
+    <p>
+      <a class="programma-btn filtro-btn" href="statuto.pdf" target="_blank" rel="noopener">
+        Scarica lo statuto
+      </a>
+    </p>
+
+    <button class="legal-close" onclick="chiudiScheda()">Chiudi</button>
+  </div>
+</div>
+
+
+<div class="legal-overlay" id="legalOverlay">
+  <div class="legal-box">
+    <button class="legal-close-btn" onclick="chiudiLegal()" aria-label="Chiudi">&times;</button>
+
+    <div id="privacyContent">
+      <h2>Privacy Policy</h2>
+
+      <p>
+        La presente informativa descrive il trattamento dei dati personali effettuato tramite il sito
+        <strong>L’Angolo di Amelie</strong>, ai sensi del Regolamento (UE) 2016/679 (“GDPR”).
+      </p>
+
+      <h3>1. Titolare del trattamento</h3>
+      <p id="indirizzoPrivacy"></p>
+
+      <h3>2. Dati trattati</h3>
+      <p>
+        Il sito non utilizza moduli di contatto, non consente iscrizioni online, non gestisce newsletter
+        e non richiede la creazione di account. Pertanto, attraverso il sito non vengono raccolti
+        dati personali quali nome, cognome, indirizzo email, numero di telefono o dati di pagamento.
+      </p>
+      <p>
+        Il sito pubblica esclusivamente informazioni relative ad eventi, corsi e attività dell’associazione.
+        I dati di contatto pubblicati nel piè di pagina sono riferiti all’associazione e hanno finalità
+        di contatto istituzionale.
+      </p>
+
+      <h3>3. Cookie e strumenti di tracciamento</h3>
+      <p>
+        Il sito non utilizza cookie di profilazione, cookie analitici, pixel di tracciamento,
+        strumenti pubblicitari o sistemi di tracciamento di terze parti.
+      </p>
+
+      <h3>4. Contatti volontari</h3>
+      <p>
+        Se l’utente contatta spontaneamente l’associazione tramite email o telefono, i dati comunicati
+        verranno utilizzati esclusivamente per rispondere alla richiesta ricevuta e per le eventuali
+        successive comunicazioni strettamente necessarie alla gestione della stessa.
+      </p>
+
+      <h3>5. Conservazione dei dati</h3>
+      <p>
+        Gli eventuali dati comunicati volontariamente sono conservati per il tempo necessario a gestire
+        la richiesta e, successivamente, per il periodo eventualmente richiesto dalla legge.
+      </p>
+
+      <h3>6. Diritti dell’interessato</h3>
+      <p>
+        L’interessato può chiedere in ogni momento l’accesso ai propri dati, la loro rettifica,
+        la cancellazione, la limitazione del trattamento, nonché opporsi al trattamento nei casi
+        previsti dal GDPR, scrivendo all’indirizzo email indicato nel footer.
+      </p>
+      <p>
+        L’interessato ha inoltre il diritto di proporre reclamo al Garante per la protezione dei dati personali.
+      </p>
+
+      <h3>7. Aggiornamenti</h3>
+      <p>
+        La presente informativa può essere aggiornata per adeguarla a modifiche normative o alle
+        caratteristiche del sito. La versione pubblicata su questa pagina è quella vigente.
+      </p>
+    </div>
+
+    <div id="cookieContent" style="display:none">
+      <h2>Cookie Policy</h2>
+
+      <p>
+        Il sito <strong>L’Angolo di Amelie</strong> non utilizza cookie di profilazione, cookie analitici,
+        cookie pubblicitari, pixel di tracciamento o altri strumenti di monitoraggio di terze parti.
+      </p>
+
+      <h3>Cookie tecnici</h3>
+      <p>
+        Il sito non installa cookie tecnici persistenti. Le preferenze di visualizzazione del carosello
+        sono gestite esclusivamente durante la navigazione e non vengono memorizzate sul dispositivo
+        dell’utente dopo la chiusura della pagina.
+      </p>
+
+      <h3>Servizi di terze parti</h3>
+      <p>
+        Il sito può visualizzare immagini ospitate da servizi esterni esclusivamente per finalità
+        illustrative. Questi contenuti non sono utilizzati per profilare l’utente né per raccogliere
+        dati personali tramite questo sito.
+      </p>
+
+      <h3>Gestione delle preferenze</h3>
+      <p>
+        Poiché il sito non utilizza cookie non necessari, non è richiesto alcun consenso preventivo
+        né è presente un banner di accettazione dei cookie.
+      </p>
+    </div>
+
+    <button class="legal-close" onclick="chiudiLegal()">Chiudi</button>
+  </div>
+</div>
+
+
+<script src="eventi.js?v=20261112d"></script>
 
 <script>
+// Aggiorna automaticamente footer, area contatti e link Facebook
+function aggiornaInfoAssociazione(){
+  document.getElementById('indirizzoFooter').textContent=INFO_ASSOCIAZIONE.indirizzo;
+
+  const emailFooterLink=document.getElementById('emailFooterLink');
+  emailFooterLink.textContent=INFO_ASSOCIAZIONE.email;
+  emailFooterLink.href='mailto:'+INFO_ASSOCIAZIONE.email;
+
+  const facebookFooterLink=document.getElementById('facebookFooterLink');
+  facebookFooterLink.href=INFO_ASSOCIAZIONE.facebook;
+
+  document.getElementById('indirizzoChiSiamo').textContent=INFO_ASSOCIAZIONE.indirizzo;
+
+  const emailChiSiamoLink=document.getElementById('emailChiSiamoLink');
+  emailChiSiamoLink.textContent=INFO_ASSOCIAZIONE.email;
+  emailChiSiamoLink.href='mailto:'+INFO_ASSOCIAZIONE.email;
+
+  const facebookChiSiamoLink=document.getElementById('facebookChiSiamoLink');
+  facebookChiSiamoLink.href=INFO_ASSOCIAZIONE.facebook;
+
+  document.getElementById('indirizzoPrivacy').innerHTML=
+    '<strong>L’Angolo di Amelie</strong><br>' +
+    INFO_ASSOCIAZIONE.indirizzo + '<br>' +
+    'Email: <a href="mailto:' + INFO_ASSOCIAZIONE.email + '">' + INFO_ASSOCIAZIONE.email + '</a>';
+}
+
+try{
+  aggiornaInfoAssociazione();
+}catch(errore){
+  console.error('Errore nell’aggiornamento dei contatti:', errore);
+}
+
+
 const oggi=new Date();
 oggi.setHours(0,0,0,0);
 
@@ -380,7 +844,9 @@ function creaCard(e){
 
   const sottotitolo=e.tipo==="film"
     ? `di ${e.regia} · ${e.paese}`
-    : (e.tipo==="concorso" ? "" : `Con ${e.artista}`);
+    : (e.tipo==="concorso"
+        ? (e.sottotitolo || "Concorso di cortometraggi")
+        : `Con ${e.artista}`);
 
   const nomiOspiti=e.ospiti
     ? e.ospiti.split(",").map(nome=>nome.trim()).filter(Boolean)
@@ -398,6 +864,7 @@ function creaCard(e){
 
   const card=document.createElement('article');
   card.className='evento-card'+(past?' past':'');
+  card.dataset.titolo=e.titolo;
 
   card.innerHTML=`
     <div class="evento-poster">
@@ -408,19 +875,14 @@ function creaCard(e){
       <span class="evento-data">${formattaData(e.data,e.ora)}</span>
       ${ospiti}
       <h3>${e.titolo}</h3>
-      ${sottotitolo?`<p class="sottotitolo">${sottotitolo}</p>`:""}
+      <p class="sottotitolo">${sottotitolo}</p>
       <p class="descrizione">${e.descrizione || "La descrizione dell’evento sarà presto disponibile."}</p>
     </div>
   `;
 
+  card.addEventListener('click',()=>apriCard(e));
+
   return card;
-}
-
-
-function aggiornaBadgeOspiti(){
-  document.querySelectorAll('.evento-ospiti').forEach(badge=>{
-    badge.classList.toggle('multi', badge.getClientRects().length>1);
-  });
 }
 
 
@@ -447,6 +909,115 @@ function renderGrid(){
   contenitoreAltriPassati.style.display=
     passatiVisibili>0 && passatiVisibili<eventiPassati.length ? 'block' : 'none';
 }
+
+
+// Fa andare a capo la riga degli ospiti quando è troppo lunga
+function aggiornaBadgeOspiti(){
+  document.querySelectorAll('.evento-ospiti').forEach(badge=>{
+    badge.classList.toggle('multi', badge.getClientRects().length>1);
+  });
+}
+
+window.addEventListener('resize',aggiornaBadgeOspiti);
+
+
+let slideshowTimer=null;
+
+
+function apriCard(evento){
+  const poster=document.getElementById('cardPoster');
+  const info=document.getElementById('cardInfo');
+  const descrizione=document.getElementById('cardDesc');
+
+  clearInterval(slideshowTimer);
+  slideshowTimer=null;
+
+  const usaSlideshow=Array.isArray(evento.immagini)&&evento.immagini.length>1;
+
+  if(usaSlideshow){
+    poster.innerHTML=evento.immagini.map((immagine,indice)=>`
+      <div class="card-slideshow">
+        <img class="${indice===0?'attivo':''}" src="${immagine}" alt="${evento.titolo}">
+      </div>
+    `).join('');
+
+    const immagini=[...poster.querySelectorAll('.card-slideshow img')];
+    let indiceAttivo=0;
+
+    slideshowTimer=setInterval(()=>{
+      immagini[indiceAttivo].classList.remove('attivo');
+      indiceAttivo=(indiceAttivo+1)%immagini.length;
+      immagini[indiceAttivo].classList.add('attivo');
+    },4000);
+  }else if(evento.video){
+    poster.innerHTML=`
+      <video
+        src="${evento.video}"
+        poster="${evento.videoPoster || evento.immagine}"
+        controls
+        autoplay
+        muted
+        loop
+        playsinline
+        webkit-playsinline
+      ></video>
+    `;
+  }else{
+    poster.innerHTML=`<img src="${evento.immagine}" alt="${evento.titolo}">`;
+  }
+
+  const nomiOspiti=evento.ospiti
+    ? evento.ospiti.split(",").map(nome=>nome.trim()).filter(Boolean)
+    : [];
+
+  const etichettaOspiti=nomiOspiti.length===1 ? "Ospite" : "Ospiti";
+
+  const ospiti=nomiOspiti.length
+    ? `<span class="card-ospiti">${etichettaOspiti}: ${nomiOspiti.join(", ")}</span>`
+    : "";
+
+  const sottotitolo=evento.tipo==="film"
+    ? `di ${evento.regia} · ${evento.paese}`
+    : (evento.tipo==="concorso"
+        ? (evento.sottotitolo || "Concorso di cortometraggi")
+        : `Con ${evento.artista}`);
+
+  info.innerHTML=`
+    <span class="card-date">${formattaData(evento.data,evento.ora)}</span>
+    ${ospiti}
+    <h3>${evento.titolo}</h3>
+    <p class="sottotitolo">${sottotitolo}</p>
+  `;
+
+  descrizione.textContent=evento.descrizione || "La descrizione dell’evento sarà presto disponibile.";
+
+  document.getElementById('cardOverlay').classList.add('open');
+  document.body.classList.add('card-aperta');
+
+  aggiornaBadgeOspiti();
+}
+
+
+function chiudiCard(){
+  clearInterval(slideshowTimer);
+  slideshowTimer=null;
+
+  document.getElementById('cardOverlay').classList.remove('open');
+  document.body.classList.remove('card-aperta');
+
+  document.getElementById('cardPoster').innerHTML='';
+  document.getElementById('cardInfo').innerHTML='';
+  document.getElementById('cardDesc').textContent='';
+}
+
+
+document.addEventListener('keydown',evento=>{
+  if(evento.key==='Escape'){
+    chiudiCard();
+    chiudiScheda();
+    chiudiLegal();
+  }
+});
 
 
 function togglePassati(){
@@ -477,7 +1048,6 @@ function mostraAltriPassati(){
 
 
 renderGrid();
-window.addEventListener('resize',aggiornaBadgeOspiti);
 
 
 document.getElementById('year').textContent=new Date().getFullYear();
