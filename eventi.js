@@ -23,20 +23,43 @@ const INFO_ASSOCIAZIONE = {
 const sostenitoriBox = [
   {
     titolo: 'Sostenitori',
-    loghi: [{nome: 'Sostenitore', logo: 'bcc.jpg', sito: 'https://www.bccroma.it'}]
+    loghi:
+        [{nome: 'Sostenitore', logo: 'bcc.jpg', sito: 'https://www.bccroma.it'}]
   },
   {
     titolo: 'Sostenitori',
     loghi: [
-      {nome: 'Sostenitore', logo: 'delavallee.png', sito: 'https://www.delavallee.it'},
-      {nome: 'Sostenitore', logo: 'papili.jpeg', sito: ''},
-      {nome: 'Sostenitore', logo: 'dascenzi.png', sito: 'https://www.dascenzi.it'},
-      {nome: 'Sostenitore', logo: 'isolaceliaca.png', sito: 'https://lisolaceliaca.it/affiliato/monterotondo/'},
-      {nome: 'Sostenitore', logo: 'iezzi.png', sito: 'https://www.gruppoiezzi.it'},
-      {nome: 'Sostenitore', logo: 'unieuro.jpg', sito: 'https://www.unieuro.it/online/negozi/Unieuro-Monterotondo-Scalo'},
+      {
+        nome: 'Sostenitore',
+        logo: 'delavallee.png',
+        sito: 'https://www.delavallee.it'
+      },
+      {nome: 'Sostenitore', logo: 'papili.jpeg', sito: ''}, {
+        nome: 'Sostenitore',
+        logo: 'dascenzi.png',
+        sito: 'https://www.dascenzi.it'
+      },
+      {
+        nome: 'Sostenitore',
+        logo: 'isolaceliaca.png',
+        sito: 'https://lisolaceliaca.it/affiliato/monterotondo/'
+      },
+      {
+        nome: 'Sostenitore',
+        logo: 'iezzi.png',
+        sito: 'https://www.gruppoiezzi.it'
+      },
+      {
+        nome: 'Sostenitore',
+        logo: 'unieuro.jpg',
+        sito: 'https://www.unieuro.it/online/negozi/Unieuro-Monterotondo-Scalo'
+      },
       {nome: 'Sostenitore', logo: 'fioridipina.png', sito: ''},
-      {nome: 'Sostenitore', logo: 'agenziatosca.jpg', sito: ''},
-      {nome: 'Sostenitore', logo: 'valery.png', sito: 'https://www.hotelvalery.it'}
+      {nome: 'Sostenitore', logo: 'agenziatosca.jpg', sito: ''}, {
+        nome: 'Sostenitore',
+        logo: 'valery.png',
+        sito: 'https://www.hotelvalery.it'
+      }
     ]
   }
 ];
@@ -153,7 +176,25 @@ const eventiCinema = [
     video: 'lavoieroyale.mp4',
     videoPoster: 'lavoieroyale.jpg',
     supporto: 'ifcinema.png'
-  }
+  },
+  {
+    tipo: 'film',
+    titolo: 'A HAPPY DAY',
+    regia: 'Hisham Zaman',
+    paese: 'Norvegia',
+    data: '2026-11-29',
+    ora: '17:00',
+    descrizione:
+        'È la storia di tre amici adolescenti bloccati in un luogo ghiacciato in un centro norvegese per giovani richiedenti asilo. I tre adolescenti sognano cosa ci sia oltre la neve e il ghiaccio e decidono di escogitare un piano per scappare, attraversare la montagna e raggiungere un mondo dove i loro desideri possano essere realizzati. I loro continui tentativi di evadere dal rifugio si rivelano sempre inutili, proprio come le feste per il 18esimo compleanno, organizzate dal centro prima di are inizio agli ordini di espulsione.Questa volta, però, il loro piano sembra perfetto e non destinato a fallire, fino a quando uno di loro s\'innamora.',
+    ospiti: '',
+    immagine:
+        'https://images.squarespace-cdn.com/content/v1/5d5c376ffd05ea0001470e05/4857e971-fcaf-4e5e-a75e-bf1a6e972a59/A+Happy+Day+Still+1.jpg',
+    immagini: [],
+    video: 'ahappyday.mp4',
+    videoPoster:
+        'https://images.squarespace-cdn.com/content/v1/5d5c376ffd05ea0001470e05/4857e971-fcaf-4e5e-a75e-bf1a6e972a59/A+Happy+Day+Still+1.jpg',
+    supporto: 'novembrenordico.png'
+  },
 ];
 
 
@@ -161,21 +202,30 @@ const eventiCinema = [
 // EVENTI MUSICA
 // ============================================================
 
-const eventiMusica = [{
-  tipo: 'musica',
-  titolo: 'Serata di poesia e musica dal vivo',
-  artista: 'Artisti ospiti',
-  data: '2025-11-15',
-  ora: '18:30',
-  descrizione:
-      'Una serata dedicata alla parola e alla musica dal vivo, con letture poetiche, performance musicali e incontro con il pubblico.',
-  ospiti: 'Artisti ospiti',
-  immagine: 'https://placehold.co/700x1050/c8102e/ffffff?text=Evento+musicale',
-  immagini: [],
-  video: '',
-  videoPoster: '',
-  supporto: ''
-}];
+const eventiMusica = [
+
+  /*
+
+    {
+
+    tipo: 'musica',
+    titolo: 'Serata di poesia e musica dal vivo',
+    artista: 'Artisti ospiti',
+    data: '2025-11-15',
+    ora: '18:30',
+    descrizione:
+        'Una serata dedicata alla parola e alla musica dal vivo, con letture
+    poetiche, performance musicali e incontro con il pubblico.', ospiti:
+    'Artisti ospiti', immagine:
+    'https://placehold.co/700x1050/c8102e/ffffff?text=Evento+musicale',
+    immagini: [],
+    video: '',
+    videoPoster: '',
+    supporto: ''
+    }
+
+  */
+];
 
 
 // ============================================================
@@ -192,7 +242,7 @@ const eventiConcorsi = [{
       'Serata dedicata alla proiezione di tre cortometraggi selezionati per il concorso Amelie in Corto: “Pinocchio reborn” di Matteo Cirillo, “Una notte ancora” di Carmelo Segreto e “Jolanta” di Geraldine Ottier. Un incontro per scoprire nuove voci del cinema indipendente e sostenere la creatività emergente.',
   ospiti: 'Geraldine Ottier, matteo Cirillo, Carmelo Segreto',
   immagine: 'https://placehold.co/700x1050/c8102e/ffffff?text=Amelie+in+Corto',
-  immagini: ['jolanta.jpg','pinocchioreborn.jpg','unanotteancora.jpeg'],
+  immagini: ['jolanta.jpg', 'pinocchioreborn.jpg', 'unanotteancora.jpeg'],
   video: '',
   videoPoster: '',
   supporto: ''
@@ -579,11 +629,13 @@ function inizializzaPulsanteStatuto() {
   document.querySelectorAll('#chiSiamoOverlay .legal-box').forEach(box => {
     const link = box.querySelector('a[href="statuto.pdf"]');
     if (!link) return;
-    const titolo = [...box.querySelectorAll('h3')].find(elemento =>
-      elemento.textContent.trim() === 'Statuto dell’associazione');
+    const titolo = [...box.querySelectorAll('h3')].find(
+        elemento =>
+            elemento.textContent.trim() === 'Statuto dell’associazione');
     if (titolo) {
       const testo = titolo.nextElementSibling;
-      if (testo && testo.tagName === 'P' && !testo.contains(link)) testo.remove();
+      if (testo && testo.tagName === 'P' && !testo.contains(link))
+        testo.remove();
       titolo.remove();
     }
     link.textContent = 'Statuto';
