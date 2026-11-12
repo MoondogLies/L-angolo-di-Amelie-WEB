@@ -146,15 +146,16 @@ main{
 }
 .evento-poster{
   position:relative;
-  aspect-ratio:2 / 3;
-  background:#000;
   overflow:hidden;
+  background:transparent;
 }
 .evento-poster img{
   width:100%;
-  height:100%;
-  object-fit:cover;
+  height:auto;
   display:block;
+}
+.evento-poster.slideshow{
+  aspect-ratio:2 / 3;
 }
 .card-slideshow{
   position:absolute;
@@ -200,6 +201,7 @@ main{
   padding:18px;
   display:grid;
   gap:10px;
+  justify-items:start;
 }
 .evento-data{
   width:max-content;
@@ -212,7 +214,7 @@ main{
   letter-spacing:.3px;
 }
 .evento-ospiti{
-  width:auto;
+  width:max-content;
   max-width:100%;
   background:var(--ambra);
   color:#fff;
@@ -393,9 +395,6 @@ footer{
 
 
 @media(max-width:600px){
-  .evento-card img{
-    height:240px;
-  }
   .evento-info{
     padding:14px;
   }
@@ -615,7 +614,7 @@ footer{
 </div>
 
 
-<script src="eventi.js?v=20261112e"></script>
+<script src="eventi.js?v=20261112f"></script>
 
 <script>
 // Aggiorna automaticamente footer, area contatti e link Facebook
@@ -721,7 +720,7 @@ function creaCard(e){
   card.className='evento-card'+(past?' past':'');
 
   card.innerHTML=`
-    <div class="evento-poster">
+    <div class="evento-poster${usaSlideshow?' slideshow':''}">
       ${media}
       ${supporto}
     </div>
