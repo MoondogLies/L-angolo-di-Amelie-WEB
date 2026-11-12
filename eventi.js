@@ -101,7 +101,7 @@ const eventiCinema = [
     immagini: [],
     video: 'bolladisapone.mp4',
     videoPoster: 'bolladisapone.jpg',
-    supporto: ''
+    supporto: 'IMG_9104.jpeg'
   },
 
   {
