@@ -780,7 +780,7 @@ footer{
 <footer>
   <nav class="footer-links">
     <a onclick="apriScheda()">Chi siamo</a>
-    <a href="#contatti">Contatti</a>
+    <a onclick="apriContatti()">Contatti</a>
     <a id="facebookFooterLink" href="#" target="_blank" rel="noopener">Facebook</a>
     <a onclick="apriLegal('privacy')">Privacy Policy</a>
     <a onclick="apriLegal('cookie')">Cookie Policy</a>
@@ -842,6 +842,24 @@ footer{
     </p>
 
     <button class="legal-close" onclick="chiudiScheda()">Chiudi</button>
+  </div>
+</div>
+
+
+<div class="legal-overlay" id="contattiOverlay">
+  <div class="legal-box">
+    <button class="legal-close-btn" onclick="chiudiContatti()" aria-label="Chiudi">&times;</button>
+
+    <h2>Contatti</h2>
+
+    <p id="indirizzoContatti"></p>
+
+    <p>
+      Email: <a id="emailContattiLink" href="#"></a><br>
+      <a id="facebookContattiLink" href="#" target="_blank" rel="noopener">Seguici su Facebook</a>
+    </p>
+
+    <button class="legal-close" onclick="chiudiContatti()">Chiudi</button>
   </div>
 </div>
 
@@ -943,7 +961,7 @@ footer{
 </div>
 
 
-<script src="eventi.js?v=20261112c"></script>
+<script src="eventi.js?v=20261112j"></script>
 
 <script>
 console.log("Script caricato correttamente");
@@ -983,6 +1001,15 @@ function aggiornaInfoAssociazione(){
 
   const facebookChiSiamoLink=document.getElementById('facebookChiSiamoLink');
   facebookChiSiamoLink.href=INFO_ASSOCIAZIONE.facebook;
+
+  document.getElementById('indirizzoContatti').textContent=INFO_ASSOCIAZIONE.indirizzo;
+
+  const emailContattiLink=document.getElementById('emailContattiLink');
+  emailContattiLink.textContent=INFO_ASSOCIAZIONE.email;
+  emailContattiLink.href='mailto:'+INFO_ASSOCIAZIONE.email;
+
+  const facebookContattiLink=document.getElementById('facebookContattiLink');
+  facebookContattiLink.href=INFO_ASSOCIAZIONE.facebook;
 
   document.getElementById('indirizzoPrivacy').innerHTML=
     '<strong>L’Angolo di Amelie</strong><br>' +
@@ -1391,8 +1418,11 @@ function chiudiCardEspansa(){
 
 
 document.addEventListener('keydown',evento=>{
-  if(evento.key==='Escape'&&expandedIndex!==null){
+  if(evento.key==='Escape'){
     chiudiCardEspansa();
+    chiudiScheda();
+    chiudiContatti();
+    chiudiLegal();
   }
 });
 
@@ -1404,6 +1434,16 @@ function apriScheda(){
 
 function chiudiScheda(){
   document.getElementById('chiSiamoOverlay').classList.remove('open');
+}
+
+
+function apriContatti(){
+  document.getElementById('contattiOverlay').classList.add('open');
+}
+
+
+function chiudiContatti(){
+  document.getElementById('contattiOverlay').classList.remove('open');
 }
 
 
