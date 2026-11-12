@@ -313,6 +313,25 @@ footer{
 }
 
 
+.email-link{
+  color:#fff;
+  font-weight:700;
+  border-bottom:1px dotted rgba(255,255,255,.6);
+}
+
+.facebook-btn{
+  background:#1877F2;
+  color:#fff;
+  border:1px solid #1877F2;
+}
+
+.facebook-btn:hover{
+  background:#166fe5;
+  color:#fff;
+  border-color:#166fe5;
+}
+
+
 .legal-overlay{
   position:fixed;
   inset:0;
@@ -357,6 +376,10 @@ footer{
 .legal-box ul{
   padding-left:20px;
   margin:8px 0;
+}
+.legal-box a{
+  color:var(--rosso);
+  font-weight:700;
 }
 .legal-close-btn{
   position:absolute;
@@ -454,7 +477,7 @@ footer{
   <nav class="footer-links">
     <a onclick="apriScheda()">Chi siamo</a>
     <a onclick="apriContatti()">Contatti</a>
-    <a id="facebookFooterLink" href="#" target="_blank" rel="noopener">Facebook</a>
+    <a id="facebookFooterLink" class="facebook-btn" href="#" target="_blank" rel="noopener">Facebook</a>
     <a onclick="apriLegal('privacy')">Privacy Policy</a>
     <a onclick="apriLegal('cookie')">Cookie Policy</a>
   </nav>
@@ -463,7 +486,7 @@ footer{
     <strong>L’Angolo di Amelie</strong> è un’associazione culturale dedicata a incontri, laboratori,
     musica, fotografia, natura e momenti di condivisione.<br>
     <span id="indirizzoFooter"></span><br>
-    Email: <a id="emailFooterLink" href="#"></a>
+    Email: <a id="emailFooterLink" class="email-link" href="#"></a>
   </div>
 
   <p style="margin:18px 0 0;font-size:.85rem;opacity:.8">
@@ -495,8 +518,8 @@ footer{
     <p id="indirizzoChiSiamo"></p>
 
     <p>
-      Email: <a id="emailChiSiamoLink" href="#"></a><br>
-      <a id="facebookChiSiamoLink" href="#" target="_blank" rel="noopener">Seguici su Facebook</a>
+      Email: <a id="emailChiSiamoLink" class="email-link" href="#"></a><br>
+      <a id="facebookChiSiamoLink" class="facebook-btn" href="#" target="_blank" rel="noopener">Seguici su Facebook</a>
     </p>
 
     <h3>Statuto dell’associazione</h3>
@@ -526,8 +549,8 @@ footer{
     <p id="indirizzoContatti"></p>
 
     <p>
-      Email: <a id="emailContattiLink" href="#"></a><br>
-      <a id="facebookContattiLink" href="#" target="_blank" rel="noopener">Seguici su Facebook</a>
+      Email: <a id="emailContattiLink" class="email-link" href="#"></a><br>
+      <a id="facebookContattiLink" class="facebook-btn" href="#" target="_blank" rel="noopener">Seguici su Facebook</a>
     </p>
 
     <button class="legal-close" onclick="chiudiContatti()">Chiudi</button>
@@ -632,7 +655,7 @@ footer{
 </div>
 
 
-<script src="eventi.js?v=20261112j"></script>
+<script src="eventi.js?v=20261112k"></script>
 
 <script>
 // Aggiorna automaticamente footer, area contatti e link Facebook
