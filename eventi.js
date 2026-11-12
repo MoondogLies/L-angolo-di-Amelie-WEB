@@ -242,7 +242,7 @@ const corsi = [
         'https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=900&q=80',
     contatti: {
       referente: 'Nome referente',
-      email: '',
+      email: 'bonsaiclubmonterotondo26@gmail.com',
       informazioni:
           'Coltiva pazienza, attenzione e bellezza in un piccolo albero che cresce con te. Un percorso per avvicinarti all’arte del bonsai: dalla scelta della pianta alle tecniche di potatura, irrigazione e cura nel tempo.Imparerai a osservare, intervenire con delicatezza e costruire, stagione dopo stagione, un piccolo paesaggio vivo da tenere accanto a te.'
     }
@@ -504,22 +504,6 @@ function inizializzaSupporto() {
     .card.expanded .card-supporto-testo{
       display:inline;
     }
-
-    @media(min-width:1400px){
-      .card.expanded{
-        left:0;
-        right:0;
-        top:50%;
-        bottom:auto;
-        margin-left:auto;
-        margin-right:auto;
-        width:min(1100px, 92vw);
-        height:auto;
-        max-height:calc(100vh - 40px);
-        overflow-y:auto;
-        transform:translateY(-50%) !important;
-      }
-    }
   `;
 
   document.head.appendChild(stile);
@@ -565,11 +549,11 @@ document.addEventListener('DOMContentLoaded', inizializzaSupporto);
 // ============================================================
 
 const scriptCorsi = document.createElement('script');
-scriptCorsi.src = 'corsi.js?v=20261112';
+scriptCorsi.src = 'corsi.js?v=20261112b';
 
 scriptCorsi.onload = () => {
   const scriptDona = document.createElement('script');
-  scriptDona.src = 'dona.js?v=20261112';
+  scriptDona.src = 'dona.js?v=20261112b';
   document.body.appendChild(scriptDona);
 };
 

@@ -328,16 +328,18 @@ main{
 
 .card.expanded{
   position:fixed;
-  inset:0;
+  top:50%;
+  left:50%;
   z-index:500;
-  width:auto;
+  display:flex;
+  flex-direction:column;
+  width:min(720px, calc(100% - 24px));
   height:auto;
-  max-height:none;
-  border-radius:0;
-  overflow-y:auto;
-  -webkit-overflow-scrolling:touch;
-  transform:none;
-  box-shadow:none;
+  max-height:calc(100dvh - 24px);
+  border-radius:18px;
+  overflow:hidden;
+  transform:translate(-50%,-50%);
+  box-shadow:0 30px 80px rgba(0,0,0,.35);
   cursor:default;
   background:#fff;
   color:var(--testo);
@@ -346,21 +348,29 @@ main{
   touch-action:auto;
 }
 .card.expanded .card-poster{
+  flex:0 0 auto;
   aspect-ratio:auto;
-  height:clamp(240px, 38vh, 460px);
+  height:clamp(200px, 34vh, 420px);
 }
 .card.expanded .card-info{
   position:absolute;
   padding:clamp(18px,4vw,30px);
 }
 .card.expanded h3{
-  font-size:clamp(26px,6vw,46px);
+  font-size:clamp(24px,5vw,40px);
 }
 .card.expanded .sottotitolo{font-size:clamp(1rem,2.6vw,1.3rem)}
 .card.expanded .sinossi-btn{display:none}
 .card.expanded .card-date,
 .card.expanded .card-ospiti{
   font-size:clamp(.8rem,2.2vw,1rem);
+}
+.card.expanded .card-details{
+  flex:1 1 auto;
+  min-height:0;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
 }
 .card.expanded .card-details p.desc{
   font-size:clamp(1.05rem,2.8vw,1.4rem);
@@ -579,6 +589,7 @@ footer{
   display:flex;
 }
 .legal-box{
+  position:relative;
   background:#fff;
   color:var(--testo);
   width:min(820px, 100%);
@@ -608,6 +619,25 @@ footer{
 .legal-box ul{
   padding-left:20px;
   margin:8px 0;
+}
+.legal-close-btn{
+  position:absolute;
+  top:12px;
+  right:12px;
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:50%;
+  background:var(--rosso);
+  color:#fff;
+  font-size:22px;
+  font-weight:800;
+  line-height:1;
+  cursor:pointer;
+  box-shadow:0 6px 18px rgba(0,0,0,.25);
+}
+.legal-close-btn:hover{
+  background:var(--rosso-scuro);
 }
 .legal-close{
   margin-top:24px;
@@ -651,7 +681,7 @@ footer{
 
 
   .card.expanded .card-poster{
-    height:clamp(200px, 30vh, 320px);
+    height:clamp(180px, 28vh, 320px);
   }
   .card.expanded h3{
     font-size:clamp(22px,6.5vw,32px);
@@ -743,6 +773,8 @@ footer{
 
 <div class="legal-overlay" id="chiSiamoOverlay">
   <div class="legal-box">
+    <button class="legal-close-btn" onclick="chiudiScheda()" aria-label="Chiudi">&times;</button>
+
     <h2>Chi siamo</h2>
 
     <p>
@@ -786,6 +818,8 @@ footer{
 
 <div class="legal-overlay" id="legalOverlay">
   <div class="legal-box">
+    <button class="legal-close-btn" onclick="chiudiLegal()" aria-label="Chiudi">&times;</button>
+
     <div id="privacyContent">
       <h2>Privacy Policy</h2>
 
@@ -879,7 +913,7 @@ footer{
 </div>
 
 
-<script src="eventi.js?v=20261112"></script>
+<script src="eventi.js?v=20261112b"></script>
 
 <script>
 console.log("Script caricato correttamente");
@@ -944,6 +978,8 @@ eventi.sort((a,b)=>new Date(a.data)-new Date(b.data));
 let currentIndex=eventi.findIndex(e=>new Date(e.data)>=oggi);
 if(currentIndex<0) currentIndex=eventi.length-1;
 let expandedIndex=null;
+let cardOriginParent=null;
+let cardOriginNext=null;
 
 
 const track=document.getElementById('track');
@@ -1131,7 +1167,7 @@ function update(dragOffset=0){
 
     if(i===expandedIndex){
       card.classList.remove('hidden');
-      card.style.transform='none';
+      card.style.removeProperty('transform');
       return;
     }
 
@@ -1263,12 +1299,23 @@ cards.forEach(card=>{
     }
 
     expandedIndex=Number(card.dataset.index);
+    cardOriginParent=card.parentNode;
+    cardOriginNext=card.nextSibling;
+    document.body.appendChild(card);
     update();
   });
 });
 
 
 function chiudiCardEspansa(){
+  if(expandedIndex!==null){
+    const card=cards[expandedIndex];
+
+    if(card&&cardOriginParent){
+      cardOriginParent.insertBefore(card,cardOriginNext);
+    }
+  }
+
   expandedIndex=null;
   update();
 }
