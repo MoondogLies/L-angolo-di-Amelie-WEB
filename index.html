@@ -29,6 +29,10 @@ body.card-aperta{
 }
 body.card-aperta .carousel-zone{
   touch-action:auto;
+  perspective:none;
+  filter:blur(8px);
+  pointer-events:none;
+  transition:filter .3s ease;
 }
 body.card-aperta header,
 body.card-aperta footer,
@@ -271,7 +275,9 @@ main{
 .card-info{
   position:absolute;left:0;right:0;bottom:0;
   padding:16px 15px 15px;
-  display:grid;gap:7px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:7px;
   justify-items:start;
   z-index:4;
   isolation:isolate;
