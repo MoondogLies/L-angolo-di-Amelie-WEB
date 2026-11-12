@@ -153,7 +153,7 @@ const eventiCinema = [
     ora: '17:00',
     descrizione:
         'Tre improvvisate ladre, guidata da una donna sull’orlo dell’esaurimento, decidono di rapinare una cooperativa di credito in una zona rurale irlandese. Il film si apre dopo la fallita rapina e procede in senso cronologico inverso, per svelare gli eventi che hanno condotto a quell’epilogo: così, quello che sembrava un colpo mal riuscito, si trasforma nel ritratto di una donna ostinata, prigioniera del passato.',
-    ospiti: 'Susanna Pellis di Irish Film festa',
+    ospiti: 'Susanna Pellis di Irish Film Festa',
     immagine: 'aontas.jpeg',
     immagini: [],
     video: 'aontas.mp4',
@@ -185,7 +185,7 @@ const eventiCinema = [
     data: '2026-11-29',
     ora: '17:00',
     descrizione:
-        'È la storia di tre amici adolescenti bloccati in un luogo ghiacciato in un centro norvegese per giovani richiedenti asilo. I tre adolescenti sognano cosa ci sia oltre la neve e il ghiaccio e decidono di escogitare un piano per scappare, attraversare la montagna e raggiungere un mondo dove i loro desideri possano essere realizzati. I loro continui tentativi di evadere dal rifugio si rivelano sempre inutili, proprio come le feste per il 18esimo compleanno, organizzate dal centro prima di are inizio agli ordini di espulsione.Questa volta, però, il loro piano sembra perfetto e non destinato a fallire, fino a quando uno di loro s\'innamora.',
+        'È la storia di tre amici adolescenti bloccati in un luogo ghiacciato in un centro norvegese per giovani richiedenti asilo. I tre adolescenti sognano cosa ci sia oltre la neve e il ghiaccio e decidono di escogitare un piano per scappare, attraversare la montagna e raggiungere un mondo dove i loro desideri possano essere realizzati. I loro continui tentativi di evadere dal rifugio si rivelano sempre inutili, proprio come le feste per il 18esimo compleanno, organizzate dal centro prima dell’inizio degli ordini di espulsione.Questa volta, però, il loro piano sembra perfetto e non destinato a fallire, fino a quando uno di loro s\'innamora.',
     ospiti: '',
     immagine:
         'https://images.squarespace-cdn.com/content/v1/5d5c376ffd05ea0001470e05/4857e971-fcaf-4e5e-a75e-bf1a6e972a59/A+Happy+Day+Still+1.jpg',
@@ -240,7 +240,7 @@ const eventiConcorsi = [{
   ora: '17:00',
   descrizione:
       'Serata dedicata alla proiezione di tre cortometraggi selezionati per il concorso Amelie in Corto: “Pinocchio reborn” di Matteo Cirillo, “Una notte ancora” di Carmelo Segreto e “Jolanta” di Geraldine Ottier. Un incontro per scoprire nuove voci del cinema indipendente e sostenere la creatività emergente.',
-  ospiti: 'Geraldine Ottier, matteo Cirillo, Carmelo Segreto',
+  ospiti: 'Geraldine Ottier, Matteo Cirillo, Carmelo Segreto',
   immagine: 'https://placehold.co/700x1050/c8102e/ffffff?text=Amelie+in+Corto',
   immagini: ['jolanta.jpg', 'pinocchioreborn.jpg', 'unanotteancora.jpeg'],
   video: '',
@@ -291,7 +291,7 @@ const corsi = [
       referente: 'Leonardo',
       email: 'info@angolodiamelie.it',
       informazioni:
-          'Impara a suonare il pianoforte partendo da ciò che senti, non solo da ciò che leggi. Un percorso individuale per avvicarti allo strumento con gradualità: prime note, lettura musicale, ritmo e ascolto.Che tu sia alle prime armi o voglia riprendere dopo anni, troverai uno spazio sereno per costruire confiance, esprimerti e scoprire il piacere di fare musica con le tue mani.'
+          'Impara a suonare il pianoforte partendo da ciò che senti, non solo da ciò che leggi. Un percorso individuale per avvicinarti allo strumento con gradualità: prime note, lettura musicale, ritmo e ascolto. Che tu sia alle prime armi o voglia riprendere dopo anni, troverai uno spazio sereno per costruire confidenza, esprimerti e scoprire il piacere di fare musica con le tue mani.'
     }
   },
 
@@ -306,7 +306,7 @@ const corsi = [
       referente: 'Nome referente',
       email: 'bonsaiclubmonterotondo26@gmail.com',
       informazioni:
-          'Coltiva pazienza, attenzione e bellezza in un piccolo albero che cresce con te. Un percorso per avvicarti all’arte del bonsai: dalla scelta della pianta alle tecniche di potatura, irrigazione e cura nel tempo.Imparerai a osservare, intervenire con delicatezza e costruire, stagione dopo stagione, un piccolo paesaggio vivo da tenere accanto a te.'
+          'Coltiva pazienza, attenzione e bellezza in un piccolo albero che cresce con te. Un percorso per avvicinarti all’arte del bonsai: dalla scelta della pianta alle tecniche di potatura, irrigazione e cura nel tempo. Imparerai a osservare, intervenire con delicatezza e costruire, stagione dopo stagione, un piccolo paesaggio vivo da tenere accanto a te.'
     }
   },
 
