@@ -1,4 +1,17 @@
 // ============================================================
+// INFORMAZIONI DELL’ASSOCIAZIONE
+// ============================================================
+// Modifica solo i valori qui sotto per aggiornare automaticamente
+// il footer, l’area contatti e il pulsante Facebook.
+
+const INFO_ASSOCIAZIONE = {
+  indirizzo: 'Via delle Rimesse 14/16, 00015 Monterotondo (RM)',
+  email: 'info@langolodiamelie.it',
+  facebook: 'https://www.facebook.com/share/1EsXa52DvT/?mibextid=wwXIfr'
+};
+
+
+// ============================================================
 // SOSTENITORI/E
 // ============================================================
 // Due box affiancati per i sostenitori.
@@ -34,10 +47,6 @@ const sostenitoriBox = [
 // ============================================================
 // Il campo "supporto" contiene il logo mostrato in basso a destra
 // nella card. Se lasci vuoto, non compare nulla.
-//
-// Il campo "immagini" è facoltativo: se contiene due o più immagini,
-// viene mostrato uno slideshow con dissolvenza al posto del video.
-// In quel caso lascia "video" vuoto.
 
 const eventiCinema = [
   {
@@ -51,7 +60,6 @@ const eventiCinema = [
         'Dora, una giovane donna che vive in una periferia romana, lavora consegnando la spesa a domicilio e cerca di costruire una vita migliore per sé e per i fratellini. L’incontro con Andrea le offre una prospettiva di cambiamento, ma il passato e le difficoltà del quartiere continuano a pesare sul presente.',
     ospiti: 'Ciro Formisano, Daniela Poggi',
     immagine: 'lanimainpace.jpg',
-    immagini: [],
     video: 'lanimainpace.mp4',
     videoPoster: 'lanimainpace.jpg',
     supporto: ''
@@ -68,7 +76,6 @@ const eventiCinema = [
         'Racconta la storia di Daphne Bello (interpretata da Vanina Kondova), un’architetta di New York sovraffaticata che torna nelle montagne dei Rodopi, in Bulgaria, per ereditare la vecchia casa della nonna.',
     ospiti: 'Tatyana Pandurska',
     immagine: 'fragoleselvatiche.jpeg',
-    immagini: [],
     video: 'fragoleselvatiche.mp4',
     videoPoster: 'fragoleselvatiche.jpeg',
     supporto: 'istitutobulgarodicultura.png'
@@ -85,7 +92,6 @@ const eventiCinema = [
         'Il protagonista è Izumi (interpretata da Kento Hayashi), un giovane abbandonato dai genitori che vive di furti e aggressioni. Dopo un tentato omicidio, fugge in un villaggio rurale (Shiiba Village, prefettura di Miyazaki), dove soccorre un’anziana signora ferita (Etsuko Ichihara), e viene scambiato per suo nipote, iniziando un percorso di redenzione.',
     ospiti: '',
     immagine: 'bolladisapone.jpg',
-    immagini: [],
     video: 'bolladisapone.mp4',
     videoPoster: 'bolladisapone.jpg',
     supporto: ''
@@ -102,7 +108,6 @@ const eventiCinema = [
         'Il film esplora la complessità e le sfide della maternità e dell’autodeterminazione attraverso le storie parallele di tre donne ungheresi che vivono in tre diverse città europee, le quali si trovano a dover prendere decisioni cruciali nell’arco di una sola giornata.',
     ospiti: 'Borbála Nagy',
     immagine: 'mambomaternica.jpg',
-    immagini: [],
     video: 'mambo-maternica-trailer.mp4',
     videoPoster: 'mambomaternica.jpg',
     supporto: 'nationalfilmhungary.jpg'
@@ -119,7 +124,6 @@ const eventiCinema = [
         'Tre improvvisate ladre, guidate da una donna sull’orlo dell’esaurimento, decidono di rapinare una cooperativa di credito in una zona rurale irlandese. Il film si apre dopo la fallita rapina e procede in senso cronologico inverso, per svelare gli eventi che hanno condotto a quell’epilogo: così, quello che sembrava un colpo mal riuscito, si trasforma nel ritratto di una donna ostinata, prigioniera del passato.',
     ospiti: 'Susanna Pellis di Irish Film festa',
     immagine: 'aontas.jpeg',
-    immagini: [],
     video: 'aontas.mp4',
     videoPoster: 'aontas.jpeg',
     supporto: ''
@@ -136,7 +140,6 @@ const eventiCinema = [
         'Sophie eccelle nel mondo accademico. Lascia la fattoria di famiglia per frequentare un corso di preparazione scientifica, ma di fronte a nuove sfide, scopre che il suo desiderio di frequentare il Politecnico è una vera lotta di ascesa sociale.',
     ospiti: '',
     immagine: 'lavoieroyale.jpg',
-    immagini: [],
     video: 'lavoieroyale.mp4',
     videoPoster: 'lavoieroyale.jpg',
     supporto: 'ifcinema.png'
@@ -158,7 +161,6 @@ const eventiMusica = [{
       'Una serata dedicata alla parola e alla musica dal vivo, con letture poetiche, performance musicali e incontro con il pubblico.',
   ospiti: 'Artisti ospiti',
   immagine: 'https://placehold.co/700x1050/c8102e/ffffff?text=Evento+musicale',
-  immagini: [],
   video: '',
   videoPoster: '',
   supporto: ''
@@ -177,9 +179,8 @@ const eventiConcorsi = [{
   ora: '17:00',
   descrizione:
       'Serata dedicata alla proiezione di tre cortometraggi selezionati per il concorso Amelie in Corto: “Pinocchio reborn” di Matteo Cirillo, “Una notte ancora” di Carmelo Segreto e “Jolanta” di Geraldine Ottier. Un incontro per scoprire nuove voci del cinema indipendente e sostenere la creatività emergente.',
-  ospiti: 'Geraldine Ottier, matteo Cirillo, Carmelo Segreto',
+  ospiti: '',
   immagine: 'https://placehold.co/700x1050/c8102e/ffffff?text=Amelie+in+Corto',
-  immagini: ['jolanta.jpg','pinocchioreborn.jpg','unanotteancora.jpeg'],
   video: '',
   videoPoster: '',
   supporto: ''
@@ -241,7 +242,7 @@ const corsi = [
         'https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=900&q=80',
     contatti: {
       referente: 'Nome referente',
-      email: 'bonsaiclubmonterotondo26@gmail.com',
+      email: '',
       informazioni:
           'Coltiva pazienza, attenzione e bellezza in un piccolo albero che cresce con te. Un percorso per avvicinarti all’arte del bonsai: dalla scelta della pianta alle tecniche di potatura, irrigazione e cura nel tempo.Imparerai a osservare, intervenire con delicatezza e costruire, stagione dopo stagione, un piccolo paesaggio vivo da tenere accanto a te.'
     }

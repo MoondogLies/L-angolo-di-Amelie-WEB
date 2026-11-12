@@ -29,10 +29,6 @@ body.card-aperta{
 }
 body.card-aperta .carousel-zone{
   touch-action:auto;
-  perspective:none;
-  filter:blur(8px);
-  pointer-events:none;
-  transition:filter .3s ease;
 }
 body.card-aperta header,
 body.card-aperta footer,
@@ -247,23 +243,6 @@ main{
   opacity:0;
   pointer-events:none;
 }
-.card-slideshow{
-  position:absolute;
-  inset:0;
-  overflow:hidden;
-}
-.card-slideshow img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  opacity:0;
-  transition:opacity .8s ease;
-}
-.card-slideshow img.attivo{
-  opacity:1;
-}
 .card-poster::after{
   content:"";
   position:absolute;inset:0;
@@ -275,9 +254,7 @@ main{
 .card-info{
   position:absolute;left:0;right:0;bottom:0;
   padding:16px 15px 15px;
-  display:grid;
-  grid-template-columns:minmax(0,1fr);
-  gap:7px;
+  display:grid;gap:7px;
   justify-items:start;
   z-index:4;
   isolation:isolate;
@@ -292,7 +269,7 @@ main{
   font-size:.68rem;font-weight:800;letter-spacing:.3px;
 }
 .card-ospiti{
-  width:auto;
+  width:max-content;
   max-width:100%;
   background:var(--ambra);
   color:#fff;
@@ -302,13 +279,6 @@ main{
   font-weight:800;
   letter-spacing:.3px;
   line-height:1.3;
-  white-space:normal;
-  overflow-wrap:anywhere;
-  text-align:left;
-}
-.card-ospiti.multi{
-  border-radius:12px;
-  line-height:1.25;
 }
 .card h3{
   margin:0;color:#fff;
@@ -358,18 +328,16 @@ main{
 
 .card.expanded{
   position:fixed;
-  top:50%;
-  left:50%;
+  inset:0;
   z-index:500;
-  display:flex;
-  flex-direction:column;
-  width:min(720px, calc(100% - 24px));
+  width:auto;
   height:auto;
-  max-height:calc(100dvh - 24px);
-  border-radius:18px;
-  overflow:hidden;
-  transform:translate(-50%,-50%);
-  box-shadow:0 30px 80px rgba(0,0,0,.35);
+  max-height:none;
+  border-radius:0;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  transform:none;
+  box-shadow:none;
   cursor:default;
   background:#fff;
   color:var(--testo);
@@ -378,29 +346,21 @@ main{
   touch-action:auto;
 }
 .card.expanded .card-poster{
-  flex:0 0 auto;
   aspect-ratio:auto;
-  height:clamp(200px, 34vh, 420px);
+  height:clamp(240px, 38vh, 460px);
 }
 .card.expanded .card-info{
   position:absolute;
   padding:clamp(18px,4vw,30px);
 }
 .card.expanded h3{
-  font-size:clamp(24px,5vw,40px);
+  font-size:clamp(26px,6vw,46px);
 }
 .card.expanded .sottotitolo{font-size:clamp(1rem,2.6vw,1.3rem)}
 .card.expanded .sinossi-btn{display:none}
 .card.expanded .card-date,
 .card.expanded .card-ospiti{
   font-size:clamp(.8rem,2.2vw,1rem);
-}
-.card.expanded .card-details{
-  flex:1 1 auto;
-  min-height:0;
-  overflow-y:auto;
-  -webkit-overflow-scrolling:touch;
-  overscroll-behavior:contain;
 }
 .card.expanded .card-details p.desc{
   font-size:clamp(1.05rem,2.8vw,1.4rem);
@@ -691,7 +651,7 @@ footer{
 
 
   .card.expanded .card-poster{
-    height:clamp(180px, 28vh, 320px);
+    height:clamp(200px, 30vh, 320px);
   }
   .card.expanded h3{
     font-size:clamp(22px,6.5vw,32px);
@@ -761,6 +721,7 @@ footer{
   <nav class="footer-links">
     <a onclick="apriScheda()">Chi siamo</a>
     <a href="#contatti">Contatti</a>
+    <a id="facebookFooterLink" href="#" target="_blank" rel="noopener">Facebook</a>
     <a onclick="apriLegal('privacy')">Privacy Policy</a>
     <a onclick="apriLegal('cookie')">Cookie Policy</a>
   </nav>
@@ -769,8 +730,8 @@ footer{
   <div class="footer-info" id="contatti">
     <strong>L’Angolo di Amelie</strong> è un’associazione culturale dedicata a incontri, laboratori,
     musica, fotografia, natura e momenti di condivisione.<br>
-    Email: <a href="mailto:info@langolodiamelie.it">info@langolodiamelie.it</a> ·
-    Via dell’Esempio 1, 00100 Roma (RM)
+    <span id="indirizzoFooter"></span><br>
+    Email: <a id="emailFooterLink" href="#"></a>
   </div>
 
 
@@ -796,12 +757,20 @@ footer{
       e condiviso.
     </p>
 
+    <h3>Contatti</h3>
+
+    <p id="indirizzoChiSiamo"></p>
+
+    <p>
+      Email: <a id="emailChiSiamoLink" href="#"></a><br>
+      <a id="facebookChiSiamoLink" href="#" target="_blank" rel="noopener">Seguici su Facebook</a>
+    </p>
+
     <h3>Statuto dell’associazione</h3>
 
     <p>
       Lo statuto dell’associazione è disponibile e può essere consultato su richiesta
-      scrivendo a
-      <a href="mailto:info@langolodiamelie.it">info@langolodiamelie.it</a>.
+      scrivendo all’indirizzo email indicato sopra.
     </p>
 
     <p>
@@ -826,11 +795,7 @@ footer{
       </p>
 
       <h3>1. Titolare del trattamento</h3>
-      <p>
-        <strong>L’Angolo di Amelie</strong><br>
-        Via dell’Esempio 1, 00100 Roma (RM)<br>
-        Email: <a href="mailto:info@langolodiamelie.it">info@langolodiamelie.it</a>
-      </p>
+      <p id="indirizzoPrivacy"></p>
 
       <h3>2. Dati trattati</h3>
       <p>
@@ -867,8 +832,7 @@ footer{
       <p>
         L’interessato può chiedere in ogni momento l’accesso ai propri dati, la loro rettifica,
         la cancellazione, la limitazione del trattamento, nonché opporsi al trattamento nei casi
-        previsti dal GDPR, scrivendo a:
-        <a href="mailto:info@langolodiamelie.it">info@langolodiamelie.it</a>.
+        previsti dal GDPR, scrivendo all’indirizzo email indicato nel footer.
       </p>
       <p>
         L’interessato ha inoltre il diritto di proporre reclamo al Garante per la protezione dei dati personali.
@@ -921,6 +885,35 @@ footer{
 console.log("Script caricato correttamente");
 
 
+// Aggiorna automaticamente footer, area contatti e link Facebook
+function aggiornaInfoAssociazione(){
+  document.getElementById('indirizzoFooter').textContent=INFO_ASSOCIAZIONE.indirizzo;
+
+  const emailFooterLink=document.getElementById('emailFooterLink');
+  emailFooterLink.textContent=INFO_ASSOCIAZIONE.email;
+  emailFooterLink.href='mailto:'+INFO_ASSOCIAZIONE.email;
+
+  const facebookFooterLink=document.getElementById('facebookFooterLink');
+  facebookFooterLink.href=INFO_ASSOCIAZIONE.facebook;
+
+  document.getElementById('indirizzoChiSiamo').textContent=INFO_ASSOCIAZIONE.indirizzo;
+
+  const emailChiSiamoLink=document.getElementById('emailChiSiamoLink');
+  emailChiSiamoLink.textContent=INFO_ASSOCIAZIONE.email;
+  emailChiSiamoLink.href='mailto:'+INFO_ASSOCIAZIONE.email;
+
+  const facebookChiSiamoLink=document.getElementById('facebookChiSiamoLink');
+  facebookChiSiamoLink.href=INFO_ASSOCIAZIONE.facebook;
+
+  document.getElementById('indirizzoPrivacy').innerHTML=
+    '<strong>L’Angolo di Amelie</strong><br>' +
+    INFO_ASSOCIAZIONE.indirizzo + '<br>' +
+    'Email: <a href="mailto:' + INFO_ASSOCIAZIONE.email + '">' + INFO_ASSOCIAZIONE.email + '</a>';
+}
+
+aggiornaInfoAssociazione();
+
+
 const introOverlay=document.getElementById('introOverlay');
 
 
@@ -948,8 +941,6 @@ eventi.sort((a,b)=>new Date(a.data)-new Date(b.data));
 let currentIndex=eventi.findIndex(e=>new Date(e.data)>=oggi);
 if(currentIndex<0) currentIndex=eventi.length-1;
 let expandedIndex=null;
-let cardOriginParent=null;
-let cardOriginNext=null;
 
 
 const track=document.getElementById('track');
@@ -970,14 +961,8 @@ eventi.forEach((e,i)=>{
   card.className='card'+(past?' past':'');
   card.dataset.index=i;
 
-  const usaSlideshow=Array.isArray(e.immagini)&&e.immagini.length>1;
-
-  const media=usaSlideshow
-    ? `<div class="card-slideshow">${e.immagini.map((immagine,indice)=>`
-        <img class="${indice===0?'attivo':''}" src="${immagine}" alt="${e.titolo}">
-      `).join('')}</div>`
-    : (e.video
-      ? `
+  const media=e.video
+    ? `
       <img
         class="card-video-poster"
         src="${e.videoPoster || e.immagine}"
@@ -993,11 +978,11 @@ eventi.forEach((e,i)=>{
         preload="metadata"
       ></video>
     `
-      : `<img src="${e.immagine}" alt="${e.titolo}">`);
+    : `<img src="${e.immagine}" alt="${e.titolo}">`;
 
   const sottotitolo=e.tipo==="film"
     ? `di ${e.regia} · ${e.paese}`
-    : (e.tipo==="concorso" ? "" : `Con ${e.artista}`);
+    : `Con ${e.artista}`;
 
   const testoPulsante=e.tipo==="film"
     ? "Sinossi"
@@ -1020,7 +1005,7 @@ eventi.forEach((e,i)=>{
         <span class="card-date">${formattaData(e.data,e.ora)}</span>
         ${ospiti}
         <h3>${e.titolo}</h3>
-        ${sottotitolo?`<p class="sottotitolo">${sottotitolo}</p>`:""}
+        <p class="sottotitolo">${sottotitolo}</p>
         <button class="sinossi-btn" type="button">${testoPulsante}</button>
       </div>
     </div>
@@ -1042,34 +1027,6 @@ eventi.forEach((e,i)=>{
 
 
 const cards=[...document.querySelectorAll('.card')];
-
-
-function aggiornaBadgeOspiti(){
-  document.querySelectorAll('.card-ospiti').forEach(badge=>{
-    badge.classList.toggle('multi', badge.getClientRects().length>1);
-  });
-}
-
-
-aggiornaBadgeOspiti();
-window.addEventListener('resize',aggiornaBadgeOspiti);
-
-
-document.querySelectorAll('.card-slideshow').forEach(slideshow=>{
-  const immagini=[...slideshow.querySelectorAll('img')];
-
-  if(immagini.length<2){
-    return;
-  }
-
-  let indiceAttivo=0;
-
-  setInterval(()=>{
-    immagini[indiceAttivo].classList.remove('attivo');
-    indiceAttivo=(indiceAttivo+1)%immagini.length;
-    immagini[indiceAttivo].classList.add('attivo');
-  },4000);
-});
 
 
 function getStep(){
@@ -1171,7 +1128,7 @@ function update(dragOffset=0){
 
     if(i===expandedIndex){
       card.classList.remove('hidden');
-      card.style.removeProperty('transform');
+      card.style.transform='none';
       return;
     }
 
@@ -1303,23 +1260,12 @@ cards.forEach(card=>{
     }
 
     expandedIndex=Number(card.dataset.index);
-    cardOriginParent=card.parentNode;
-    cardOriginNext=card.nextSibling;
-    document.body.appendChild(card);
     update();
   });
 });
 
 
 function chiudiCardEspansa(){
-  if(expandedIndex!==null){
-    const card=cards[expandedIndex];
-
-    if(card&&cardOriginParent){
-      cardOriginParent.insertBefore(card,cardOriginNext);
-    }
-  }
-
   expandedIndex=null;
   update();
 }
