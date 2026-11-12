@@ -129,7 +129,7 @@ const eventiCinema = [
     data: '2027-03-07',
     ora: '17:00',
     descrizione:
-        'Tre improvvisate ladre, guidate da una donna sull’orlo dell’esaurimento, decidono di rapinare una cooperativa di credito in una zona rurale irlandese. Il film si apre dopo la fallita rapina e procede in senso cronologico inverso, per svelare gli eventi che hanno condotto a quell’epilogo: così, quello che sembrava un colpo mal riuscito, si trasforma nel ritratto di una donna ostinata, prigioniera del passato.',
+        'Tre improvvisate ladre, guidata da una donna sull’orlo dell’esaurimento, decidono di rapinare una cooperativa di credito in una zona rurale irlandese. Il film si apre dopo la fallita rapina e procede in senso cronologico inverso, per svelare gli eventi che hanno condotto a quell’epilogo: così, quello che sembrava un colpo mal riuscito, si trasforma nel ritratto di una donna ostinata, prigioniera del passato.',
     ospiti: 'Susanna Pellis di Irish Film festa',
     immagine: 'aontas.jpeg',
     immagini: [],
@@ -226,7 +226,7 @@ const corsi = [
       referente: 'Nome referente',
       email: 'massimo.fagioli@gmail.com',
       informazioni:
-          'Impara a guardare il mondo con occhi nuovi e a trasformare un istante in un ricordo. Un percorso pratico per conoscere la tua macchina fotografica, capire la luce, comporre l’inquadratura e raccontare storie attraverso le immagini. Imparerai a osservare dettagli che prima ti sfuggivano e a dare voce, attraverso le foto, al tuo modo personale di vedere il mondo.'
+          'Impara a guardare il mondo con occhi nuovi e a trasformare un istante in un ricordo. Un percorso pratico per conoscere la tua macchina fotografica, capire la luce, comporre l’inquadramento e raccontare storie attraverso le immagini. Imparerai a osservare dettagli che prima ti sfuggivano e a dare voce, attraverso le foto, al tuo modo personale di vedere il mondo.'
     }
   },
 
@@ -241,7 +241,7 @@ const corsi = [
       referente: 'Leonardo',
       email: 'leonardo.cupelli@gmail.com',
       informazioni:
-          'Impara a suonare il pianoforte partendo da ciò che senti, non solo da ciò che leggi. Un percorso individuale per avvicinarti allo strumento con gradualità: prime note, lettura musicale, ritmo e ascolto.Che tu sia alle prime armi o voglia riprendere dopo anni, troverai uno spazio sereno per costruire confiance, esprimerti e scoprire il piacere di fare musica con le tue mani.'
+          'Impara a suonare il pianoforte partendo da ciò che senti, non solo da ciò che leggi. Un percorso individuale per avvicarti allo strumento con gradualità: prime note, lettura musicale, ritmo e ascolto.Che tu sia alle prime armi o voglia riprendere dopo anni, troverai uno spazio sereno per costruire confiance, esprimerti e scoprire il piacere di fare musica con le tue mani.'
     }
   },
 
@@ -256,7 +256,7 @@ const corsi = [
       referente: 'Nome referente',
       email: 'bonsaiclubmonterotondo26@gmail.com',
       informazioni:
-          'Coltiva pazienza, attenzione e bellezza in un piccolo albero che cresce con te. Un percorso per avvicinarti all’arte del bonsai: dalla scelta della pianta alle tecniche di potatura, irrigazione e cura nel tempo.Imparerai a osservare, intervenire con delicatezza e costruire, stagione dopo stagione, un piccolo paesaggio vivo da tenere accanto a te.'
+          'Coltiva pazienza, attenzione e bellezza in un piccolo albero che cresce con te. Un percorso per avvicarti all’arte del bonsai: dalla scelta della pianta alle tecniche di potatura, irrigazione e cura nel tempo.Imparerai a osservare, intervenire con delicatezza e costruire, stagione dopo stagione, un piccolo paesaggio vivo da tenere accanto a te.'
     }
   },
 
