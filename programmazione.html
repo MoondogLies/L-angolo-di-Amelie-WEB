@@ -146,16 +146,15 @@ main{
 }
 .evento-poster{
   position:relative;
+  aspect-ratio:2 / 3;
+  background:#000;
   overflow:hidden;
-  background:transparent;
 }
 .evento-poster img{
   width:100%;
-  height:auto;
+  height:100%;
+  object-fit:cover;
   display:block;
-}
-.evento-poster.slideshow{
-  aspect-ratio:2 / 3;
 }
 .card-slideshow{
   position:absolute;
@@ -614,7 +613,7 @@ footer{
 </div>
 
 
-<script src="eventi.js?v=20261112f"></script>
+<script src="eventi.js?v=20261112g"></script>
 
 <script>
 // Aggiorna automaticamente footer, area contatti e link Facebook
@@ -720,7 +719,7 @@ function creaCard(e){
   card.className='evento-card'+(past?' past':'');
 
   card.innerHTML=`
-    <div class="evento-poster${usaSlideshow?' slideshow':''}">
+    <div class="evento-poster">
       ${media}
       ${supporto}
     </div>
