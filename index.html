@@ -879,10 +879,25 @@ footer{
 </div>
 
 
-<script src="eventi.js"></script>
+<script src="eventi.js?v=20261112"></script>
 
 <script>
 console.log("Script caricato correttamente");
+
+
+// Nasconde l’animazione di apertura anche se un altro script dovesse generare un errore
+const introOverlay=document.getElementById('introOverlay');
+
+document.body.style.overflow='hidden';
+
+setTimeout(()=>{
+  introOverlay.classList.add('hidden');
+  document.body.style.overflow='';
+
+  setTimeout(()=>{
+    introOverlay.remove();
+  },900);
+},2500);
 
 
 // Aggiorna automaticamente footer, area contatti e link Facebook
@@ -911,23 +926,11 @@ function aggiornaInfoAssociazione(){
     'Email: <a href="mailto:' + INFO_ASSOCIAZIONE.email + '">' + INFO_ASSOCIAZIONE.email + '</a>';
 }
 
-aggiornaInfoAssociazione();
-
-
-const introOverlay=document.getElementById('introOverlay');
-
-
-document.body.style.overflow='hidden';
-
-
-setTimeout(()=>{
-  introOverlay.classList.add('hidden');
-  document.body.style.overflow='';
-
-  setTimeout(()=>{
-    introOverlay.remove();
-  },900);
-},2500);
+try{
+  aggiornaInfoAssociazione();
+}catch(errore){
+  console.error('Errore nell’aggiornamento dei contatti:', errore);
+}
 
 
 const oggi=new Date();

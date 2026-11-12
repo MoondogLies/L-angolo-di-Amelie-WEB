@@ -565,11 +565,11 @@ document.addEventListener('DOMContentLoaded', inizializzaSupporto);
 // ============================================================
 
 const scriptCorsi = document.createElement('script');
-scriptCorsi.src = 'corsi.js';
+scriptCorsi.src = 'corsi.js?v=20261112';
 
 scriptCorsi.onload = () => {
   const scriptDona = document.createElement('script');
-  scriptDona.src = 'dona.js';
+  scriptDona.src = 'dona.js?v=20261112';
   document.body.appendChild(scriptDona);
 };
 
