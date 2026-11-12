@@ -1,3 +1,18 @@
+// Icone del sito, condivise da home e Programmazione.
+(function inizializzaIconeSito(){
+  const logo=new URL('silhouette_capelli.png',document.baseURI).href;
+  ['icon','apple-touch-icon'].forEach(rel=>{
+    let link=document.head.querySelector('link[rel="'+rel+'"]');
+    if(!link){
+      link=document.createElement('link');
+      link.rel=rel;
+      document.head.appendChild(link);
+    }
+    link.type='image/png';
+    link.href=logo;
+  });
+})();
+
 function inizializzaCorsi(){
   const grigliaCorsi=document.querySelector('.course-grid');
 
