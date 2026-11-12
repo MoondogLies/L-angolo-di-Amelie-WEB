@@ -571,3 +571,39 @@ scriptCorsi.onload = () => {
 
 
 document.body.appendChild(scriptCorsi);
+
+// ============================================================
+// STATUTO NELLE SCHEDE CHI SIAMO (TUTTE LE PAGINE)
+// ============================================================
+function inizializzaPulsanteStatuto() {
+  document.querySelectorAll('#chiSiamoOverlay .legal-box').forEach(box => {
+    const link = box.querySelector('a[href="statuto.pdf"]');
+    if (!link) return;
+    const titolo = [...box.querySelectorAll('h3')].find(elemento =>
+      elemento.textContent.trim() === 'Statuto dell’associazione');
+    if (titolo) {
+      const testo = titolo.nextElementSibling;
+      if (testo && testo.tagName === 'P' && !testo.contains(link)) testo.remove();
+      titolo.remove();
+    }
+    link.textContent = 'Statuto';
+    link.setAttribute('download', 'statuto.pdf');
+    link.removeAttribute('target');
+    link.removeAttribute('rel');
+    link.style.display = 'inline-block';
+    link.style.backgroundColor = 'var(--rosso)';
+    link.style.color = '#fff';
+    link.style.padding = '12px 24px';
+    link.style.borderRadius = '999px';
+    link.style.fontWeight = '800';
+    link.style.textDecoration = 'none';
+    link.style.textTransform = 'none';
+    link.setAttribute('aria-label', 'Scarica lo statuto in PDF');
+  });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', inizializzaPulsanteStatuto);
+} else {
+  inizializzaPulsanteStatuto();
+}
