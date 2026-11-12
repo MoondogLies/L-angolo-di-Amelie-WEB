@@ -6,7 +6,7 @@
 
 const INFO_ASSOCIAZIONE = {
   indirizzo: 'Via delle Rimesse 14/16, 00015 Monterotondo (RM)',
-  email: 'info@langolodiamelie.it',
+  email: 'info@angolodiamelie.it',
   facebook: 'https://www.facebook.com/share/1EsXa52DvT/?mibextid=wwXIfr'
 };
 
@@ -239,7 +239,7 @@ const corsi = [
         'https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&fit=crop&w=900&q=80',
     contatti: {
       referente: 'Leonardo',
-      email: 'leonardo.cupelli@gmail.com',
+      email: 'info@angolodiamelie.it',
       informazioni:
           'Impara a suonare il pianoforte partendo da ciò che senti, non solo da ciò che leggi. Un percorso individuale per avvicarti allo strumento con gradualità: prime note, lettura musicale, ritmo e ascolto.Che tu sia alle prime armi o voglia riprendere dopo anni, troverai uno spazio sereno per costruire confiance, esprimerti e scoprire il piacere di fare musica con le tue mani.'
     }
@@ -269,7 +269,7 @@ const corsi = [
         'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=900&q=80',
     contatti: {
       referente: 'Nome referente',
-      email: '',
+      email: 'info@angolodiamelie.it',
       informazioni:
           'Dall’idea alla scena: scopri come nasce un film attraverso sceneggiatura, regia e recitazione. Tre percorsi per dare forma alle storie, guidare lo sguardo e vivere le emozioni davanti alla macchina da presa.'
     },
