@@ -71,6 +71,9 @@ const sostenitoriBox = [
 // Il campo "supporto" contiene il logo mostrato in basso a destra
 // nella card. Se lasci vuoto, non compare nulla.
 //
+// Il campo "logoAlto" contiene il logo mostrato in alto a sinistra
+// nella card. Se lasci vuoto, non compare nulla.
+//
 // Il campo "immagini" è facoltativo: se contiene due o più immagini,
 // viene mostrato uno slideshow con dissolvenza al posto del video.
 // In quel caso lascia "video" vuoto.
@@ -90,7 +93,8 @@ const eventiCinema = [
     immagini: [],
     video: 'lanimainpace.mp4',
     videoPoster: 'lanimainpace.jpg',
-    supporto: ''
+    supporto: '',
+    logoAlto: ''
   },
 
   {
@@ -107,7 +111,8 @@ const eventiCinema = [
     immagini: [],
     video: 'fragoleselvatiche.mp4',
     videoPoster: 'fragoleselvatiche.jpeg',
-    supporto: 'istitutobulgarodicultura.png'
+    supporto: 'istitutobulgarodicultura.png',
+    logoAlto: ''
   },
 
   {
@@ -124,7 +129,8 @@ const eventiCinema = [
     immagini: [],
     video: 'bolladisapone.mp4',
     videoPoster: 'bolladisapone.jpg',
-    supporto: 'IMG_9104.jpeg'
+    supporto: 'IMG_9104.jpeg',
+    logoAlto: ''
   },
 
   {
@@ -141,7 +147,8 @@ const eventiCinema = [
     immagini: [],
     video: 'mambo-maternica-trailer.mp4',
     videoPoster: 'mambomaternica.jpg',
-    supporto: 'nationalfilmhungary.jpg'
+    supporto: 'nationalfilmhungary.jpg',
+    logoAlto: ''
   },
 
   {
@@ -158,7 +165,8 @@ const eventiCinema = [
     immagini: [],
     video: 'aontas.mp4',
     videoPoster: 'aontas.jpeg',
-    supporto: ''
+    supporto: '',
+    logoAlto: ''
   },
 
   {
@@ -175,7 +183,8 @@ const eventiCinema = [
     immagini: [],
     video: 'lavoieroyale.mp4',
     videoPoster: 'lavoieroyale.jpg',
-    supporto: 'ifcinema.png'
+    supporto: 'ifcinema.png',
+    logoAlto: ''
   },
   {
     tipo: 'film',
@@ -193,7 +202,8 @@ const eventiCinema = [
     video: 'ahappyday.mp4',
     videoPoster:
         'https://images.squarespace-cdn.com/content/v1/5d5c376ffd05ea0001470e05/4857e971-fcaf-4e5e-a75e-bf1a6e972a59/A+Happy+Day+Still+1.jpg',
-    supporto: 'novembrenordico.png'
+    supporto: 'novembrenordico.png',
+    logoAlto: ''
   },
 ];
 
@@ -221,7 +231,8 @@ const eventiMusica = [
     immagini: [],
     video: '',
     videoPoster: '',
-    supporto: ''
+    supporto: '',
+    logoAlto: ''
     }
 
   */
@@ -245,7 +256,8 @@ const eventiConcorsi = [{
   immagini: ['jolanta.jpg', 'pinocchioreborn.jpg', 'unanotteancora.jpeg'],
   video: '',
   videoPoster: '',
-  supporto: ''
+  supporto: '',
+  logoAlto: ''
 }];
 
 
@@ -525,7 +537,7 @@ inizializzaSostenitori();
 
 
 // ============================================================
-// SUPPORTO NELLE CARD
+// SUPPORTO E LOGO IN ALTO NELLE CARD
 // ============================================================
 
 function inizializzaSupporto() {
@@ -566,6 +578,24 @@ function inizializzaSupporto() {
     .card.expanded .card-supporto-testo{
       display:inline;
     }
+
+    .card-logo-alto{
+      position:absolute;
+      left:10px;
+      top:10px;
+      z-index:5;
+      display:flex;
+      align-items:center;
+      gap:6px;
+      max-width:45%;
+    }
+
+    .card-logo-alto img{
+      max-height:44px;
+      max-width:120px;
+      object-fit:contain;
+      display:block;
+    }
   `;
 
   document.head.appendChild(stile);
@@ -587,18 +617,29 @@ function inizializzaSupporto() {
 
     const logoSupporto = evento.supporto;
 
-    if (!logoSupporto) {
-      return;
+    if (logoSupporto) {
+      const supporto = document.createElement('div');
+      supporto.className = 'card-supporto';
+
+      supporto.innerHTML = `
+        <img src="${logoSupporto}" alt="Sostenitore">
+      `;
+
+      poster.appendChild(supporto);
     }
 
-    const supporto = document.createElement('div');
-    supporto.className = 'card-supporto';
+    const logoAlto = evento.logoAlto;
 
-    supporto.innerHTML = `
-      <img src="${logoSupporto}" alt="Sostenitore">
-    `;
+    if (logoAlto) {
+      const logo = document.createElement('div');
+      logo.className = 'card-logo-alto';
 
-    poster.appendChild(supporto);
+      logo.innerHTML = `
+        <img src="${logoAlto}" alt="Logo">
+      `;
+
+      poster.appendChild(logo);
+    }
   });
 }
 
