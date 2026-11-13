@@ -94,7 +94,7 @@ const eventiCinema = [
     video: 'lanimainpace.mp4',
     videoPoster: 'lanimainpace.jpg',
     supporto: '',
-    logoAlto: ''
+    logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 
   {
@@ -112,7 +112,7 @@ const eventiCinema = [
     video: 'fragoleselvatiche.mp4',
     videoPoster: 'fragoleselvatiche.jpeg',
     supporto: 'istitutobulgarodicultura.png',
-    logoAlto: ''
+    logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 
   {
@@ -130,7 +130,7 @@ const eventiCinema = [
     video: 'bolladisapone.mp4',
     videoPoster: 'bolladisapone.jpg',
     supporto: 'IMG_9104.jpeg',
-    logoAlto: ''
+    logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 
   {
@@ -148,7 +148,7 @@ const eventiCinema = [
     video: 'mambo-maternica-trailer.mp4',
     videoPoster: 'mambomaternica.jpg',
     supporto: 'nationalfilmhungary.jpg',
-    logoAlto: ''
+    logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 
   {
@@ -166,7 +166,7 @@ const eventiCinema = [
     video: 'aontas.mp4',
     videoPoster: 'aontas.jpeg',
     supporto: '',
-    logoAlto: ''
+    logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 
   {
@@ -184,7 +184,7 @@ const eventiCinema = [
     video: 'lavoieroyale.mp4',
     videoPoster: 'lavoieroyale.jpg',
     supporto: 'ifcinema.png',
-    logoAlto: ''
+    logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
   {
     tipo: 'film',
@@ -202,8 +202,8 @@ const eventiCinema = [
     video: 'ahappyday.mp4',
     videoPoster:
         'https://images.squarespace-cdn.com/content/v1/5d5c376ffd05ea0001470e05/4857e971-fcaf-4e5e-a75e-bf1a6e972a59/A+Happy+Day+Still+1.jpg',
-    supporto: 'novembrenordico.png',
-    logoAlto: ''
+    supporto: '',
+    logoAlto: 'novembrenordico.png'
   },
 ];
 
