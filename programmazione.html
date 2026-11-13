@@ -797,6 +797,10 @@ function creaCard(e){
     ? `<div class="card-supporto"><img src="${e.supporto}" alt="Sostenitore"></div>`
     : "";
 
+  const logoAlto=e.logoAlto
+    ? `<div class="card-logo-alto"><img src="${e.logoAlto}" alt="Logo"></div>`
+    : "";
+
   const usaSlideshow=Array.isArray(e.immagini)&&e.immagini.length>1;
 
   const media=usaSlideshow
@@ -811,6 +815,7 @@ function creaCard(e){
   card.innerHTML=`
     <div class="evento-poster">
       ${media}
+      ${logoAlto}
       ${supporto}
     </div>
     <div class="evento-info">
