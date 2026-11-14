@@ -34,7 +34,11 @@ const sostenitoriBox = [
         logo: 'delavallee.png',
         sito: 'https://www.delavallee.it'
       },
-      {nome: 'Sostenitore', logo: 'papili.jpeg', sito: ''}, {
+      {
+        nome: 'Sostenitore',
+        logo: 'papili.jpeg', sito: ''
+      },
+      {
         nome: 'Sostenitore',
         logo: 'dascenzi.png',
         sito: 'https://www.dascenzi.it'
@@ -54,8 +58,17 @@ const sostenitoriBox = [
         logo: 'unieuro.jpg',
         sito: 'https://www.unieuro.it/online/negozi/Unieuro-Monterotondo-Scalo'
       },
-      {nome: 'Sostenitore', logo: 'fioridipina.png', sito: ''},
-      {nome: 'Sostenitore', logo: 'agenziatosca.jpg', sito: ''}, {
+      {
+        nome: 'Sostenitore',
+        logo: 'fioridipina.png',
+        sito: 'https://www.facebook.com/p/I-Fiori-di-Pina-61575371019310/'
+      },
+      {
+        nome: 'Sostenitore',
+        logo: 'agenziatosca.jpg',
+        sito: ''
+      },
+      {
         nome: 'Sostenitore',
         logo: 'valery.png',
         sito: 'https://www.hotelvalery.it'
