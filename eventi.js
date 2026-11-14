@@ -257,7 +257,7 @@ const eventiConcorsi = [{
   video: '',
   videoPoster: '',
   supporto: '',
-  logoAlto: ''
+  logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
 }];
 
 
