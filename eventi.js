@@ -165,7 +165,7 @@ const eventiCinema = [
     immagini: [],
     video: 'aontas.mp4',
     videoPoster: 'aontas.jpeg',
-    supporto: '',
+    supporto: 'irish-film-festa-contorno-bianco.svg',
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 
