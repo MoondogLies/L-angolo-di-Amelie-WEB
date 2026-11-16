@@ -271,7 +271,7 @@ const eventiConcorsi = [{
   immagine: 'https://placehold.co/700x1050/c8102e/ffffff?text=Amelie+in+Corto',
   immagini: ['jolanta.jpg', 'pinocchioreborn.jpg', 'unanotteancora.jpeg'],
   video: '',
-  videoPoster: '',
+  videoPoster: 'jolanta.jpg',
   supporto: '',
   'altri loghi': [],
   logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
