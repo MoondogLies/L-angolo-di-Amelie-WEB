@@ -6,7 +6,7 @@
 
 const INFO_ASSOCIAZIONE = {
   indirizzo: 'Via delle Rimesse 14/16, 00015 Monterotondo (RM)',
-  email: 'info@langolodiamelie.it',
+  email: 'info@angolodiamelie.it',
   facebook: 'https://www.facebook.com/share/1EsXa52DvT/?mibextid=wwXIfr'
 };
 
@@ -23,20 +23,47 @@ const INFO_ASSOCIAZIONE = {
 const sostenitoriBox = [
   {
     titolo: 'Sostenitori',
-    loghi: [{nome: 'Sostenitore', logo: 'bcc.jpg', sito: 'https://www.bccroma.it'}]
+    loghi:
+        [{nome: 'Sostenitore', logo: 'bcc.jpg', sito: 'https://www.bccroma.it'}]
   },
   {
     titolo: 'Sostenitori',
     loghi: [
-      {nome: 'Sostenitore', logo: 'delavallee.png', sito: 'https://www.delavallee.it'},
-      {nome: 'Sostenitore', logo: 'papili.jpeg', sito: ''},
-      {nome: 'Sostenitore', logo: 'dascenzi.png', sito: 'https://www.dascenzi.it'},
-      {nome: 'Sostenitore', logo: 'isolaceliaca.png', sito: 'https://lisolaceliaca.it/affiliato/monterotondo/'},
-      {nome: 'Sostenitore', logo: 'iezzi.png', sito: 'https://www.gruppoiezzi.it'},
-      {nome: 'Sostenitore', logo: 'unieuro.jpg', sito: 'https://www.unieuro.it/online/negozi/Unieuro-Monterotondo-Scalo'},
-      {nome: 'Sostenitore', logo: 'fioridipina.png', sito: ''},
-      {nome: 'Sostenitore', logo: 'agenziatosca.jpg', sito: ''},
-      {nome: 'Sostenitore', logo: 'valery.png', sito: 'https://www.hotelvalery.it'}
+      {
+        nome: 'Sostenitore',
+        logo: 'delavallee.png',
+        sito: 'https://www.delavallee.it'
+      },
+      {nome: 'Sostenitore', logo: 'papili.jpeg', sito: ''}, {
+        nome: 'Sostenitore',
+        logo: 'dascenzi.png',
+        sito: 'https://www.dascenzi.it'
+      },
+      {
+        nome: 'Sostenitore',
+        logo: 'isolaceliaca.png',
+        sito: 'https://lisolaceliaca.it/affiliato/monterotondo/'
+      },
+      {
+        nome: 'Sostenitore',
+        logo: 'iezzi.png',
+        sito: 'https://www.gruppoiezzi.it'
+      },
+      {
+        nome: 'Sostenitore',
+        logo: 'unieuro.jpg',
+        sito: 'https://www.unieuro.it/online/negozi/Unieuro-Monterotondo-Scalo'
+      },
+      {
+        nome: 'Sostenitore',
+        logo: 'fioridipina.png',
+        sito: 'https://www.facebook.com/p/I-Fiori-di-Pina-61575371019310/'
+      },
+      {nome: 'Sostenitore', logo: 'agenziatosca.jpg', sito: ''}, {
+        nome: 'Sostenitore',
+        logo: 'valery.png',
+        sito: 'https://www.hotelvalery.it'
+      }
     ]
   }
 ];
@@ -47,6 +74,13 @@ const sostenitoriBox = [
 // ============================================================
 // Il campo "supporto" contiene il logo mostrato in basso a destra
 // nella card. Se lasci vuoto, non compare nulla.
+//
+// Il campo "logoAlto" contiene il logo mostrato in alto a sinistra
+// nella card. Se lasci vuoto, non compare nulla.
+//
+// Il campo "altri loghi" contiene i loghi dopo la descrizione.
+// Esempio: 'altri loghi': ['logo1.svg', 'logo2.png'],
+// Lascia [] per non mostrare nulla. Sono ammessi anche URL completi.
 //
 // Il campo "immagini" è facoltativo: se contiene due o più immagini,
 // viene mostrato uno slideshow con dissolvenza al posto del video.
@@ -67,7 +101,9 @@ const eventiCinema = [
     immagini: [],
     video: 'lanimainpace.mp4',
     videoPoster: 'lanimainpace.jpg',
-    supporto: ''
+    supporto: '',
+    'altri loghi': [],
+    logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 
   {
@@ -84,7 +120,9 @@ const eventiCinema = [
     immagini: [],
     video: 'fragoleselvatiche.mp4',
     videoPoster: 'fragoleselvatiche.jpeg',
-    supporto: 'istitutobulgarodicultura.png'
+    supporto: 'istitutobulgarodicultura.png',
+    'altri loghi': [],
+    logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 
   {
@@ -101,7 +139,9 @@ const eventiCinema = [
     immagini: [],
     video: 'bolladisapone.mp4',
     videoPoster: 'bolladisapone.jpg',
-    supporto: 'IMG_9104.jpeg'
+    supporto: 'IMG_9104.jpeg',
+    'altri loghi': [],
+    logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 
   {
@@ -118,7 +158,9 @@ const eventiCinema = [
     immagini: [],
     video: 'mambo-maternica-trailer.mp4',
     videoPoster: 'mambomaternica.jpg',
-    supporto: 'nationalfilmhungary.jpg'
+    supporto: 'MKIungheria.png',
+    'altri loghi': ['nationalfilmhungary.jpg'],
+    logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 
   {
@@ -130,12 +172,14 @@ const eventiCinema = [
     ora: '17:00',
     descrizione:
         'Tre improvvisate ladre, guidata da una donna sull’orlo dell’esaurimento, decidono di rapinare una cooperativa di credito in una zona rurale irlandese. Il film si apre dopo la fallita rapina e procede in senso cronologico inverso, per svelare gli eventi che hanno condotto a quell’epilogo: così, quello che sembrava un colpo mal riuscito, si trasforma nel ritratto di una donna ostinata, prigioniera del passato.',
-    ospiti: 'Susanna Pellis di Irish Film festa',
+    ospiti: 'Susanna Pellis di Irish Film Festa',
     immagine: 'aontas.jpeg',
     immagini: [],
     video: 'aontas.mp4',
     videoPoster: 'aontas.jpeg',
-    supporto: ''
+    supporto: 'irish-film-festa-contorno-bianco.svg',
+    'altri loghi': [],
+    logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 
   {
@@ -152,8 +196,30 @@ const eventiCinema = [
     immagini: [],
     video: 'lavoieroyale.mp4',
     videoPoster: 'lavoieroyale.jpg',
-    supporto: 'ifcinema.png'
-  }
+    supporto: 'ifcinema.png',
+    'altri loghi': [],
+    logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
+  },
+  {
+    tipo: 'film',
+    titolo: 'A HAPPY DAY',
+    regia: 'Hisham Zaman',
+    paese: 'Norvegia',
+    data: '2026-11-29',
+    ora: '17:00',
+    descrizione:
+        'È la storia di tre amici adolescenti bloccati in un luogo ghiacciato in un centro norvegese per giovani richiedenti asilo. I tre adolescenti sognano cosa ci sia oltre la neve e il ghiaccio e decidono di escogitare un piano per scappare, attraversare la montagna e raggiungere un mondo dove i loro desideri possano essere realizzati. I loro continui tentativi di evadere dal rifugio si rivelano sempre inutili, proprio come le feste per il 18esimo compleanno, organizzate dal centro prima dell’inizio degli ordini di espulsione.Questa volta, però, il loro piano sembra perfetto e non destinato a fallire, fino a quando uno di loro s\'innamora.',
+    ospiti: '',
+    immagine:
+        'https://images.squarespace-cdn.com/content/v1/5d5c376ffd05ea0001470e05/4857e971-fcaf-4e5e-a75e-bf1a6e972a59/A+Happy+Day+Still+1.jpg',
+    immagini: [],
+    video: 'ahappyday.mp4',
+    videoPoster:
+        'https://images.squarespace-cdn.com/content/v1/5d5c376ffd05ea0001470e05/4857e971-fcaf-4e5e-a75e-bf1a6e972a59/A+Happy+Day+Still+1.jpg',
+    supporto: '',
+    'altri loghi': [],
+    logoAlto: 'novembrenordico.png'
+  },
 ];
 
 
@@ -161,21 +227,32 @@ const eventiCinema = [
 // EVENTI MUSICA
 // ============================================================
 
-const eventiMusica = [{
-  tipo: 'musica',
-  titolo: 'Serata di poesia e musica dal vivo',
-  artista: 'Artisti ospiti',
-  data: '2025-11-15',
-  ora: '18:30',
-  descrizione:
-      'Una serata dedicata alla parola e alla musica dal vivo, con letture poetiche, performance musicali e incontro con il pubblico.',
-  ospiti: 'Artisti ospiti',
-  immagine: 'https://placehold.co/700x1050/c8102e/ffffff?text=Evento+musicale',
-  immagini: [],
-  video: '',
-  videoPoster: '',
-  supporto: ''
-}];
+const eventiMusica = [
+
+  /*
+
+    {
+
+    tipo: 'musica',
+    titolo: 'Serata di poesia e musica dal vivo',
+    artista: 'Artisti ospiti',
+    data: '2025-11-15',
+    ora: '18:30',
+    descrizione:
+        'Una serata dedicata alla parola e alla musica dal vivo, con letture
+    poetiche, performance musicali e incontro con il pubblico.', ospiti:
+    'Artisti ospiti', immagine:
+    'https://placehold.co/700x1050/c8102e/ffffff?text=Evento+musicale',
+    immagini: [],
+    video: '',
+    videoPoster: '',
+    supporto: '',
+    'altri loghi': [],
+    logoAlto: ''
+    }
+
+  */
+];
 
 
 // ============================================================
@@ -190,12 +267,14 @@ const eventiConcorsi = [{
   ora: '17:00',
   descrizione:
       'Serata dedicata alla proiezione di tre cortometraggi selezionati per il concorso Amelie in Corto: “Pinocchio reborn” di Matteo Cirillo, “Una notte ancora” di Carmelo Segreto e “Jolanta” di Geraldine Ottier. Un incontro per scoprire nuove voci del cinema indipendente e sostenere la creatività emergente.',
-  ospiti: 'Geraldine Ottier, matteo Cirillo, Carmelo Segreto',
-  immagine: 'https://placehold.co/700x1050/c8102e/ffffff?text=Amelie+in+Corto',
-  immagini: ['jolanta.jpg','pinocchioreborn.jpg','unanotteancora.jpeg'],
+  ospiti: 'Geraldine Ottier, Matteo Cirillo, Carmelo Segreto',
+  immagine: 'jolanta.jpg',
+  immagini: ['jolanta.jpg', 'pinocchioreborn.jpg', 'unanotteancora.jpeg'],
   video: '',
   videoPoster: '',
-  supporto: ''
+  supporto: '',
+  'altri loghi': [],
+  logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
 }];
 
 
@@ -239,9 +318,9 @@ const corsi = [
         'https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&fit=crop&w=900&q=80',
     contatti: {
       referente: 'Leonardo',
-      email: 'leonardo.cupelli@gmail.com',
+      email: 'info@angolodiamelie.it',
       informazioni:
-          'Impara a suonare il pianoforte partendo da ciò che senti, non solo da ciò che leggi. Un percorso individuale per avvicarti allo strumento con gradualità: prime note, lettura musicale, ritmo e ascolto.Che tu sia alle prime armi o voglia riprendere dopo anni, troverai uno spazio sereno per costruire confiance, esprimerti e scoprire il piacere di fare musica con le tue mani.'
+          'Impara a suonare il pianoforte partendo da ciò che senti, non solo da ciò che leggi. Un percorso individuale per avvicinarti allo strumento con gradualità: prime note, lettura musicale, ritmo e ascolto. Che tu sia alle prime armi o voglia riprendere dopo anni, troverai uno spazio sereno per costruire confidenza, esprimerti e scoprire il piacere di fare musica con le tue mani.'
     }
   },
 
@@ -256,7 +335,7 @@ const corsi = [
       referente: 'Nome referente',
       email: 'bonsaiclubmonterotondo26@gmail.com',
       informazioni:
-          'Coltiva pazienza, attenzione e bellezza in un piccolo albero che cresce con te. Un percorso per avvicarti all’arte del bonsai: dalla scelta della pianta alle tecniche di potatura, irrigazione e cura nel tempo.Imparerai a osservare, intervenire con delicatezza e costruire, stagione dopo stagione, un piccolo paesaggio vivo da tenere accanto a te.'
+          'Coltiva pazienza, attenzione e bellezza in un piccolo albero che cresce con te. Un percorso per avvicinarti all’arte del bonsai: dalla scelta della pianta alle tecniche di potatura, irrigazione e cura nel tempo. Imparerai a osservare, intervenire con delicatezza e costruire, stagione dopo stagione, un piccolo paesaggio vivo da tenere accanto a te.'
     }
   },
 
@@ -269,7 +348,7 @@ const corsi = [
         'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=900&q=80',
     contatti: {
       referente: 'Nome referente',
-      email: '',
+      email: 'info@angolodiamelie.it',
       informazioni:
           'Dall’idea alla scena: scopri come nasce un film attraverso sceneggiatura, regia e recitazione. Tre percorsi per dare forma alle storie, guidare lo sguardo e vivere le emozioni davanti alla macchina da presa.'
     },
@@ -475,7 +554,7 @@ inizializzaSostenitori();
 
 
 // ============================================================
-// SUPPORTO NELLE CARD
+// SUPPORTO E LOGO IN ALTO NELLE CARD
 // ============================================================
 
 function inizializzaSupporto() {
@@ -516,6 +595,24 @@ function inizializzaSupporto() {
     .card.expanded .card-supporto-testo{
       display:inline;
     }
+
+    .card-logo-alto{
+      position:absolute;
+      left:10px;
+      top:10px;
+      z-index:5;
+      display:flex;
+      align-items:center;
+      gap:6px;
+      max-width:45%;
+    }
+
+    .card-logo-alto img{
+      max-height:44px;
+      max-width:120px;
+      object-fit:contain;
+      display:block;
+    }
   `;
 
   document.head.appendChild(stile);
@@ -537,18 +634,29 @@ function inizializzaSupporto() {
 
     const logoSupporto = evento.supporto;
 
-    if (!logoSupporto) {
-      return;
+    if (logoSupporto) {
+      const supporto = document.createElement('div');
+      supporto.className = 'card-supporto';
+
+      supporto.innerHTML = `
+        <img src="${logoSupporto}" alt="Sostenitore">
+      `;
+
+      poster.appendChild(supporto);
     }
 
-    const supporto = document.createElement('div');
-    supporto.className = 'card-supporto';
+    const logoAlto = evento.logoAlto;
 
-    supporto.innerHTML = `
-      <img src="${logoSupporto}" alt="Sostenitore">
-    `;
+    if (logoAlto) {
+      const logo = document.createElement('div');
+      logo.className = 'card-logo-alto';
 
-    poster.appendChild(supporto);
+      logo.innerHTML = `
+        <img src="${logoAlto}" alt="Logo">
+      `;
+
+      poster.appendChild(logo);
+    }
   });
 }
 
@@ -579,11 +687,13 @@ function inizializzaPulsanteStatuto() {
   document.querySelectorAll('#chiSiamoOverlay .legal-box').forEach(box => {
     const link = box.querySelector('a[href="statuto.pdf"]');
     if (!link) return;
-    const titolo = [...box.querySelectorAll('h3')].find(elemento =>
-      elemento.textContent.trim() === 'Statuto dell’associazione');
+    const titolo = [...box.querySelectorAll('h3')].find(
+        elemento =>
+            elemento.textContent.trim() === 'Statuto dell’associazione');
     if (titolo) {
       const testo = titolo.nextElementSibling;
-      if (testo && testo.tagName === 'P' && !testo.contains(link)) testo.remove();
+      if (testo && testo.tagName === 'P' && !testo.contains(link))
+        testo.remove();
       titolo.remove();
     }
     link.textContent = 'Statuto';
@@ -606,4 +716,104 @@ if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', inizializzaPulsanteStatuto);
 } else {
   inizializzaPulsanteStatuto();
+}
+
+// ============================================================
+// ALTRI LOGHI DOPO LA DESCRIZIONE (HOME E PROGRAMMAZIONE)
+// ============================================================
+function aggiungiAltriLoghi(card, evento) {
+  const contenitore = card.querySelector('.card-details, .evento-info');
+  if (!contenitore || contenitore.querySelector('.card-altri-loghi')) return;
+  const elenco = evento && evento['altri loghi'];
+  const loghi = Array.isArray(elenco) ?
+      elenco.filter(src => typeof src === 'string' && src.trim())
+          .map(src => src.trim()) :
+      [];
+  if (!loghi.length) return;
+
+  const gruppo = document.createElement('div');
+  gruppo.className = 'card-altri-loghi';
+  gruppo.tabIndex = 0;
+  gruppo.setAttribute('role', 'group');
+  gruppo.setAttribute('aria-label', 'Altri loghi dell’evento');
+  const fila = document.createElement('div');
+  fila.className = 'card-altri-loghi-fila';
+  loghi.forEach((src, indice) => {
+    const img = document.createElement('img');
+    img.alt = 'Logo aggiuntivo ' + (indice + 1);
+    img.decoding = 'async';
+    img.addEventListener('error', () => {
+      img.remove();
+      if (!fila.children.length) gruppo.remove();
+    }, {once: true});
+    img.src = src;
+    fila.appendChild(img);
+  });
+  gruppo.appendChild(fila);
+  contenitore.appendChild(gruppo);
+}
+
+function inizializzaAltriLoghi() {
+  if (inizializzaAltriLoghi.attivo) return;
+  inizializzaAltriLoghi.attivo = true;
+  const stile = document.createElement('style');
+  stile.textContent = `
+    .card-altri-loghi{
+      width:100%;
+      max-width:100%;
+      min-width:0;
+      grid-column:1 / -1;
+      margin-top:18px;
+      overflow-x:auto;
+      overscroll-behavior-x:contain;
+      direction:rtl;
+      -webkit-overflow-scrolling:touch;
+    }
+    .card-altri-loghi-fila{
+      display:flex;
+      flex-wrap:nowrap;
+      align-items:center;
+      justify-content:flex-end;
+      gap:12px;
+      width:max-content;
+      min-width:100%;
+      direction:ltr;
+    }
+    .card-altri-loghi-fila img{
+      display:block;
+      position:static;
+      flex:0 0 auto;
+      width:auto;
+      height:44px;
+      max-width:120px;
+      object-fit:contain;
+      transform:none;
+    }
+    .card:not(.expanded) .card-altri-loghi{display:none;}
+    .card-altri-loghi:focus-visible{outline:2px solid var(--rosso);outline-offset:-2px;}
+  `;
+  document.head.appendChild(stile);
+
+  document.querySelectorAll('.card[data-index]').forEach(card => {
+    const evento = eventi[Number(card.dataset.index)];
+    aggiungiAltriLoghi(card, evento);
+  });
+
+  if (typeof window.creaCard === 'function' &&
+      typeof window.renderGrid === 'function') {
+    const creaCardOriginale = window.creaCard;
+    window.creaCard = function(evento) {
+      const card = creaCardOriginale.call(this, evento);
+      aggiungiAltriLoghi(card, evento);
+      return card;
+    };
+    window.renderGrid();
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener(
+      'DOMContentLoaded', inizializzaAltriLoghi, {once: true});
+} else {
+  inizializzaAltriLoghi();
 }

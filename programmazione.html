@@ -56,32 +56,13 @@ header{
   width:100%;
   max-width:560px;
   height:clamp(160px, 12vw, 200px);
-  background-image:url("silhouette_capelli.png");
+  background-image:url("angolodiamelie_logo-nome_nero.svg");
   background-size:contain;
   background-repeat:no-repeat;
   background-position:center;
   opacity:1;
   transition:opacity .12s linear;
   will-change:opacity;
-}
-.logo-name{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  height:clamp(160px, 12vw, 200px);
-  width:auto;
-  max-width:82%;
-  object-fit:contain;
-  opacity:1;
-  transition:opacity .12s linear;
-  filter:
-    drop-shadow(1px 0 0 #fff)
-    drop-shadow(-1px 0 0 #fff)
-    drop-shadow(0 1px 0 #fff)
-    drop-shadow(0 0px 0 #fff)
-    drop-shadow(0 0 3px rgba(255,255,255,.85))
-    drop-shadow(0 0 6px rgba(255,255,255,.1));
 }
 
 
@@ -461,6 +442,11 @@ footer{
   }
 }
 </style>
+<script
+  data-goatcounter="https://moondoglies.goatcounter.com/count"
+  async
+  src="https://gc.zgo.at/count.js"
+></script>
 </head>
 <body>
 
@@ -468,9 +454,7 @@ footer{
 <header>
   <div class="header-inner">
     <div class="logo">
-      <div class="logo-bg" id="logoBg">
-        <img class="logo-name" id="logoName" src="angolo_di_amelie.png" alt="L’Angolo di Amelie">
-      </div>
+      <div class="logo-bg" id="logoBg" role="img" aria-label="L’Angolo di Amelie"></div>
     </div>
   </div>
 </header>
@@ -624,13 +608,13 @@ footer{
         di contatto istituzionale.
       </p>
 
-      <h3>3. Cookie e strumenti di tracciamento</h3>
-      <p>
-        Il sito non utilizza cookie di profilazione, cookie analitici, pixel di tracciamento,
-        strumenti pubblicitari o sistemi di tracciamento di terze parti.
-      </p>
-
-      <h3>4. Contatti volontari</h3>
+      <h3>3. Statistiche di navigazione e cookie</h3>
+<p>Il sito utilizza un servizio esterno di analisi delle visite per conoscere il numero di accessi, le pagine consultate e la provenienza del traffico, con la finalità di migliorare i contenuti e le attività dell’associazione.</p>
+<p>Il servizio permette di consultare statistiche aggregate relative alle pagine visitate, ai siti di provenienza, al paese di collegamento, alla lingua e ad alcune caratteristiche tecniche del browser e del dispositivo.</p>
+<p>Il sistema di statistiche non utilizza cookie o localStorage nel browser del visitatore. Gli indirizzi IP vengono elaborati per ricavare la posizione geografica approssimativa e distinguere temporaneamente le visite ripetute, ma non vengono conservati nel database delle statistiche. Le informazioni tecniche impiegate per distinguere temporaneamente le visite sono mantenute in memoria per un massimo di otto ore.</p>
+<p>Secondo quanto dichiarato dal fornitore, i dati del servizio sono ospitati su server nell’Unione europea. Le statistiche non sono utilizzate dall’associazione per pubblicità personalizzata o profilazione commerciale.</p>
+<p>Il sito non utilizza cookie pubblicitari o di profilazione.</p>
+<h3>4. Contatti volontari</h3>
       <p>
         Se l’utente contatta spontaneamente l’associazione tramite email o telefono, i dati comunicati
         verranno utilizzati esclusivamente per rispondere alla richiesta ricevuta e per le eventuali
@@ -661,33 +645,15 @@ footer{
     </div>
 
     <div id="cookieContent" style="display:none">
-      <h2>Cookie Policy</h2>
-
-      <p>
-        Il sito <strong>L’Angolo di Amelie</strong> non utilizza cookie di profilazione, cookie analitici,
-        cookie pubblicitari, pixel di tracciamento o altri strumenti di monitoraggio di terze parti.
-      </p>
-
-      <h3>Cookie tecnici</h3>
-      <p>
-        Il sito non installa cookie tecnici persistenti. Le preferenze di visualizzazione del carosello
-        sono gestite esclusivamente durante la navigazione e non vengono memorizzate sul dispositivo
-        dell’utente dopo la chiusura della pagina.
-      </p>
-
-      <h3>Servizi di terze parti</h3>
-      <p>
-        Il sito può visualizzare immagini ospitate da servizi esterni esclusivamente per finalità
-        illustrative. Questi contenuti non sono utilizzati per profilare l’utente né per raccogliere
-        dati personali tramite questo sito.
-      </p>
-
-      <h3>Gestione delle preferenze</h3>
-      <p>
-        Poiché il sito non utilizza cookie non necessari, non è richiesto alcun consenso preventivo
-        né è presente un banner di accettazione dei cookie.
-      </p>
-    </div>
+<h2>Cookie Policy</h2>
+<p>Il sito <strong>L’Angolo di Amelie</strong> non utilizza cookie pubblicitari o di profilazione.</p>
+<h3>Statistiche senza cookie</h3>
+<p>Il sito utilizza un servizio esterno per misurare le visite e conoscere, in forma aggregata, quali contenuti vengono consultati. Questo sistema non installa cookie e non salva informazioni nel browser tramite localStorage. Le caratteristiche del trattamento sono descritte nella Privacy Policy del sito.</p>
+<h3>Funzionamento delle pagine</h3>
+<p>Le preferenze di visualizzazione delle schede e del carosello sono gestite durante la navigazione, senza utilizzare cookie persistenti per tali funzioni.</p>
+<h3>Contenuti esterni</h3>
+<p>Alcune risorse possono essere caricate da servizi esterni. Il caricamento comporta una connessione ai rispettivi server, ai quali vengono trasmessi i dati tecnici necessari alla comunicazione.</p>
+</div>
 
     <button class="legal-close" onclick="chiudiLegal()">Chiudi</button>
   </div>
@@ -797,6 +763,10 @@ function creaCard(e){
     ? `<div class="card-supporto"><img src="${e.supporto}" alt="Sostenitore"></div>`
     : "";
 
+  const logoAlto=e.logoAlto
+    ? `<div class="card-logo-alto"><img src="${e.logoAlto}" alt="Logo"></div>`
+    : "";
+
   const usaSlideshow=Array.isArray(e.immagini)&&e.immagini.length>1;
 
   const media=usaSlideshow
@@ -811,6 +781,7 @@ function creaCard(e){
   card.innerHTML=`
     <div class="evento-poster">
       ${media}
+      ${logoAlto}
       ${supporto}
     </div>
     <div class="evento-info">
@@ -925,7 +896,6 @@ document.getElementById('year').textContent=new Date().getFullYear();
 
 <script>
 const logoBg=document.getElementById('logoBg');
-const logoName=document.getElementById('logoName');
 const fadeRange=100;
 
 
@@ -934,7 +904,6 @@ function aggiornaLogo(){
   const opacita=1-p;
 
   logoBg.style.opacity=opacita;
-  logoName.style.opacity=opacita;
 }
 
 
