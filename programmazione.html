@@ -56,32 +56,13 @@ header{
   width:100%;
   max-width:560px;
   height:clamp(160px, 12vw, 200px);
-  background-image:url("silhouette_capelli.png");
+  background-image:url("angolodiamelie_logo-nome_nero.svg");
   background-size:contain;
   background-repeat:no-repeat;
   background-position:center;
   opacity:1;
   transition:opacity .12s linear;
   will-change:opacity;
-}
-.logo-name{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  height:clamp(160px, 12vw, 200px);
-  width:auto;
-  max-width:82%;
-  object-fit:contain;
-  opacity:1;
-  transition:opacity .12s linear;
-  filter:
-    drop-shadow(1px 0 0 #fff)
-    drop-shadow(-1px 0 0 #fff)
-    drop-shadow(0 1px 0 #fff)
-    drop-shadow(0 0px 0 #fff)
-    drop-shadow(0 0 3px rgba(255,255,255,.85))
-    drop-shadow(0 0 6px rgba(255,255,255,.1));
 }
 
 
@@ -468,9 +449,7 @@ footer{
 <header>
   <div class="header-inner">
     <div class="logo">
-      <div class="logo-bg" id="logoBg">
-        <img class="logo-name" id="logoName" src="angolo_di_amelie.png" alt="L’Angolo di Amelie">
-      </div>
+      <div class="logo-bg" id="logoBg" role="img" aria-label="L’Angolo di Amelie"></div>
     </div>
   </div>
 </header>
@@ -930,7 +909,6 @@ document.getElementById('year').textContent=new Date().getFullYear();
 
 <script>
 const logoBg=document.getElementById('logoBg');
-const logoName=document.getElementById('logoName');
 const fadeRange=100;
 
 
@@ -939,7 +917,6 @@ function aggiornaLogo(){
   const opacita=1-p;
 
   logoBg.style.opacity=opacita;
-  logoName.style.opacity=opacita;
 }
 
 
