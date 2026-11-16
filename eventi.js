@@ -87,6 +87,10 @@ const sostenitoriBox = [
 // Il campo "logoAlto" contiene il logo mostrato in alto a sinistra
 // nella card. Se lasci vuoto, non compare nulla.
 //
+// Il campo "altri loghi" contiene i loghi dopo la descrizione.
+// Esempio: 'altri loghi': ['logo1.svg', 'logo2.png'],
+// Lascia [] per non mostrare nulla. Sono ammessi anche URL completi.
+//
 // Il campo "immagini" è facoltativo: se contiene due o più immagini,
 // viene mostrato uno slideshow con dissolvenza al posto del video.
 // In quel caso lascia "video" vuoto.
@@ -107,6 +111,7 @@ const eventiCinema = [
     video: 'lanimainpace.mp4',
     videoPoster: 'lanimainpace.jpg',
     supporto: '',
+    'altri loghi': [],
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 
@@ -125,6 +130,7 @@ const eventiCinema = [
     video: 'fragoleselvatiche.mp4',
     videoPoster: 'fragoleselvatiche.jpeg',
     supporto: 'istitutobulgarodicultura.png',
+    'altri loghi': [],
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 
@@ -143,6 +149,7 @@ const eventiCinema = [
     video: 'bolladisapone.mp4',
     videoPoster: 'bolladisapone.jpg',
     supporto: 'IMG_9104.jpeg',
+    'altri loghi': [],
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 
@@ -161,6 +168,7 @@ const eventiCinema = [
     video: 'mambo-maternica-trailer.mp4',
     videoPoster: 'mambomaternica.jpg',
     supporto: 'nationalfilmhungary.jpg',
+    'altri loghi': [],
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 
@@ -179,6 +187,7 @@ const eventiCinema = [
     video: 'aontas.mp4',
     videoPoster: 'aontas.jpeg',
     supporto: 'irish-film-festa-contorno-bianco.svg',
+    'altri loghi': [],
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 
@@ -197,6 +206,7 @@ const eventiCinema = [
     video: 'lavoieroyale.mp4',
     videoPoster: 'lavoieroyale.jpg',
     supporto: 'ifcinema.png',
+    'altri loghi': [],
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
   {
@@ -216,6 +226,7 @@ const eventiCinema = [
     videoPoster:
         'https://images.squarespace-cdn.com/content/v1/5d5c376ffd05ea0001470e05/4857e971-fcaf-4e5e-a75e-bf1a6e972a59/A+Happy+Day+Still+1.jpg',
     supporto: '',
+    'altri loghi': [],
     logoAlto: 'novembrenordico.png'
   },
 ];
@@ -245,6 +256,7 @@ const eventiMusica = [
     video: '',
     videoPoster: '',
     supporto: '',
+    'altri loghi': [],
     logoAlto: ''
     }
 
@@ -270,6 +282,7 @@ const eventiConcorsi = [{
   video: '',
   videoPoster: '',
   supporto: '',
+  'altri loghi': [],
   logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
 }];
 
@@ -712,4 +725,101 @@ if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', inizializzaPulsanteStatuto);
 } else {
   inizializzaPulsanteStatuto();
+}
+
+// ============================================================
+// ALTRI LOGHI DOPO LA DESCRIZIONE (HOME E PROGRAMMAZIONE)
+// ============================================================
+function aggiungiAltriLoghi(card, evento) {
+  const contenitore = card.querySelector('.card-details, .evento-info');
+  if (!contenitore || contenitore.querySelector('.card-altri-loghi')) return;
+  const elenco = evento && evento['altri loghi'];
+  const loghi = Array.isArray(elenco)
+    ? elenco.filter(src => typeof src === 'string' && src.trim()).map(src => src.trim())
+    : [];
+  if (!loghi.length) return;
+
+  const gruppo = document.createElement('div');
+  gruppo.className = 'card-altri-loghi';
+  gruppo.tabIndex = 0;
+  gruppo.setAttribute('role', 'group');
+  gruppo.setAttribute('aria-label', 'Altri loghi dell’evento');
+  const fila = document.createElement('div');
+  fila.className = 'card-altri-loghi-fila';
+  loghi.forEach((src, indice) => {
+    const img = document.createElement('img');
+    img.alt = 'Logo aggiuntivo ' + (indice + 1);
+    img.decoding = 'async';
+    img.addEventListener('error', () => {
+      img.remove();
+      if (!fila.children.length) gruppo.remove();
+    }, {once: true});
+    img.src = src;
+    fila.appendChild(img);
+  });
+  gruppo.appendChild(fila);
+  contenitore.appendChild(gruppo);
+}
+
+function inizializzaAltriLoghi() {
+  if (inizializzaAltriLoghi.attivo) return;
+  inizializzaAltriLoghi.attivo = true;
+  const stile = document.createElement('style');
+  stile.textContent = `
+    .card-altri-loghi{
+      width:100%;
+      max-width:100%;
+      min-width:0;
+      grid-column:1 / -1;
+      margin-top:18px;
+      overflow-x:auto;
+      overscroll-behavior-x:contain;
+      direction:rtl;
+      -webkit-overflow-scrolling:touch;
+    }
+    .card-altri-loghi-fila{
+      display:flex;
+      flex-wrap:nowrap;
+      align-items:center;
+      justify-content:flex-end;
+      gap:12px;
+      width:max-content;
+      min-width:100%;
+      direction:ltr;
+    }
+    .card-altri-loghi-fila img{
+      display:block;
+      position:static;
+      flex:0 0 auto;
+      width:auto;
+      height:44px;
+      max-width:120px;
+      object-fit:contain;
+      transform:none;
+    }
+    .card:not(.expanded) .card-altri-loghi{display:none;}
+    .card-altri-loghi:focus-visible{outline:2px solid var(--rosso);outline-offset:-2px;}
+  `;
+  document.head.appendChild(stile);
+
+  document.querySelectorAll('.card[data-index]').forEach(card => {
+    const evento = eventi[Number(card.dataset.index)];
+    aggiungiAltriLoghi(card, evento);
+  });
+
+  if (typeof window.creaCard === 'function' && typeof window.renderGrid === 'function') {
+    const creaCardOriginale = window.creaCard;
+    window.creaCard = function(evento) {
+      const card = creaCardOriginale.call(this, evento);
+      aggiungiAltriLoghi(card, evento);
+      return card;
+    };
+    window.renderGrid();
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', inizializzaAltriLoghi, {once: true});
+} else {
+  inizializzaAltriLoghi();
 }
