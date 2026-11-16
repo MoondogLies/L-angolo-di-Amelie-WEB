@@ -34,11 +34,7 @@ const sostenitoriBox = [
         logo: 'delavallee.png',
         sito: 'https://www.delavallee.it'
       },
-      {
-        nome: 'Sostenitore',
-        logo: 'papili.jpeg', sito: ''
-      },
-      {
+      {nome: 'Sostenitore', logo: 'papili.jpeg', sito: ''}, {
         nome: 'Sostenitore',
         logo: 'dascenzi.png',
         sito: 'https://www.dascenzi.it'
@@ -63,12 +59,7 @@ const sostenitoriBox = [
         logo: 'fioridipina.png',
         sito: 'https://www.facebook.com/p/I-Fiori-di-Pina-61575371019310/'
       },
-      {
-        nome: 'Sostenitore',
-        logo: 'agenziatosca.jpg',
-        sito: ''
-      },
-      {
+      {nome: 'Sostenitore', logo: 'agenziatosca.jpg', sito: ''}, {
         nome: 'Sostenitore',
         logo: 'valery.png',
         sito: 'https://www.hotelvalery.it'
@@ -167,8 +158,8 @@ const eventiCinema = [
     immagini: [],
     video: 'mambo-maternica-trailer.mp4',
     videoPoster: 'mambomaternica.jpg',
-    supporto: 'nationalfilmhungary.jpg',
-    'altri loghi': [],
+    supporto: 'MKIungheria.png',
+    'altri loghi': [nationalfilmhungary.jpg],
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 
@@ -734,9 +725,10 @@ function aggiungiAltriLoghi(card, evento) {
   const contenitore = card.querySelector('.card-details, .evento-info');
   if (!contenitore || contenitore.querySelector('.card-altri-loghi')) return;
   const elenco = evento && evento['altri loghi'];
-  const loghi = Array.isArray(elenco)
-    ? elenco.filter(src => typeof src === 'string' && src.trim()).map(src => src.trim())
-    : [];
+  const loghi = Array.isArray(elenco) ?
+      elenco.filter(src => typeof src === 'string' && src.trim())
+          .map(src => src.trim()) :
+      [];
   if (!loghi.length) return;
 
   const gruppo = document.createElement('div');
@@ -807,7 +799,8 @@ function inizializzaAltriLoghi() {
     aggiungiAltriLoghi(card, evento);
   });
 
-  if (typeof window.creaCard === 'function' && typeof window.renderGrid === 'function') {
+  if (typeof window.creaCard === 'function' &&
+      typeof window.renderGrid === 'function') {
     const creaCardOriginale = window.creaCard;
     window.creaCard = function(evento) {
       const card = creaCardOriginale.call(this, evento);
@@ -819,7 +812,8 @@ function inizializzaAltriLoghi() {
 }
 
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', inizializzaAltriLoghi, {once: true});
+  document.addEventListener(
+      'DOMContentLoaded', inizializzaAltriLoghi, {once: true});
 } else {
   inizializzaAltriLoghi();
 }
