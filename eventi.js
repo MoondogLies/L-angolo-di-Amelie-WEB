@@ -159,7 +159,7 @@ const eventiCinema = [
     video: 'mambo-maternica-trailer.mp4',
     videoPoster: 'mambomaternica.jpg',
     supporto: 'MKIungheria.png',
-    'altri loghi': [nationalfilmhungary.jpg],
+    'altri loghi': ['nationalfilmhungary.jpg'],
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 
