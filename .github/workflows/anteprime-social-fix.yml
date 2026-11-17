@@ -1,0 +1,89 @@
+name: Anteprime social su Fix_
+on:
+  push:
+    branches: [Fix_]
+    paths: [.github/workflows/anteprime-social-fix.yml]
+permissions:
+  contents: write
+jobs:
+  aggiorna:
+    if: github.ref == 'refs/heads/Fix_'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: Fix_
+          fetch-depth: 0
+      - name: Verifica versione e prepara ambiente
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test "$(git rev-parse HEAD^)" = "83e00551c4aecd930ef371b86b454991a24e7b20"
+          python3 -m venv /tmp/amelie-social-venv
+          /tmp/amelie-social-venv/bin/pip install CairoSVG==2.7.1
+      - name: Crea immagine e metadati
+        shell: bash
+        run: |
+          set -euo pipefail
+          /tmp/amelie-social-venv/bin/python - <<'PY'
+          from pathlib import Path
+          from html import escape
+          import re
+          import struct
+          import xml.etree.ElementTree as ET
+          import cairosvg
+          ns = 'http://www.w3.org/2000/svg'
+          ET.register_namespace('', ns)
+          logo = ET.fromstring(Path('angolodiamelie_logo-nome_nero.svg').read_bytes())
+          assert logo.get('viewBox'), 'Il logo deve avere un viewBox'
+          logo.attrib.update(x='80', y='100', width='1040', height='430', preserveAspectRatio='xMidYMid meet')
+          canvas = ET.Element('{'+ns+'}svg', {'width':'1200','height':'630','viewBox':'0 0 1200 630'})
+          ET.SubElement(canvas, '{'+ns+'}rect', {'width':'1200','height':'630','fill':'#ffffff'})
+          canvas.append(logo)
+          image = Path('anteprima-social.png')
+          assert not image.exists(), 'Immagine già esistente: evitare sovrascrittura'
+          cairosvg.svg2png(bytestring=ET.tostring(canvas), write_to=str(image), output_width=1200, output_height=630)
+          png = image.read_bytes()
+          assert png[:8] == b'\x89PNG\r\n\x1a\n'
+          assert struct.unpack('>II', png[16:24]) == (1200, 630)
+          assert len(png) < 600000, 'PNG troppo pesante'
+          pages = {
+              'index.html': ('L’Angolo di Amelie', 'Cinema, musica, corsi e incontri: scopri la programmazione e le attività dell’associazione.', 'https://angolodiamelie.it/'),
+              'programmazione.html': ('Programmazione completa — L’Angolo di Amelie', 'Scopri tutti gli eventi, le proiezioni e gli incontri in programma a L’Angolo di Amelie.', 'https://angolodiamelie.it/programmazione.html')
+          }
+          for name, (title, description, url) in pages.items():
+              path = Path(name)
+              original = path.read_text(encoding='utf-8')
+              assert original.count('</head>') == 1, name
+              assert not re.search(r'<meta\b[^>]*property\s*=\s*[\"\']og:', original, re.I), 'Metadati Open Graph già presenti: ' + name
+              assert original.count('https://moondoglies.goatcounter.com/count') == 1, name
+              tags = [
+                  ('og:type', 'website'),
+                  ('og:locale', 'it_IT'),
+                  ('og:site_name', 'L’Angolo di Amelie'),
+                  ('og:title', title),
+                  ('og:description', description),
+                  ('og:url', url),
+                  ('og:image', 'https://angolodiamelie.it/anteprima-social.png'),
+                  ('og:image:type', 'image/png'),
+                  ('og:image:width', '1200'),
+                  ('og:image:height', '630'),
+                  ('og:image:alt', 'Logo L’Angolo di Amelie su fondo bianco')
+              ]
+              block = '\n<!-- Anteprima di condivisione -->\n' + '\n'.join('<meta property="'+key+'" content="'+escape(value, quote=True)+'">' for key, value in tags) + '\n'
+              updated, count = re.subn(r'</title>', lambda m: m.group(0) + block, original, count=1, flags=re.I)
+              assert count == 1, name
+              assert updated.split('</head>', 1)[1] == original.split('</head>', 1)[1], 'Contenuto pagina modificato: ' + name
+              for key, value in tags:
+                  assert updated.count('property="'+key+'"') == 1, (name, key)
+              assert updated.count('https://moondoglies.goatcounter.com/count') == 1, name
+              path.write_text(updated, encoding='utf-8')
+          Path('.github/workflows/anteprime-social-fix.yml').unlink()
+          PY
+          git diff --check
+          git add index.html programmazione.html anteprima-social.png .github/workflows/anteprime-social-fix.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "Aggiunge anteprime Open Graph e immagine social con logo"
+          git push origin HEAD:refs/heads/Fix_
