@@ -102,7 +102,10 @@ const eventiCinema = [
     video: 'lanimainpace.mp4',
     videoPoster: 'lanimainpace.jpg',
     supporto: '',
-    'altri loghi': ['citta-metropolitana-di-roma-capitale.svg'],
+    'altri loghi': [
+      'citta-metropolitana-di-roma-capitale.svg', 'icm.jpeg',
+      'Comune-Monterotondo.png'
+    ],
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 
@@ -121,7 +124,10 @@ const eventiCinema = [
     video: 'fragoleselvatiche.mp4',
     videoPoster: 'fragoleselvatiche.jpeg',
     supporto: 'istitutobulgarodicultura.png',
-    'altri loghi': ['citta-metropolitana-di-roma-capitale.svg'],
+    'altri loghi': [
+      'citta-metropolitana-di-roma-capitale.svg', 'icm.jpeg',
+      'Comune-Monterotondo.png'
+    ],
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 
@@ -140,7 +146,10 @@ const eventiCinema = [
     video: 'bolladisapone.mp4',
     videoPoster: 'bolladisapone.jpg',
     supporto: 'IMG_9104.jpeg',
-    'altri loghi': ['citta-metropolitana-di-roma-capitale.svg'],
+    'altri loghi': [
+      'citta-metropolitana-di-roma-capitale.svg', 'icm.jpeg',
+      'Comune-Monterotondo.png'
+    ],
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 
@@ -159,8 +168,10 @@ const eventiCinema = [
     video: 'mambo-maternica-trailer.mp4',
     videoPoster: 'mambomaternica.jpg',
     supporto: 'MKIungheria.png',
-    'altri loghi':
-        ['nationalfilmhungary.jpg', 'citta-metropolitana-di-roma-capitale.svg'],
+    'altri loghi': [
+      'nationalfilmhungary.jpg', 'citta-metropolitana-di-roma-capitale.svg',
+      'icm.jpeg', 'Comune-Monterotondo.png'
+    ],
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 
@@ -179,7 +190,10 @@ const eventiCinema = [
     video: 'aontas.mp4',
     videoPoster: 'aontas.jpeg',
     supporto: 'irish-film-festa-contorno-bianco.svg',
-    'altri loghi': ['citta-metropolitana-di-roma-capitale.svg'],
+    'altri loghi': [
+      'citta-metropolitana-di-roma-capitale.svg', 'icm.jpeg',
+      'Comune-Monterotondo.png'
+    ],
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 
@@ -198,7 +212,10 @@ const eventiCinema = [
     video: 'lavoieroyale.mp4',
     videoPoster: 'lavoieroyale.jpg',
     supporto: 'ifcinema.png',
-    'altri loghi': ['citta-metropolitana-di-roma-capitale.svg'],
+    'altri loghi': [
+      'citta-metropolitana-di-roma-capitale.svg', 'icm.jpeg',
+      'Comune-Monterotondo.png'
+    ],
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
   {
@@ -238,7 +255,10 @@ const eventiCinema = [
     videoPoster:
         'https://www.dffb.de/wp-content/uploads/2022/01/WETTER-Still-1.jpg',
     supporto: 'GoetheInstitut.png',
-    'altri loghi': ['citta-metropolitana-di-roma-capitale.svg'],
+    'altri loghi': [
+      'citta-metropolitana-di-roma-capitale.svg', 'icm.jpeg',
+      'Comune-Monterotondo.png'
+    ],
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 ];
@@ -294,7 +314,10 @@ const eventiConcorsi = [{
   video: '',
   videoPoster: '',
   supporto: '',
-  'altri loghi': ['citta-metropolitana-di-roma-capitale.svg'],
+  'altri loghi': [
+    'citta-metropolitana-di-roma-capitale.svg', 'icm.jpeg',
+    'Comune-Monterotondo.png'
+  ],
   logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
 }];
 
