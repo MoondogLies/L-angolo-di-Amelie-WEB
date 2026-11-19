@@ -119,6 +119,7 @@ main{
   gap:24px;
 }
 .evento-card{
+  position:relative;
   background:#fff;
   border:1px solid #eee;
   border-radius:18px;
@@ -184,7 +185,6 @@ main{
   display:grid;
   gap:10px;
   justify-items:start;
-  flex:1;
 }
 .evento-data{
   width:max-content;
@@ -240,8 +240,15 @@ main{
 }
 
 .evento-card .card-altri-loghi{
-  margin-top:auto;
-  padding-top:18px;
+  position:absolute;
+  left:18px;
+  right:18px;
+  bottom:18px;
+  margin-top:0;
+}
+
+.evento-card:has(.card-altri-loghi) .evento-info{
+  padding-bottom:80px;
 }
 
 
