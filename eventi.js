@@ -294,7 +294,7 @@ const eventiConcorsi = [{
   video: '',
   videoPoster: '',
   supporto: '',
-  'altri loghi': [],
+  'altri loghi': ['citta-metropolitana-di-roma-capitale.svg'],
   logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
 }];
 
