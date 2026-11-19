@@ -102,7 +102,7 @@ const eventiCinema = [
     video: 'lanimainpace.mp4',
     videoPoster: 'lanimainpace.jpg',
     supporto: '',
-    'altri loghi': ['citta - metropolitana - di - roma - capitale.svg'],
+    'altri loghi': ['citta-metropolitana-di-roma-capitale.svg'],
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 
@@ -121,7 +121,7 @@ const eventiCinema = [
     video: 'fragoleselvatiche.mp4',
     videoPoster: 'fragoleselvatiche.jpeg',
     supporto: 'istitutobulgarodicultura.png',
-    'altri loghi': ['citta - metropolitana - di - roma - capitale.svg'],
+    'altri loghi': ['citta-metropolitana-di-roma-capitale.svg'],
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 
@@ -140,7 +140,7 @@ const eventiCinema = [
     video: 'bolladisapone.mp4',
     videoPoster: 'bolladisapone.jpg',
     supporto: 'IMG_9104.jpeg',
-    'altri loghi': ['citta - metropolitana - di - roma - capitale.svg'],
+    'altri loghi': ['citta-metropolitana-di-roma-capitale.svg'],
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 
@@ -159,10 +159,8 @@ const eventiCinema = [
     video: 'mambo-maternica-trailer.mp4',
     videoPoster: 'mambomaternica.jpg',
     supporto: 'MKIungheria.png',
-    'altri loghi': [
-      'nationalfilmhungary.jpg',
-      'citta - metropolitana - di - roma - capitale.svg'
-    ],
+    'altri loghi':
+        ['nationalfilmhungary.jpg', 'citta-metropolitana-di-roma-capitale.svg'],
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 
@@ -181,7 +179,7 @@ const eventiCinema = [
     video: 'aontas.mp4',
     videoPoster: 'aontas.jpeg',
     supporto: 'irish-film-festa-contorno-bianco.svg',
-    'altri loghi': ['citta - metropolitana - di - roma - capitale.svg'],
+    'altri loghi': ['citta-metropolitana-di-roma-capitale.svg'],
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 
@@ -200,7 +198,7 @@ const eventiCinema = [
     video: 'lavoieroyale.mp4',
     videoPoster: 'lavoieroyale.jpg',
     supporto: 'ifcinema.png',
-    'altri loghi': ['citta - metropolitana - di - roma - capitale.svg'],
+    'altri loghi': ['citta-metropolitana-di-roma-capitale.svg'],
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
   {
@@ -234,13 +232,13 @@ const eventiCinema = [
         'Clara, una donna di 39 anni che ha lasciato la provincia dell\'ex Germania dell\'Est per costruirsi una vita indipendente a Berlino. Nella capitale insegna all\'università e sta completando il suo dottorato di ricerca in filosofia, destreggiandosi tra le ambizioni accademiche, una relazione con un suo studente e il rapporto complesso e intenso con la sua relatrice, Margot.',
     ospiti: '',
     immagine:
-        'lhttps://taz.de/picture/5790987/1200/AlleRedenUebersWetter-Still3-c-Grandfilm-1.webp',
+        'https://www.dffb.de/wp-content/uploads/2022/01/WETTER-Still-1.jpg',
     immagini: [],
     video: 'tuttiparlanodeltempo.mp4',
     videoPoster:
-        'https://taz.de/picture/5790987/1200/AlleRedenUebersWetter-Still3-c-Grandfilm-1.webp',
+        'https://www.dffb.de/wp-content/uploads/2022/01/WETTER-Still-1.jpg',
     supporto: 'GoetheInstitut.png',
-    'altri loghi': ['citta - metropolitana - di - roma - capitale.svg'],
+    'altri loghi': ['citta-metropolitana-di-roma-capitale.svg'],
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
 ];
