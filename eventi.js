@@ -243,7 +243,7 @@ const eventiCinema = [
     titolo: 'TUTTI PARLANO DEL TEMPO',
     regia: 'Annika Pinske',
     paese: 'Germania',
-    data: '2027-04-20',
+    data: '2027-03-20',
     ora: '21:00',
     descrizione:
         'Clara, una donna di 39 anni che ha lasciato la provincia dell\'ex Germania dell\'Est per costruirsi una vita indipendente a Berlino. Nella capitale insegna all\'università e sta completando il suo dottorato di ricerca in filosofia, destreggiandosi tra le ambizioni accademiche, una relazione con un suo studente e il rapporto complesso e intenso con la sua relatrice, Margot.',
