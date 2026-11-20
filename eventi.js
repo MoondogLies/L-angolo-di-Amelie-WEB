@@ -261,6 +261,52 @@ const eventiCinema = [
     ],
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
+    {
+    tipo: 'film',
+    titolo: 'ESCAPE NET',
+    regia: 'Dzintars Dreibergs',
+    paese: 'Lettonia',
+    data: '2027-04-16',
+    ora: '21:00',
+    descrizione:
+        'Ispirato a eventi reali, il film è ambientato nella Lettonia dell\'era stalinista e racconta la nascita della leggendaria squadra femminile di pallacanestro TTT Riga. La protagonista è una giovane donna (interpretata da Agnese Budovska) che vede nello sport la sua unica opportunità per viaggiare all\'estero, attraversare la Cortina di ferro e riunirsi con il fratello rifugiato in esilio.',
+    ospiti: '',
+    immagine: 'https://m.media-amazon.com/images/M/MV5BNzkzOTMxYzItMjMxMS00ODgwLThjZGUtM2E1YzFjOTEwMDkzXkEyXkFqcGc@._V1_.jpg',
+    immagini: [],
+    video: 'escapenet.mp4',
+    videoPoster: 'https://m.media-amazon.com/images/M/MV5BNzkzOTMxYzItMjMxMS00ODgwLThjZGUtM2E1YzFjOTEwMDkzXkEyXkFqcGc@._V1_.jpg',
+    supporto: '',
+    'altri loghi': [
+      'citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png',
+      'icm.jpeg'
+    ],
+    logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
+  },
+  
+  /*
+   {
+    tipo: 'film',
+    titolo: '',
+    regia: '',
+    paese: '',
+    data: '',
+    ora: '',
+    descrizione:
+        '',
+    ospiti: '',
+    immagine: '',
+    immagini: [],
+    video: '',
+    videoPoster: '',
+    supporto: '',
+    'altri loghi': [
+      'citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png',
+      'icm.jpeg'
+    ],
+    logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
+  },
+  */
+
 ];
 
 
