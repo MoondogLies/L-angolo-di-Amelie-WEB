@@ -114,7 +114,7 @@ const eventiCinema = [
     titolo: 'FRAGOLE SELVATICHE',
     regia: 'Tatyana Pandurska',
     paese: 'Bulgaria',
-    data: '2027-02-07',
+    data: '2027-02-21',
     ora: '17:00',
     descrizione:
         'Racconta la storia di Daphne Bello (interpretata da Vanina Kondova), un’architetta di New York sovraffaticata che torna nelle montagne dei Rodopi, in Bulgaria, per ereditare la vecchia casa della nonna.',
@@ -136,7 +136,7 @@ const eventiCinema = [
     titolo: 'BOLLA DI SAPONE',
     regia: 'Shinji Higashi',
     paese: 'Giappone',
-    data: '2027-02-21',
+    data: '2027-02-07',
     ora: '17:00',
     descrizione:
         'Il protagonista è Izumi (interpretata da Kento Hayashi), un giovane abbandonato dai genitori che vive di furti e aggressioni. Dopo un tentato omicidio, fugge in un villaggio rurale (Shiiba Village, prefettura di Miyazaki), dove soccorre un’anziana signora ferita (Etsuko Ichihara), e viene scambiato per suo nipote, iniziando un percorso di redenzione.',
