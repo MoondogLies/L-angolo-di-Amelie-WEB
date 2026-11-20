@@ -305,7 +305,7 @@ const eventiConcorsi = [{
   titolo: 'AMELIE IN CORTO',
   sottotitolo: 'Concorso di cortometraggi',
   data: '2027-04-23',
-  ora: '17:00',
+  ora: '21:00',
   descrizione:
       'Serata dedicata alla proiezione di tre cortometraggi selezionati per il concorso Amelie in Corto: “Pinocchio reborn” di Matteo Cirillo, “Una notte ancora” di Carmelo Segreto e “Jolanta” di Geraldine Ottier. Un incontro per scoprire nuove voci del cinema indipendente e sostenere la creatività emergente.',
   ospiti: 'Geraldine Ottier, Matteo Cirillo, Carmelo Segreto',
