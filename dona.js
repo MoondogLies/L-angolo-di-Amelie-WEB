@@ -166,7 +166,7 @@ function inizializzaDona(){
     </button>
   `;
 
-  sezioneSostenitori.after(contenitore);
+  sezioneSostenitori.appendChild(contenitore);
 
   const overlay=document.createElement('div');
   overlay.className='dona-overlay';
