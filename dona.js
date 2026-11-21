@@ -162,7 +162,7 @@ function inizializzaDona(){
       <span class="stella">✦</span>
       <span class="stella">✦</span>
       <span class="stella">✦</span>
-      Dona
+      Sostienici
     </button>
   `;
 

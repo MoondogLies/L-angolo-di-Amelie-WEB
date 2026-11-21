@@ -143,6 +143,13 @@ function inizializzaSezioniHome(){
   stile.id='home-sezioni-style';
   stile.textContent=`
     .home-events,.home-corsi-content{display:contents}
+    .programma-btn-wrap[hidden]{display:none}
+    header .home-calendar-link{position:absolute;top:calc(20px + env(safe-area-inset-top,0px));right:calc(24px + env(safe-area-inset-right,0px));width:48px;height:48px;display:flex;align-items:center;justify-content:center;pointer-events:auto;color:var(--rosso);background:rgba(255,255,255,.94);border:1px solid rgba(200,16,46,.2);border-radius:14px;box-shadow:0 5px 18px rgba(0,0,0,.12);transition:transform .2s ease,background .2s ease,color .2s ease}
+    header .home-calendar-link svg{width:27px;height:27px;display:block}
+    header .home-calendar-link:hover{transform:translateY(-2px);background:var(--rosso);color:#fff}
+    header .home-calendar-link:focus-visible{outline:3px solid var(--rosso);outline-offset:4px}
+    body.card-aperta header .home-calendar-link{pointer-events:none}
+    @media(max-width:760px){header .home-calendar-link{top:calc(14px + env(safe-area-inset-top,0px));right:calc(14px + env(safe-area-inset-right,0px));width:44px;height:44px}}
     @media(min-width:761px){
       html.home-snap{scroll-snap-type:y proximity}
       html.home-snap main{padding-bottom:0}
@@ -162,21 +169,34 @@ function inizializzaSezioniHome(){
       main > .corsi.home-panel > footer{flex:0 0 auto;margin-top:0;width:var(--home-footer-width,100%);margin-left:calc((100% - var(--home-footer-width,100%))/2);margin-right:calc((100% - var(--home-footer-width,100%))/2)}
     }
     @media(prefers-reduced-motion:reduce){
-      .carousel-label button,.carousel-label button::after{transition:none}
-      .carousel-label button:hover,.carousel-label button:focus-visible,.carousel-label button:active{transform:none}
+      .carousel-label button,.carousel-label button::after,header .home-calendar-link{transition:none}
+      .carousel-label button:hover,.carousel-label button:focus-visible,.carousel-label button:active,header .home-calendar-link:hover{transform:none}
     }
   `;
   document.head.appendChild(stile);
 
   const titoloPagina=main.querySelector('.page-title');
   const suggerimento=main.querySelector('.hint');
+  if(suggerimento) suggerimento.remove();
   const pulsanteProgramma=main.querySelector('.programma-btn-wrap');
+  const headerHome=document.querySelector('header');
+  if(headerHome && !document.getElementById('headerCalendar')){
+    const calendario=(pulsanteProgramma && pulsanteProgramma.querySelector('a')) || document.createElement('a');
+    calendario.id='headerCalendar';
+    calendario.className='home-calendar-link';
+    calendario.setAttribute('href','eventi.html');
+    calendario.setAttribute('aria-label','Tutti gli eventi');
+    calendario.setAttribute('title','Calendario degli eventi');
+    calendario.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18M8 15h2M14 15h2M8 18h2M14 18h2"/></svg>';
+    headerHome.appendChild(calendario);
+  }
+  if(pulsanteProgramma) pulsanteProgramma.hidden=true;
   const sezioneEventi=document.createElement('section');
   sezioneEventi.id='home-eventi';
   sezioneEventi.className='home-events home-panel';
   sezioneEventi.setAttribute('aria-label','Eventi');
   main.insertBefore(sezioneEventi,titoloPagina || carosello);
-  [titoloPagina,carosello,suggerimento,pulsanteProgramma].forEach(elemento=>{
+  [titoloPagina,carosello,pulsanteProgramma].forEach(elemento=>{
     if(elemento) sezioneEventi.appendChild(elemento);
   });
 
