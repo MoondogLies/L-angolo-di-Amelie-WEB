@@ -164,15 +164,15 @@ footer{background:var(--rosso-scuro);color:#fff;padding:34px 20px;text-align:cen
   .card.expanded h3{font-size:clamp(22px,6.5vw,32px);}
   .card.expanded .card-details{padding:16px;padding-bottom:16px;}
 }
-/* Carosello desktop con anteprime laterali e titolo sovrapposto. */
+/* Carosello desktop a tutta larghezza, solo blur sui bordi. */
 .carousel-label{display:none}
 @media(min-width:761px){
-  .carousel-zone{perspective:none;max-width:1600px;margin-inline:auto;--desktop-card-w:230px;--desktop-start:210px;--desktop-peek:64px;height:calc(var(--desktop-card-w) * 1.5 + 80px);isolation:isolate;}
+  .carousel-zone{perspective:none;width:100vw;max-width:none;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);--desktop-card-w:230px;--desktop-start:210px;--desktop-peek:64px;height:calc(var(--desktop-card-w) * 1.5 + 80px);isolation:isolate;}
   .track{transform-style:flat}
-  .carousel-label{display:block;position:absolute;left:24px;top:calc(40px + var(--desktop-card-w) * .5);transform:translateY(-50%);width:calc(var(--desktop-start) - 48px);margin:0;z-index:50;pointer-events:none;color:var(--rosso-scuro);font-size:clamp(17px,1.65vw,25px);font-weight:800;line-height:1.12;text-transform:uppercase;text-shadow:0 1px 10px rgba(255,255,255,.95);}
-  .carousel-zone::before,.carousel-zone::after{content:"";position:absolute;top:0;bottom:0;z-index:35;pointer-events:none;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}
-  .carousel-zone::before{left:0;width:calc(var(--desktop-start) - 12px);background:linear-gradient(to right,rgba(255,255,255,.96),rgba(255,255,255,.55) 60%,rgba(255,255,255,0));mask-image:linear-gradient(to right,#000 60%,transparent);-webkit-mask-image:linear-gradient(to right,#000 60%,transparent);}
-  .carousel-zone::after{right:0;width:calc(var(--desktop-peek) + 16px);background:linear-gradient(to left,rgba(255,255,255,.96),rgba(255,255,255,0));mask-image:linear-gradient(to left,#000 35%,transparent);-webkit-mask-image:linear-gradient(to left,#000 35%,transparent);}
+  .carousel-label{display:block;position:absolute;left:24px;top:calc(40px + var(--desktop-card-w) * .32);transform:translateY(-50%);width:calc(var(--desktop-start) - 36px);margin:0;z-index:50;pointer-events:none;color:var(--rosso-scuro);font-size:clamp(24px,2.2vw,36px);font-weight:800;line-height:1.08;text-transform:uppercase;}
+  .carousel-zone::before,.carousel-zone::after{content:"";position:absolute;top:0;bottom:0;z-index:35;pointer-events:none;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}
+  .carousel-zone::before{left:0;width:calc(var(--desktop-start) - 12px);mask-image:linear-gradient(to right,#000 60%,transparent);-webkit-mask-image:linear-gradient(to right,#000 60%,transparent);}
+  .carousel-zone::after{right:0;width:calc(var(--desktop-peek) + 16px);mask-image:linear-gradient(to left,#000 35%,transparent);-webkit-mask-image:linear-gradient(to left,#000 35%,transparent);}
   .carousel-zone .card:not(.expanded){width:var(--desktop-card-w);transform-style:flat;--hover-scale:1;box-shadow:0 10px 26px rgba(0,0,0,.14);transition:transform .35s ease,opacity .3s,filter .3s,box-shadow .25s;}
   .carousel-zone .card:not(.expanded):hover{--hover-scale:1.05;z-index:30;box-shadow:0 18px 38px rgba(0,0,0,.25);}
   .carousel-zone .card:not(.expanded) h3,.carousel-zone .card.current:not(.expanded) h3{font-size:clamp(1rem,1.7vw,1.5rem)}
@@ -807,16 +807,30 @@ cards.forEach(card=>{
     if(evento.target===card && evento.propertyName==='transform') sincronizzaVideoHover();
   });
 });
-window.addEventListener('resize',()=>update());
+function adattaCaroselloAllaFinestra(){
+  if(desktopCarousel.matches){
+    const larghezza=document.documentElement.clientWidth;
+    const centroMain=carouselZone.parentElement.getBoundingClientRect();
+    carouselZone.style.width=larghezza+'px';
+    carouselZone.style.marginLeft=(centroMain.width/2-larghezza/2-parseFloat(getComputedStyle(carouselZone.parentElement).paddingLeft))+'px';
+    carouselZone.style.marginRight=carouselZone.style.marginLeft;
+  }else{
+    carouselZone.style.removeProperty('width');
+    carouselZone.style.removeProperty('margin-left');
+    carouselZone.style.removeProperty('margin-right');
+  }
+  update();
+}
+window.addEventListener('resize',adattaCaroselloAllaFinestra);
 desktopCarousel.addEventListener('change',()=>{
   cards.forEach(fermaVideoCard);
   annullaVideoInAttesa();
-  update();
+  adattaCaroselloAllaFinestra();
 });
 document.addEventListener('visibilitychange',()=>{
   if(desktopCarousel.matches) sincronizzaVideoHover();
 });
-update();
+adattaCaroselloAllaFinestra();
 </script>
 </body>
 </html>
