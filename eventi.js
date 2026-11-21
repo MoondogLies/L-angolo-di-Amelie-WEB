@@ -205,7 +205,7 @@ const eventiCinema = [
     titolo: 'A HAPPY DAY',
     regia: 'Hisham Zaman',
     paese: 'Norvegia',
-    data: '2026-11-29',
+    data: '2025-11-29',
     ora: '17:00',
     descrizione:
         'È la storia di tre amici adolescenti bloccati in un luogo ghiacciato in un centro norvegese per giovani richiedenti asilo. I tre adolescenti sognano cosa ci sia oltre la neve e il ghiaccio e decidono di escogitare un piano per scappare, attraversare la montagna e raggiungere un mondo dove i loro desideri possano essere realizzati. I loro continui tentativi di evadere dal rifugio si rivelano sempre inutili, proprio come le feste per il 18esimo compleanno, organizzate dal centro prima dell’inizio degli ordini di espulsione.Questa volta, però, il loro piano sembra perfetto e non destinato a fallire, fino a quando uno di loro s\'innamora.',
