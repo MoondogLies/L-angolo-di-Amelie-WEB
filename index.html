@@ -16,7 +16,6 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Logo L’Angolo di Amelie su fondo bianco">
-
 <link rel="icon" type="image/png" href="angolodiamelie_logo_nero.svg">
 <link rel="apple-touch-icon" href="angolodiamelie_logo_nero.svg">
 <style>
@@ -58,9 +57,6 @@ body.card-aperta main > *:not(.carousel-zone){
 }
 a{color:inherit;text-decoration:none}
 button{font-family:var(--font-dettagli)}
-
-
-
 .intro-overlay{
   position:fixed;
   inset:0;
@@ -103,9 +99,6 @@ button{font-family:var(--font-dettagli)}
   from{opacity:0;transform:translateY(12px)}
   to{opacity:1;transform:translateY(0)}
 }
-
-
-
 h1,h2,h3,
 .card h3,
 .page-title h2,
@@ -113,18 +106,12 @@ h1,h2,h3,
 .course-card h3{
   font-family:var(--font-titoli);
 }
-
-
-
 small,p,span,a,button,
 .card-date,.card-ospiti,.card p,.place,
 .course-card p,
 .social-caption,.hint,.footer-links a{
   font-family:var(--font-dettagli);
 }
-
-
-
 header{
   position:fixed;top:0;left:0;right:0;z-index:100;
   background:transparent;color:#fff;
@@ -136,9 +123,6 @@ header{
   display:flex;align-items:center;justify-content:center;
   gap:16px;
 }
-
-
-
 .logo{
   flex:1;
   min-width:0;
@@ -159,9 +143,6 @@ header{
   transition:opacity .12s linear;
   will-change:opacity;
 }
-
-
-
 main{
   width:100%;
   max-width:3840px;
@@ -175,9 +156,6 @@ main{
 }
 .page-title h2{color:var(--rosso);margin:0 0 8px;font-size:clamp(24px,4vw,38px)}
 .page-title p{margin:0;color:var(--grigio)}
-
-
-
 .carousel-zone{
   position:relative;
   height:clamp(520px, 78vh, 660px);
@@ -186,9 +164,6 @@ main{
   touch-action:pan-y;
 }
 .track{position:relative;width:100%;height:100%;transform-style:preserve-3d}
-
-
-
 .card{
   position:absolute;left:50%;top:50%;
   width:var(--card-w);
@@ -346,23 +321,14 @@ main{
 .card.current{z-index:20;box-shadow:0 30px 70px rgba(0,0,0,.25)}
 .card.current h3{font-size:1.5rem}
 .card.hidden{opacity:0;pointer-events:none}
-
-
-
 .card-details{
   display:none;
   padding:clamp(14px,3vw,24px);
   background:#fff;color:var(--testo);
 }
-
-
-
 .card.expanded .card-details{
   display:block;
 }
-
-
-
 .card.expanded{
   position:fixed;
   top:50%;
@@ -413,9 +379,6 @@ main{
   font-size:clamp(1.05rem,2.8vw,1.4rem);
   line-height:1.7;
 }
-
-
-
 .card-close{
   display:none;
   position:fixed;
@@ -440,27 +403,15 @@ main{
 .card.expanded .card-close{
   display:block;
 }
-
-
-
 .card-details p.desc{
   margin:0;color:#444;font-size:clamp(.9rem,2vw,1rem);line-height:1.5;
 }
-
-
-
 .nav-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:40;width:52px;height:52px;border-radius:50%;border:0;cursor:pointer;background:var(--rosso);color:#fff;font-size:23px;font-weight:800;box-shadow:var(--ombra);transition:.2s}
 .nav-arrow:hover{background:var(--rosso-scuro)}
 .nav-arrow.prev{left:10px}
 .nav-arrow.next{right:10px}
 .nav-arrow:disabled{opacity:.28;cursor:not-allowed}
-
-
-
 .hint{text-align:center;color:var(--grigio);font-size:.9rem;margin-top:12px}
-
-
-
 .programma-btn-wrap{
   text-align:center;
   margin-top:26px;
@@ -481,16 +432,10 @@ main{
   background:var(--rosso-scuro);
   transform:translateY(-2px);
 }
-
-
-
 .corsi{margin-top:80px}
 .section-title{text-align:center;margin-bottom:24px}
 .section-title h2{color:var(--rosso);margin:0 0 8px;font-size:clamp(24px,3.5vw,34px)}
 .section-title p{margin:0;color:var(--grigio)}
-
-
-
 .course-grid{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
   gap:22px;
@@ -509,9 +454,6 @@ main{
 }
 .course-card h3{margin:0;font-size:1.25rem;color:var(--rosso-scuro)}
 .course-card p{margin:0;color:var(--grigio);font-size:.93rem;line-height:1.55}
-
-
-
 .course-info-overlay{
   position:fixed;inset:0;z-index:300;
   display:flex;align-items:center;justify-content:center;
@@ -598,9 +540,6 @@ main{
   cursor:pointer;
 }
 .course-info-close:hover{background:var(--rosso-scuro)}
-
-
-
 footer{
   background:var(--rosso-scuro);color:#fff;
   padding:34px 20px;text-align:center;margin-top:auto;
@@ -619,16 +558,11 @@ footer{
 .footer-links a:hover{background:#fff;color:var(--rosso-scuro)}
 .footer-info{font-size:.9rem;opacity:.92;line-height:1.7}
 .footer-info a{border-bottom:1px dotted rgba(255,255,255,.6)}
-
-
-
 .email-link{
   color:#fff;
   font-weight:700;
   border-bottom:1px dotted rgba(255,255,255,.6);
 }
-
-
 .facebook-btn{
   background:#1877F2;
   color:#fff;
@@ -638,50 +572,35 @@ footer{
   font-weight:700;
   display:inline-block;
 }
-
-
 .facebook-btn:hover{
   background:#166fe5;
   color:#fff;
   border-color:#166fe5;
 }
-
-
 .footer-links a.facebook-btn{
   background:#1877F2;
   color:#fff;
   border-color:#1877F2;
   border-radius:999px;
 }
-
-
 .footer-links a.facebook-btn:hover{
   background:#166fe5;
   color:#fff;
   border-color:#166fe5;
 }
-
-
 .legal-box a.facebook-btn{
   color:#fff;
 }
-
-
 .contatti-riga{
   display:flex;
   align-items:center;
   gap:10px;
   flex-wrap:wrap;
 }
-
-
 .seguici-su{
   color:var(--grigio);
   font-weight:400;
 }
-
-
-
 .legal-overlay{
   position:fixed;
   inset:0;
@@ -735,15 +654,10 @@ footer{
   position:absolute;
   top:12px;
   right:12px;
-  width:38px;
-  height:38px;
-  border:0;
-  border-radius:50%;
-  background:var(--rosso);
-  color:#fff;
-  font-size:22px;
-  font-weight:800;
-  line-height:1;
+  width:38px;height:38px;
+  border:0;border-radius:50%;
+  background:var(--rosso);color:#fff;
+  font-size:22px;font-weight:800;
   cursor:pointer;
   box-shadow:0 6px 18px rgba(0,0,0,.25);
 }
@@ -765,9 +679,6 @@ footer{
 .legal-close:hover{
   background:var(--rosso-scuro);
 }
-
-
-
 @media(max-width:760px){
   :root{
     --card-w:min(58vw, 280px);
@@ -785,15 +696,9 @@ footer{
   .nav-arrow.prev{left:5px}
   .nav-arrow.next{right:5px}
   .logo-bg{max-width:100%}
-
-
-
   main{
     padding-top:calc(clamp(160px, 12vw, 200px) + 22px);
   }
-
-
-
   .card.expanded .card-poster{
     height:clamp(180px, 28vh, 320px);
   }
@@ -805,6 +710,24 @@ footer{
     padding-bottom:16px;
   }
 }
+/* Layout piatto solo desktop; le regole mobile restano invariate. */
+@media (min-width:761px){
+  .carousel-zone{
+    perspective:none;
+    height:calc(clamp(230px, 24vw, 330px) * 1.5 + 64px);
+  }
+  .track{transform-style:flat}
+  .carousel-zone .card:not(.expanded){
+    transform-style:flat;
+    box-shadow:0 10px 26px rgba(0,0,0,.14);
+  }
+  .carousel-zone .card.current:not(.expanded) h3{font-size:1.35rem}
+  .carousel-zone .card:not(.expanded):hover{
+    box-shadow:0 14px 32px rgba(0,0,0,.23);
+  }
+  .carousel-zone.dragging .card{transition:none;cursor:grabbing}
+  .carousel-zone img{user-select:none;-webkit-user-drag:none}
+}
 </style>
 <script
   data-goatcounter="https://moondoglies.goatcounter.com/count"
@@ -813,16 +736,10 @@ footer{
 ></script>
 </head>
 <body>
-
-
-
 <div class="intro-overlay" id="introOverlay">
   <img class="intro-logo" src="angolodiamelie_logo_nero.svg" alt="L’Angolo di Amelie">
   <p class="intro-text">L’Angolo di Amelie</p>
 </div>
-
-
-
 <header>
   <div class="header-inner">
     <div class="logo">
@@ -830,49 +747,27 @@ footer{
     </div>
   </div>
 </header>
-
-
-
 <main>
   <section class="page-title">
-    <h2>Programmazione</h2>
-    <p></p>
+    <p>L’Angolo di Amelie è un’associazione culturale dedicata a incontri, laboratori, musica, fotografia, natura e momenti di condivisione.</p>
   </section>
-
-
-
   <section class="carousel-zone" id="carouselZone">
     <button class="nav-arrow prev" id="prevBtn" onclick="move(-1)" aria-label="Evento precedente">‹</button>
     <div class="track" id="track"></div>
     <button class="nav-arrow next" id="nextBtn" onclick="move(1)" aria-label="Evento successivo">›</button>
   </section>
-
-
-
   <p class="hint">Trascina le locandine oppure clicca una card per portarla al centro.</p>
-
-
-
   <div class="programma-btn-wrap">
-    <a class="programma-btn" href="programmazione.html">Programmazione completa</a>
+    <a class="programma-btn" href="eventi.html">Tutti gli eventi</a>
   </div>
-
-
-
   <section class="corsi">
     <div class="section-title">
       <h2>I nostri corsi</h2>
       <p>Clicca su una scheda per visualizzare informazioni e contatti.</p>
     </div>
-
-
-
     <div class="course-grid"></div>
   </section>
 </main>
-
-
-
 <footer>
   <nav class="footer-links">
     <a onclick="apriScheda()">Chi siamo</a>
@@ -881,128 +776,75 @@ footer{
     <a onclick="apriLegal('privacy')">Privacy Policy</a>
     <a onclick="apriLegal('cookie')">Cookie Policy</a>
   </nav>
-
-
-
   <div class="footer-info" id="contatti">
     <strong>L’Angolo di Amelie</strong> è un’associazione culturale dedicata a incontri, laboratori,
     musica, fotografia, natura e momenti di condivisione.<br>
     <span id="indirizzoFooter"></span><br>
     Email: <a id="emailFooterLink" class="email-link" href="#"></a>
   </div>
-
-
-
   <p style="margin:18px 0 0;font-size:.85rem;opacity:.8">
     © <span id="year"></span> L’Angolo di Amelie — Associazione culturale
   </p>
 </footer>
-
-
-
 <div class="legal-overlay" id="chiSiamoOverlay">
   <div class="legal-box">
     <button class="legal-close-btn" onclick="chiudiScheda()" aria-label="Chiudi">&times;</button>
-
-
     <h2>Chi siamo</h2>
-
-
     <p>
       <strong>L’Angolo di Amelie</strong> è un’associazione culturale che promuove incontri,
       proiezioni, serate, laboratori e attività dedicate alla musica, alla fotografia, alla natura
       e alla condivisione.
     </p>
-
-
     <p>
       L’associazione nasce con l’obiettivo di creare uno spazio aperto alla partecipazione,
       alla scoperta e al confronto, rivolto a chi desidera vivere la cultura in modo attivo
       e condiviso.
     </p>
-
-
     <h3>Contatti</h3>
-
-
     <p id="indirizzoChiSiamo"></p>
-
-
     <p>
       Email: <a id="emailChiSiamoLink" class="email-link" href="#"></a><br>
       <a id="facebookChiSiamoLink" class="facebook-btn" href="#" target="_blank" rel="noopener">Seguici su Facebook</a>
     </p>
-
-
     <h3>Statuto dell’associazione</h3>
-
-
     <p>
       Lo statuto dell’associazione è disponibile e può essere consultato su richiesta
       scrivendo all’indirizzo email indicato sopra.
     </p>
-
-
     <p>
       <a class="programma-btn" href="statuto.pdf" target="_blank" rel="noopener">
         Scarica lo statuto
       </a>
     </p>
-
-
     <button class="legal-close" onclick="chiudiScheda()">Chiudi</button>
   </div>
 </div>
-
-
-
 <div class="legal-overlay" id="contattiOverlay">
   <div class="legal-box">
     <button class="legal-close-btn" onclick="chiudiContatti()" aria-label="Chiudi">&times;</button>
-
-
     <h2>Contatti</h2>
-
-
     <p id="indirizzoContatti"></p>
-
-
     <p>
       Email: <a id="emailContattiLink" class="email-link" href="#"></a>
     </p>
-
-
     <p class="contatti-riga">
       <span class="seguici-su">Seguici su</span>
       <a id="facebookContattiLink" class="facebook-btn" href="#" target="_blank" rel="noopener">Facebook</a>
     </p>
-
-
     <button class="legal-close" onclick="chiudiContatti()">Chiudi</button>
   </div>
 </div>
-
-
-
 <div class="legal-overlay" id="legalOverlay">
   <div class="legal-box">
     <button class="legal-close-btn" onclick="chiudiLegal()" aria-label="Chiudi">&times;</button>
-
-
     <div id="privacyContent">
       <h2>Privacy Policy</h2>
-
-
       <p>
         La presente informativa descrive il trattamento dei dati personali effettuato tramite il sito
         <strong>L’Angolo di Amelie</strong>, ai sensi del Regolamento (UE) 2016/679 (“GDPR”).
       </p>
-
-
       <h3>1. Titolare del trattamento</h3>
       <p id="indirizzoPrivacy"></p>
-
-
       <h3>2. Dati trattati</h3>
       <p>
         Il sito non utilizza moduli di contatto, non consente iscrizioni online, non gestisce newsletter
@@ -1014,8 +856,6 @@ footer{
         I dati di contatto pubblicati nel piè di pagina sono riferiti all’associazione e hanno finalità
         di contatto istituzionale.
       </p>
-
-
       <h3>3. Statistiche di navigazione e cookie</h3>
 <p>Il sito utilizza un servizio esterno di analisi delle visite per conoscere il numero di accessi, le pagine consultate e la provenienza del traffico, con la finalità di migliorare i contenuti e le attività dell’associazione.</p>
 <p>Il servizio permette di consultare statistiche aggregate relative alle pagine visitate, ai siti di provenienza, al paese di collegamento, alla lingua e ad alcune caratteristiche tecniche del browser e del dispositivo.</p>
@@ -1028,15 +868,11 @@ footer{
         verranno utilizzati esclusivamente per rispondere alla richiesta ricevuta e per le eventuali
         successive comunicazioni strettamente necessarie alla gestione della stessa.
       </p>
-
-
       <h3>5. Conservazione dei dati</h3>
       <p>
         Gli eventuali dati comunicati volontariamente sono conservati per il tempo necessario a gestire
         la richiesta e, successivamente, per il periodo eventualmente richiesto dalla legge.
       </p>
-
-
       <h3>6. Diritti dell’interessato</h3>
       <p>
         L’interessato può chiedere in ogni momento l’accesso ai propri dati, la loro rettifica,
@@ -1046,16 +882,12 @@ footer{
       <p>
         L’interessato ha inoltre il diritto di proporre reclamo al Garante per la protezione dei dati personali.
       </p>
-
-
       <h3>7. Aggiornamenti</h3>
       <p>
         La presente informativa può essere aggiornata per adeguarla a modifiche normative o alle
         caratteristiche del sito. La versione pubblicata su questa pagina è quella vigente.
       </p>
     </div>
-
-
     <div id="cookieContent" style="display:none">
 <h2>Cookie Policy</h2>
 <p>Il sito <strong>L’Angolo di Amelie</strong> non utilizza cookie pubblicitari o di profilazione.</p>
@@ -1066,137 +898,74 @@ footer{
 <h3>Contenuti esterni</h3>
 <p>Alcune risorse possono essere caricate da servizi esterni. Il caricamento comporta una connessione ai rispettivi server, ai quali vengono trasmessi i dati tecnici necessari alla comunicazione.</p>
 </div>
-
-
     <button class="legal-close" onclick="chiudiLegal()">Chiudi</button>
   </div>
 </div>
-
-
-
 <script src="eventi.js?v=20261112n"></script>
-
-
 <script>
 console.log("Script caricato correttamente");
-
-
-
 // Nasconde l’animazione di apertura anche se un altro script dovesse generare un errore
 const introOverlay=document.getElementById('introOverlay');
-
-
 document.body.style.overflow='hidden';
-
-
 setTimeout(()=>{
   introOverlay.classList.add('hidden');
   document.body.style.overflow='';
-
-
   setTimeout(()=>{
     introOverlay.remove();
   },900);
 },2500);
-
-
-
 // Aggiorna automaticamente footer, area contatti e link Facebook
 function aggiornaInfoAssociazione(){
   document.getElementById('indirizzoFooter').textContent=INFO_ASSOCIAZIONE.indirizzo;
-
-
   const emailFooterLink=document.getElementById('emailFooterLink');
   emailFooterLink.textContent=INFO_ASSOCIAZIONE.email;
   emailFooterLink.href='mailto:'+INFO_ASSOCIAZIONE.email;
-
-
   const facebookFooterLink=document.getElementById('facebookFooterLink');
   facebookFooterLink.href=INFO_ASSOCIAZIONE.facebook;
-
-
   document.getElementById('indirizzoChiSiamo').textContent=INFO_ASSOCIAZIONE.indirizzo;
-
-
   const emailChiSiamoLink=document.getElementById('emailChiSiamoLink');
   emailChiSiamoLink.textContent=INFO_ASSOCIAZIONE.email;
   emailChiSiamoLink.href='mailto:'+INFO_ASSOCIAZIONE.email;
-
-
   const facebookChiSiamoLink=document.getElementById('facebookChiSiamoLink');
   facebookChiSiamoLink.href=INFO_ASSOCIAZIONE.facebook;
-
-
   document.getElementById('indirizzoContatti').textContent=INFO_ASSOCIAZIONE.indirizzo;
-
-
   const emailContattiLink=document.getElementById('emailContattiLink');
   emailContattiLink.textContent=INFO_ASSOCIAZIONE.email;
   emailContattiLink.href='mailto:'+INFO_ASSOCIAZIONE.email;
-
-
   const facebookContattiLink=document.getElementById('facebookContattiLink');
   facebookContattiLink.href=INFO_ASSOCIAZIONE.facebook;
-
-
   document.getElementById('indirizzoPrivacy').innerHTML=
     '<strong>L’Angolo di Amelie</strong><br>' +
     INFO_ASSOCIAZIONE.indirizzo + '<br>' +
     'Email: <a href="mailto:' + INFO_ASSOCIAZIONE.email + '">' + INFO_ASSOCIAZIONE.email + '</a>';
 }
-
-
 try{
   aggiornaInfoAssociazione();
 }catch(errore){
   console.error('Errore nell’aggiornamento dei contatti:', errore);
 }
-
-
-
 const oggi=new Date();
 oggi.setHours(0,0,0,0);
-
-
-
 // Ordina gli eventi per data, dalla più vicina alla più lontana
 eventi.sort((a,b)=>new Date(a.data)-new Date(b.data));
-
-
-
 let currentIndex=eventi.findIndex(e=>new Date(e.data)>=oggi);
 if(currentIndex<0) currentIndex=eventi.length-1;
 let expandedIndex=null;
 let cardOriginParent=null;
 let cardOriginNext=null;
-
-
-
 const track=document.getElementById('track');
 const carouselZone=document.getElementById('carouselZone');
 const mesi=["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"];
-
-
-
 function formattaData(iso,ora){
   const d=new Date(iso+"T00:00:00");
   return `${d.getDate()} ${mesi[d.getMonth()]} ${d.getFullYear()} · ore ${ora}`;
 }
-
-
-
 eventi.forEach((e,i)=>{
   const past=new Date(e.data)<oggi;
-
-
   const card=document.createElement('article');
   card.className='card'+(past?' past':'');
   card.dataset.index=i;
-
-
   const usaSlideshow=Array.isArray(e.immagini)&&e.immagini.length>1;
-
-
   const media=usaSlideshow
     ? `<div class="card-slideshow">${e.immagini.map((immagine,indice)=>`
         <img class="${indice===0?'attivo':''}" src="${immagine}" alt="${e.titolo}">
@@ -1219,31 +988,19 @@ eventi.forEach((e,i)=>{
       ></video>
     `
       : `<img src="${e.immagine}" alt="${e.titolo}">`);
-
-
   const sottotitolo=e.tipo==="film"
     ? `di ${e.regia} · ${e.paese}`
     : (e.tipo==="concorso" ? "" : `Con ${e.artista}`);
-
-
   const testoPulsante=e.tipo==="film"
     ? "Sinossi"
     : "Descrizione";
-
-
   const nomiOspiti=e.ospiti
     ? e.ospiti.split(",").map(nome=>nome.trim()).filter(Boolean)
     : [];
-
-
   const etichettaOspiti=nomiOspiti.length===1 ? "Ospite" : "Ospiti";
-
-
   const ospiti=nomiOspiti.length
     ? `<span class="card-ospiti">${etichettaOspiti}: ${nomiOspiti.join(", ")}</span>`
     : "";
-
-
   card.innerHTML=`
     <div class="card-poster">
       ${media}
@@ -1255,123 +1012,147 @@ eventi.forEach((e,i)=>{
         <button class="sinossi-btn" type="button">${testoPulsante}</button>
       </div>
     </div>
-
-
     <div class="card-details">
       <p class="desc">${e.descrizione || "La descrizione dell’evento sarà presto disponibile."}</p>
     </div>
-
-
     <button class="card-close" type="button" aria-label="Chiudi">&times;</button>
   `;
-
-
   card.querySelector('.card-close').addEventListener('click',evento=>{
     evento.stopPropagation();
     chiudiCardEspansa();
   });
-
-
   track.appendChild(card);
 });
-
-
-
 const cards=[...document.querySelectorAll('.card')];
-
-
-
 // Fa andare a capo la riga degli ospiti quando è troppo lunga,
 // senza farla uscire dai bordi della card.
-
-
 function aggiornaBadgeOspiti(){
   document.querySelectorAll('.card-ospiti').forEach(badge=>{
     badge.classList.toggle('multi', badge.getClientRects().length>1);
   });
 }
-
-
-
 aggiornaBadgeOspiti();
 window.addEventListener('resize',aggiornaBadgeOspiti);
-
-
-
 // Slideshow con dissolvenza per le card con più immagini
-
-
 document.querySelectorAll('.card-slideshow').forEach(slideshow=>{
   const immagini=[...slideshow.querySelectorAll('img')];
-
-
   if(immagini.length<2){
     return;
   }
-
-
   let indiceAttivo=0;
-
-
   setInterval(()=>{
     immagini[indiceAttivo].classList.remove('attivo');
     indiceAttivo=(indiceAttivo+1)%immagini.length;
     immagini[indiceAttivo].classList.add('attivo');
   },4000);
 });
-
-
-
+const desktopCarousel=window.matchMedia('(min-width:761px)');
 function getStep(){
+  if(desktopCarousel.matches){
+    const card=cards.find(item=>!item.classList.contains('expanded'));
+    return (card ? card.getBoundingClientRect().width : 280)+24;
+  }
   return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--carousel-step')) || 280;
 }
-
-
-
+// Ogni richiesta di riproduzione ha un token per ignorare play() tardivi.
+const richiesteVideo=new WeakMap();
+function fermaVideoCard(card){
+  const video=card.querySelector('.card-video');
+  if(video){
+    richiesteVideo.set(video, (richiesteVideo.get(video)||0)+1);
+    video.pause();
+    try{video.currentTime=0;}catch(errore){}
+    video.classList.remove('playing');
+  }
+  const poster=card.querySelector('.card-video-poster');
+  if(poster) poster.classList.remove('hidden');
+}
+function avviaVideoHover(card){
+  if(!desktopCarousel.matches || isDragging || document.hidden) return;
+  if(expandedIndex!==null && Number(card.dataset.index)!==expandedIndex) return;
+  const video=card.querySelector('.card-video');
+  if(!video || card.classList.contains('hidden') || !card.matches(':hover')) return;
+  if(video.dataset.hoverAttivo==='1') return;
+  cards.forEach(altra=>{
+    if(altra!==card){
+      altra.querySelectorAll('.card-video').forEach(v=>delete v.dataset.hoverAttivo);
+      fermaVideoCard(altra);
+    }
+  });
+  const token=(richiesteVideo.get(video)||0)+1;
+  richiesteVideo.set(video,token);
+  video.dataset.hoverAttivo='1';
+  video.muted=true;
+  video.defaultMuted=true;
+  video.playsInline=true;
+  Promise.resolve(video.play()).then(()=>{
+    if(richiesteVideo.get(video)!==token) return;
+    if(!desktopCarousel.matches || !card.matches(':hover') || isDragging || document.hidden){
+      delete video.dataset.hoverAttivo;
+      fermaVideoCard(card);
+      return;
+    }
+    video.classList.add('playing');
+    const poster=card.querySelector('.card-video-poster');
+    if(poster) poster.classList.add('hidden');
+  }).catch(()=>{
+    if(richiesteVideo.get(video)===token){
+      delete video.dataset.hoverAttivo;
+      fermaVideoCard(card);
+    }
+  });
+}
+function sincronizzaVideoHover(){
+  if(!desktopCarousel.matches) return;
+  annullaVideoInAttesa();
+  cards.forEach(card=>{
+    const consentita=expandedIndex===null || Number(card.dataset.index)===expandedIndex;
+    if(consentita && card.matches(':hover') && !card.classList.contains('hidden') && !isDragging && !document.hidden){
+      avviaVideoHover(card);
+    }else{
+      const video=card.querySelector('.card-video');
+      if(video) delete video.dataset.hoverAttivo;
+      fermaVideoCard(card);
+    }
+  });
+}
+cards.forEach(card=>{
+  card.addEventListener('mouseenter',()=>avviaVideoHover(card));
+  card.addEventListener('mousemove',()=>avviaVideoHover(card));
+  card.addEventListener('mouseleave',()=>{
+    if(!desktopCarousel.matches) return;
+    const video=card.querySelector('.card-video');
+    if(video) delete video.dataset.hoverAttivo;
+    fermaVideoCard(card);
+  });
+  card.addEventListener('transitionend',evento=>{
+    if(evento.target===card && evento.propertyName==='transform') sincronizzaVideoHover();
+  });
+});
 let videoTimer=null;
-
-
-
 function annullaVideoInAttesa(){
   clearTimeout(videoTimer);
   videoTimer=null;
 }
-
-
-
 function avviaVideoDopo3Secondi(){
   annullaVideoInAttesa();
-
-
   const cardCorrente=cards[currentIndex];
   const video=cardCorrente.querySelector('.card-video');
-
-
   if(!video) return;
-
-
   video.muted=true;
   video.defaultMuted=true;
   video.playsInline=true;
   video.setAttribute('playsinline','');
   video.currentTime=0;
   video.classList.remove('playing');
-
-
   const poster=cardCorrente.querySelector('.card-video-poster');
   if(poster) poster.classList.remove('hidden');
-
-
   videoTimer=setTimeout(()=>{
     const playPromise=video.play();
-
-
     if(playPromise){
       playPromise
         .then(()=>{
           video.classList.add('playing');
-
-
           const poster=cardCorrente.querySelector('.card-video-poster');
           if(poster) poster.classList.add('hidden');
         })
@@ -1381,43 +1162,29 @@ function avviaVideoDopo3Secondi(){
     }
   },3000);
 }
-
-
-
 function fermaVideo(){
   annullaVideoInAttesa();
-
-
   cards.forEach(card=>{
     const video=card.querySelector('.card-video');
-
-
     if(video){
       video.pause();
       video.currentTime=0;
       video.classList.remove('playing');
     }
-
-
     const poster=card.querySelector('.card-video-poster');
     if(poster) poster.classList.remove('hidden');
   });
 }
-
-
-
 function aggiornaVideoCorrente(){
+  if(desktopCarousel.matches){
+    sincronizzaVideoHover();
+    return;
+  }
   annullaVideoInAttesa();
-
-
   cards.forEach((card,i)=>{
     const video=card.querySelector('.card-video');
     const poster=card.querySelector('.card-video-poster');
-
-
     if(!video || !poster) return;
-
-
     if(i===currentIndex){
       avviaVideoDopo3Secondi();
     }else{
@@ -1428,181 +1195,123 @@ function aggiornaVideoCorrente(){
     }
   });
 }
-
-
-
 function update(dragOffset=0){
   const step=getStep();
-
-
   cards.forEach((card,i)=>{
     card.classList.toggle('current', i===currentIndex);
     card.classList.toggle('expanded', i===expandedIndex);
-
-
     if(i===expandedIndex){
       card.classList.remove('hidden');
       card.style.removeProperty('transform');
       return;
     }
-
-
     const offset=i-currentIndex;
     const x=offset*step+dragOffset;
-
-
+    if(desktopCarousel.matches){
+      const width=step-24;
+      const spazio=carouselZone.clientWidth;
+      const contenuto=cards.length*step-24;
+      const scrollMassimo=Math.max(0, contenuto-(spazio-144));
+      const scroll=Math.min(currentIndex*step, scrollMassimo);
+      const desktopX=72+width/2+i*step-scroll+dragOffset-spazio/2;
+      const visibile=desktopX+width/2>-spazio/2 && desktopX-width/2<spazio/2;
+      card.classList.toggle('hidden', !visibile);
+      card.style.transform=`translate(-50%,-50%) translateX(${desktopX}px)`;
+      return;
+    }
     if(Math.abs(offset)>2){
       card.classList.add('hidden');
       card.style.transform=`translate(-50%,-50%) translateX(${x}px) scale(.55)`;
       return;
     }
-
-
     card.classList.remove('hidden');
-
-
     const scale=offset===0?1.12:(Math.abs(offset)===1?.8:.6);
     const z=-Math.abs(offset)*160;
     const rot=offset*-6;
-
-
     card.style.transform=`translate(-50%,-50%) translateX(${x}px) translateZ(${z}px) rotateY(${rot}deg) scale(${scale})`;
   });
-
-
+  if(desktopCarousel.matches && isDragging){
+    sincronizzaVideoHover();
+  }
   if(!isDragging){
     aggiornaVideoCorrente();
   }
-
-
   document.body.classList.toggle('card-aperta', expandedIndex!==null);
-
-
   document.getElementById('prevBtn').disabled=expandedIndex!==null||currentIndex===0;
   document.getElementById('nextBtn').disabled=expandedIndex!==null||currentIndex===eventi.length-1;
 }
-
-
-
 function move(direction){
   if(expandedIndex!==null){
     return;
   }
-
-
   const nuovoIndice=currentIndex+direction;
-
-
   if(nuovoIndice<0||nuovoIndice>=eventi.length){
     return;
   }
-
-
   currentIndex=nuovoIndice;
   update();
 }
-
-
-
 let isDragging=false;
 let startX=0;
 let currentX=0;
 let dragOffset=0;
 let hasMoved=false;
-
-
-
 function iniziaTrascinamento(evento){
   if(expandedIndex!==null){
     return;
   }
-
-
+  if(desktopCarousel.matches && evento.target.closest('button')) return;
   isDragging=true;
+  if(desktopCarousel.matches) sincronizzaVideoHover();
   hasMoved=false;
   startX=evento.touches?evento.touches[0].clientX:evento.clientX;
   currentX=startX;
   dragOffset=0;
-
-
   carouselZone.classList.add('dragging');
 }
-
-
-
 function trascina(evento){
   if(!isDragging){
     return;
   }
-
-
   currentX=evento.touches?evento.touches[0].clientX:evento.clientX;
   dragOffset=currentX-startX;
-
-
   if(Math.abs(dragOffset)>5){
     hasMoved=true;
   }
-
-
   update(dragOffset);
 }
-
-
-
 function terminaTrascinamento(){
   if(!isDragging){
     return;
   }
-
-
   isDragging=false;
   carouselZone.classList.remove('dragging');
-
-
   const step=getStep();
   const soglia=step/3;
-
-
   if(dragOffset<-soglia&&currentIndex<eventi.length-1){
     currentIndex++;
   }else if(dragOffset>soglia&&currentIndex>0){
     currentIndex--;
   }
-
-
   dragOffset=0;
   update();
 }
-
-
-
 carouselZone.addEventListener('mousedown',iniziaTrascinamento);
 carouselZone.addEventListener('mousemove',trascina);
 carouselZone.addEventListener('mouseup',terminaTrascinamento);
 carouselZone.addEventListener('mouseleave',terminaTrascinamento);
-
-
-
 carouselZone.addEventListener('touchstart',iniziaTrascinamento,{passive:true});
 carouselZone.addEventListener('touchmove',trascina,{passive:true});
 carouselZone.addEventListener('touchend',terminaTrascinamento);
 carouselZone.addEventListener('touchcancel',terminaTrascinamento);
-
-
-
 cards.forEach(card=>{
   card.addEventListener('click',evento=>{
     if(hasMoved){
       return;
     }
-
-
     if(expandedIndex!==null){
       return;
     }
-
-
     expandedIndex=Number(card.dataset.index);
     cardOriginParent=card.parentNode;
     cardOriginNext=card.nextSibling;
@@ -1610,26 +1319,16 @@ cards.forEach(card=>{
     update();
   });
 });
-
-
-
 function chiudiCardEspansa(){
   if(expandedIndex!==null){
     const card=cards[expandedIndex];
-
-
     if(card&&cardOriginParent){
       cardOriginParent.insertBefore(card,cardOriginNext);
     }
   }
-
-
   expandedIndex=null;
   update();
 }
-
-
-
 document.addEventListener('keydown',evento=>{
   if(evento.key==='Escape'){
     chiudiCardEspansa();
@@ -1638,60 +1337,46 @@ document.addEventListener('keydown',evento=>{
     chiudiLegal();
   }
 });
-
-
-
 function apriScheda(){
   document.getElementById('chiSiamoOverlay').classList.add('open');
 }
-
-
-
 function chiudiScheda(){
   document.getElementById('chiSiamoOverlay').classList.remove('open');
 }
-
-
-
 function apriContatti(){
   document.getElementById('contattiOverlay').classList.add('open');
 }
-
-
-
 function chiudiContatti(){
   document.getElementById('contattiOverlay').classList.remove('open');
 }
-
-
-
 function apriLegal(tipo){
   document.getElementById('privacyContent').style.display=tipo==='privacy'?'block':'none';
   document.getElementById('cookieContent').style.display=tipo==='cookie'?'block':'none';
   document.getElementById('legalOverlay').classList.add('open');
 }
-
-
-
 function chiudiLegal(){
   document.getElementById('legalOverlay').classList.remove('open');
 }
-
-
-
 document.getElementById('year').textContent=new Date().getFullYear();
-
-
-
 const logoBg=document.getElementById('logoBg');
-
 window.addEventListener('scroll',()=>{
   const trasparente=window.scrollY>50;
   logoBg.style.opacity=trasparente?'0':'1';
 },{passive:true});
-
-
-
+// Il ridimensionamento aggiorna le posizioni senza cambiare le regole mobile.
+window.addEventListener('resize',()=>update());
+desktopCarousel.addEventListener('change',()=>{
+  cards.forEach(card=>{
+    const video=card.querySelector('.card-video');
+    if(video) delete video.dataset.hoverAttivo;
+    fermaVideoCard(card);
+  });
+  annullaVideoInAttesa();
+  update();
+});
+document.addEventListener('visibilitychange',()=>{
+  if(desktopCarousel.matches) sincronizzaVideoHover();
+});
 update();
 </script>
 </body>
