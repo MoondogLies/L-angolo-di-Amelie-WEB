@@ -131,3 +131,79 @@ document.addEventListener('keydown',evento=>{
 
 
 inizializzaCorsi();
+
+function inizializzaSezioniHome(){
+  const main=document.querySelector('main');
+  const carosello=document.getElementById('carouselZone');
+  if(!main || !carosello || main.dataset.homeSnapReady==='true') return;
+  main.dataset.homeSnapReady='true';
+  document.documentElement.classList.add('home-snap');
+
+  const stile=document.createElement('style');
+  stile.id='home-sezioni-style';
+  stile.textContent=`
+    .home-events{display:contents}
+    @media(min-width:761px){
+      html.home-snap{scroll-snap-type:y proximity}
+      .carousel-label button{position:relative;display:inline-block;transform-origin:left center;transition:transform .22s ease,filter .22s ease}
+      .carousel-label button::after{content:"";position:absolute;left:0;right:0;bottom:-7px;height:2px;background:currentColor;transform:scaleX(0);transform-origin:left center;transition:transform .22s ease;pointer-events:none}
+      .carousel-label button:hover,.carousel-label button:focus-visible{transform:translateX(4px) scale(1.035);filter:drop-shadow(0 2px 5px rgba(0,0,0,.18))}
+      .carousel-label button:hover::after,.carousel-label button:focus-visible::after{transform:scaleX(1)}
+      .carousel-label button:active{transform:translateX(2px) scale(.99)}
+      main > .home-panel{scroll-snap-align:start;scroll-snap-stop:normal;scroll-margin-top:24px;min-height:calc(100svh - 48px);margin-top:0;padding-top:32px;padding-bottom:48px}
+      main > .home-events{display:block;padding-top:0;scroll-margin-top:calc(clamp(160px,12vw,200px) + 28px)}
+      main > .sostenitori-e-section.home-panel,main > .sostenitori.home-panel,main > .corsi.home-panel{display:flex;flex-direction:column;justify-content:center}
+      main > .sostenitori-e-section.home-panel > *,main > .sostenitori.home-panel > *,main > .corsi.home-panel > *{flex-shrink:0}
+      html.home-snap footer{scroll-snap-align:end}
+    }
+    @media(prefers-reduced-motion:reduce){
+      .carousel-label button,.carousel-label button::after{transition:none}
+      .carousel-label button:hover,.carousel-label button:focus-visible,.carousel-label button:active{transform:none}
+    }
+  `;
+  document.head.appendChild(stile);
+
+  const titoloPagina=main.querySelector('.page-title');
+  const suggerimento=main.querySelector('.hint');
+  const pulsanteProgramma=main.querySelector('.programma-btn-wrap');
+  const sezioneEventi=document.createElement('section');
+  sezioneEventi.id='home-eventi';
+  sezioneEventi.className='home-events home-panel';
+  sezioneEventi.setAttribute('aria-label','Eventi');
+  main.insertBefore(sezioneEventi,titoloPagina || carosello);
+  [titoloPagina,carosello,suggerimento,pulsanteProgramma].forEach(elemento=>{
+    if(elemento) sezioneEventi.appendChild(elemento);
+  });
+
+  function aggiornaSezioniHome(){
+    const sostenitori=main.querySelector('.sostenitori-e-section, .sostenitori');
+    const corsiSezione=main.querySelector('.corsi');
+    if(sostenitori){
+      sostenitori.id='home-sostenitori';
+      sostenitori.classList.add('home-panel');
+      sostenitori.setAttribute('aria-label','I nostri sostenitori');
+      if(sostenitori.parentElement!==main || sezioneEventi.nextElementSibling!==sostenitori){
+        sezioneEventi.after(sostenitori);
+      }
+    }
+    if(corsiSezione){
+      corsiSezione.id='home-corsi';
+      corsiSezione.classList.add('home-panel');
+      corsiSezione.setAttribute('aria-label','I nostri corsi');
+      const precedente=sostenitori || sezioneEventi;
+      if(corsiSezione.parentElement!==main || precedente.nextElementSibling!==corsiSezione){
+        precedente.after(corsiSezione);
+      }
+    }
+  }
+  aggiornaSezioniHome();
+  const observer=new MutationObserver(aggiornaSezioniHome);
+  observer.observe(main,{childList:true,subtree:true});
+  if(typeof adattaCaroselloAllaFinestra==='function') adattaCaroselloAllaFinestra();
+}
+
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',inizializzaSezioniHome,{once:true});
+}else{
+  inizializzaSezioniHome();
+}
