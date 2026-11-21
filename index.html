@@ -710,23 +710,30 @@ footer{
     padding-bottom:16px;
   }
 }
-/* Layout piatto solo desktop; le regole mobile restano invariate. */
-@media (min-width:761px){
+/* Carosello desktop: quattro locandine, separazione passato/futuro. */
+@media(min-width:761px){
   .carousel-zone{
     perspective:none;
-    height:calc(clamp(230px, 24vw, 330px) * 1.5 + 64px);
+    --desktop-card-w:230px;
+    height:calc(var(--desktop-card-w) * 1.5 + 80px);
   }
   .track{transform-style:flat}
   .carousel-zone .card:not(.expanded){
+    width:var(--desktop-card-w);
     transform-style:flat;
+    scale:1;
     box-shadow:0 10px 26px rgba(0,0,0,.14);
+    transition:transform .55s cubic-bezier(.22,.68,.32,1), opacity .3s, filter .3s, box-shadow .25s, scale .25s;
   }
   .carousel-zone .card.current:not(.expanded) h3{font-size:1.35rem}
   .carousel-zone .card:not(.expanded):hover{
-    box-shadow:0 14px 32px rgba(0,0,0,.23);
+    scale:1.05;
+    z-index:30;
+    box-shadow:0 18px 38px rgba(0,0,0,.25);
   }
-  .carousel-zone.dragging .card{transition:none;cursor:grabbing}
+  .carousel-zone.dragging .card:not(.expanded){transition:none;scale:1;cursor:grabbing}
   .carousel-zone img{user-select:none;-webkit-user-drag:none}
+  .carousel-zone .card.hidden{visibility:hidden;pointer-events:none}
 }
 </style>
 <script
@@ -950,6 +957,7 @@ oggi.setHours(0,0,0,0);
 eventi.sort((a,b)=>new Date(a.data)-new Date(b.data));
 let currentIndex=eventi.findIndex(e=>new Date(e.data)>=oggi);
 if(currentIndex<0) currentIndex=eventi.length-1;
+const primoFuturoIndex=currentIndex;
 let expandedIndex=null;
 let cardOriginParent=null;
 let cardOriginNext=null;
@@ -1047,88 +1055,13 @@ document.querySelectorAll('.card-slideshow').forEach(slideshow=>{
   },4000);
 });
 const desktopCarousel=window.matchMedia('(min-width:761px)');
+function larghezzaCardDesktop(){
+  return Math.min(330, Math.max(1,(carouselZone.clientWidth-144-72-20)/4));
+}
 function getStep(){
-  if(desktopCarousel.matches){
-    const card=cards.find(item=>!item.classList.contains('expanded'));
-    return (card ? card.getBoundingClientRect().width : 280)+24;
-  }
+  if(desktopCarousel.matches) return larghezzaCardDesktop()+24;
   return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--carousel-step')) || 280;
 }
-// Ogni richiesta di riproduzione ha un token per ignorare play() tardivi.
-const richiesteVideo=new WeakMap();
-function fermaVideoCard(card){
-  const video=card.querySelector('.card-video');
-  if(video){
-    richiesteVideo.set(video, (richiesteVideo.get(video)||0)+1);
-    video.pause();
-    try{video.currentTime=0;}catch(errore){}
-    video.classList.remove('playing');
-  }
-  const poster=card.querySelector('.card-video-poster');
-  if(poster) poster.classList.remove('hidden');
-}
-function avviaVideoHover(card){
-  if(!desktopCarousel.matches || isDragging || document.hidden) return;
-  if(expandedIndex!==null && Number(card.dataset.index)!==expandedIndex) return;
-  const video=card.querySelector('.card-video');
-  if(!video || card.classList.contains('hidden') || !card.matches(':hover')) return;
-  if(video.dataset.hoverAttivo==='1') return;
-  cards.forEach(altra=>{
-    if(altra!==card){
-      altra.querySelectorAll('.card-video').forEach(v=>delete v.dataset.hoverAttivo);
-      fermaVideoCard(altra);
-    }
-  });
-  const token=(richiesteVideo.get(video)||0)+1;
-  richiesteVideo.set(video,token);
-  video.dataset.hoverAttivo='1';
-  video.muted=true;
-  video.defaultMuted=true;
-  video.playsInline=true;
-  Promise.resolve(video.play()).then(()=>{
-    if(richiesteVideo.get(video)!==token) return;
-    if(!desktopCarousel.matches || !card.matches(':hover') || isDragging || document.hidden){
-      delete video.dataset.hoverAttivo;
-      fermaVideoCard(card);
-      return;
-    }
-    video.classList.add('playing');
-    const poster=card.querySelector('.card-video-poster');
-    if(poster) poster.classList.add('hidden');
-  }).catch(()=>{
-    if(richiesteVideo.get(video)===token){
-      delete video.dataset.hoverAttivo;
-      fermaVideoCard(card);
-    }
-  });
-}
-function sincronizzaVideoHover(){
-  if(!desktopCarousel.matches) return;
-  annullaVideoInAttesa();
-  cards.forEach(card=>{
-    const consentita=expandedIndex===null || Number(card.dataset.index)===expandedIndex;
-    if(consentita && card.matches(':hover') && !card.classList.contains('hidden') && !isDragging && !document.hidden){
-      avviaVideoHover(card);
-    }else{
-      const video=card.querySelector('.card-video');
-      if(video) delete video.dataset.hoverAttivo;
-      fermaVideoCard(card);
-    }
-  });
-}
-cards.forEach(card=>{
-  card.addEventListener('mouseenter',()=>avviaVideoHover(card));
-  card.addEventListener('mousemove',()=>avviaVideoHover(card));
-  card.addEventListener('mouseleave',()=>{
-    if(!desktopCarousel.matches) return;
-    const video=card.querySelector('.card-video');
-    if(video) delete video.dataset.hoverAttivo;
-    fermaVideoCard(card);
-  });
-  card.addEventListener('transitionend',evento=>{
-    if(evento.target===card && evento.propertyName==='transform') sincronizzaVideoHover();
-  });
-});
 let videoTimer=null;
 function annullaVideoInAttesa(){
   clearTimeout(videoTimer);
@@ -1197,6 +1130,14 @@ function aggiornaVideoCorrente(){
 }
 function update(dragOffset=0){
   const step=getStep();
+  const desktop=desktopCarousel.matches;
+  const inizioVista=Math.max(0,currentIndex-1);
+  const fineVista=Math.min(cards.length,inizioVista+4);
+  const width=step-24;
+  const separatore=primoFuturoIndex>inizioVista && primoFuturoIndex<fineVista;
+  const larghezzaFila=(fineVista-inizioVista)*step-24+(separatore?20:0);
+  const margine=(carouselZone.clientWidth-larghezzaFila)/2;
+  if(desktop) carouselZone.style.setProperty('--desktop-card-w',width+'px');
   cards.forEach((card,i)=>{
     card.classList.toggle('current', i===currentIndex);
     card.classList.toggle('expanded', i===expandedIndex);
@@ -1207,15 +1148,11 @@ function update(dragOffset=0){
     }
     const offset=i-currentIndex;
     const x=offset*step+dragOffset;
-    if(desktopCarousel.matches){
-      const width=step-24;
-      const spazio=carouselZone.clientWidth;
-      const contenuto=cards.length*step-24;
-      const scrollMassimo=Math.max(0, contenuto-(spazio-144));
-      const scroll=Math.min(currentIndex*step, scrollMassimo);
-      const desktopX=72+width/2+i*step-scroll+dragOffset-spazio/2;
-      const visibile=desktopX+width/2>-spazio/2 && desktopX-width/2<spazio/2;
-      card.classList.toggle('hidden', !visibile);
+    if(desktop){
+      const visibile=i>=inizioVista && i<fineVista;
+      const rientro=separatore && i>=primoFuturoIndex ? 20 : 0;
+      const desktopX=margine+width/2+(i-inizioVista)*step+rientro+dragOffset-carouselZone.clientWidth/2;
+      card.classList.toggle('hidden',!visibile);
       card.style.transform=`translate(-50%,-50%) translateX(${desktopX}px)`;
       return;
     }
@@ -1230,9 +1167,7 @@ function update(dragOffset=0){
     const rot=offset*-6;
     card.style.transform=`translate(-50%,-50%) translateX(${x}px) translateZ(${z}px) rotateY(${rot}deg) scale(${scale})`;
   });
-  if(desktopCarousel.matches && isDragging){
-    sincronizzaVideoHover();
-  }
+  if(desktop && isDragging) sincronizzaVideoHover();
   if(!isDragging){
     aggiornaVideoCorrente();
   }
@@ -1363,14 +1298,71 @@ window.addEventListener('scroll',()=>{
   const trasparente=window.scrollY>50;
   logoBg.style.opacity=trasparente?'0':'1';
 },{passive:true});
-// Il ridimensionamento aggiorna le posizioni senza cambiare le regole mobile.
+// Video desktop indipendenti dalla card selezionata.
+const richiesteVideo=new WeakMap();
+function fermaVideoCard(card){
+  const video=card.querySelector('.card-video');
+  if(video){
+    richiesteVideo.set(video,(richiesteVideo.get(video)||0)+1);
+    delete video.dataset.hoverAttivo;
+    video.pause();
+    try{video.currentTime=0;}catch(errore){}
+    video.classList.remove('playing');
+  }
+  const poster=card.querySelector('.card-video-poster');
+  if(poster) poster.classList.remove('hidden');
+}
+function avviaVideoHover(card){
+  if(!desktopCarousel.matches || isDragging || document.hidden) return;
+  if(expandedIndex!==null && Number(card.dataset.index)!==expandedIndex) return;
+  const video=card.querySelector('.card-video');
+  if(!video || card.classList.contains('hidden') || !card.matches(':hover')) return;
+  if(video.dataset.hoverAttivo==='1') return;
+  cards.forEach(altra=>{if(altra!==card) fermaVideoCard(altra);});
+  const token=(richiesteVideo.get(video)||0)+1;
+  richiesteVideo.set(video,token);
+  video.dataset.hoverAttivo='1';
+  video.muted=true;
+  video.defaultMuted=true;
+  video.playsInline=true;
+  Promise.resolve(video.play()).then(()=>{
+    if(richiesteVideo.get(video)!==token) return;
+    if(!desktopCarousel.matches || !card.matches(':hover') || isDragging || document.hidden){
+      fermaVideoCard(card);
+      return;
+    }
+    video.classList.add('playing');
+    const poster=card.querySelector('.card-video-poster');
+    if(poster) poster.classList.add('hidden');
+  }).catch(()=>{
+    if(richiesteVideo.get(video)===token) fermaVideoCard(card);
+  });
+}
+function sincronizzaVideoHover(){
+  if(!desktopCarousel.matches) return;
+  annullaVideoInAttesa();
+  cards.forEach(card=>{
+    const consentita=expandedIndex===null || Number(card.dataset.index)===expandedIndex;
+    if(consentita && card.matches(':hover') && !card.classList.contains('hidden') && !isDragging && !document.hidden){
+      avviaVideoHover(card);
+    }else{
+      fermaVideoCard(card);
+    }
+  });
+}
+cards.forEach(card=>{
+  card.addEventListener('mouseenter',()=>avviaVideoHover(card));
+  card.addEventListener('mousemove',()=>avviaVideoHover(card));
+  card.addEventListener('mouseleave',()=>{
+    if(desktopCarousel.matches) fermaVideoCard(card);
+  });
+  card.addEventListener('transitionend',evento=>{
+    if(evento.target===card && evento.propertyName==='transform') sincronizzaVideoHover();
+  });
+});
 window.addEventListener('resize',()=>update());
 desktopCarousel.addEventListener('change',()=>{
-  cards.forEach(card=>{
-    const video=card.querySelector('.card-video');
-    if(video) delete video.dataset.hoverAttivo;
-    fermaVideoCard(card);
-  });
+  cards.forEach(fermaVideoCard);
   annullaVideoInAttesa();
   update();
 });
