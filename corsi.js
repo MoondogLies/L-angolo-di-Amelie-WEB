@@ -142,9 +142,10 @@ function inizializzaSezioniHome(){
   const stile=document.createElement('style');
   stile.id='home-sezioni-style';
   stile.textContent=`
-    .home-events{display:contents}
+    .home-events,.home-corsi-content{display:contents}
     @media(min-width:761px){
       html.home-snap{scroll-snap-type:y proximity}
+      html.home-snap main{padding-bottom:0}
       .carousel-label button{position:relative;display:inline-block;transform-origin:left center;transition:transform .22s ease,filter .22s ease}
       .carousel-label button::after{content:"";position:absolute;left:0;right:0;bottom:-7px;height:2px;background:currentColor;transform:scaleX(0);transform-origin:left center;transition:transform .22s ease;pointer-events:none}
       .carousel-label button:hover,.carousel-label button:focus-visible{transform:translateX(4px) scale(1.035);filter:drop-shadow(0 2px 5px rgba(0,0,0,.18))}
@@ -154,7 +155,11 @@ function inizializzaSezioniHome(){
       main > .home-events{display:block;padding-top:0;scroll-margin-top:calc(clamp(160px,12vw,200px) + 28px)}
       main > .sostenitori-e-section.home-panel,main > .sostenitori.home-panel,main > .corsi.home-panel{display:flex;flex-direction:column;justify-content:center}
       main > .sostenitori-e-section.home-panel > *,main > .sostenitori.home-panel > *,main > .corsi.home-panel > *{flex-shrink:0}
-      html.home-snap footer{scroll-snap-align:end}
+      main > .corsi.home-panel{min-height:100svh;scroll-margin-top:0;padding-bottom:0;justify-content:flex-start}
+      main > .corsi.home-panel > .home-corsi-content{display:flex;flex:1 0 auto;flex-direction:column;justify-content:center;padding-bottom:24px}
+      .home-corsi-content > *{flex-shrink:0}
+      html.home-snap footer{scroll-snap-align:none}
+      main > .corsi.home-panel > footer{flex:0 0 auto;margin-top:0;width:var(--home-footer-width,100%);margin-left:calc((100% - var(--home-footer-width,100%))/2);margin-right:calc((100% - var(--home-footer-width,100%))/2)}
     }
     @media(prefers-reduced-motion:reduce){
       .carousel-label button,.carousel-label button::after{transition:none}
@@ -175,6 +180,36 @@ function inizializzaSezioniHome(){
     if(elemento) sezioneEventi.appendChild(elemento);
   });
 
+  const desktopHome=window.matchMedia('(min-width:761px)');
+  const footerHome=document.querySelector('body > footer');
+  const posizioneFooter=document.createComment('Posizione originale del footer mobile');
+  if(footerHome) footerHome.before(posizioneFooter);
+
+  function sistemaFooter(corsiSezione){
+    if(!footerHome || !corsiSezione) return;
+    if(desktopHome.matches){
+      let contenuto=corsiSezione.querySelector(':scope > .home-corsi-content');
+      if(!contenuto){
+        contenuto=document.createElement('div');
+        contenuto.className='home-corsi-content';
+        [...corsiSezione.childNodes].forEach(nodo=>{
+          if(nodo!==footerHome) contenuto.appendChild(nodo);
+        });
+        corsiSezione.appendChild(contenuto);
+      }
+      corsiSezione.style.setProperty('--home-footer-width',document.documentElement.clientWidth+'px');
+      if(footerHome.parentElement!==corsiSezione) corsiSezione.appendChild(footerHome);
+    }else{
+      if(footerHome.parentNode!==posizioneFooter.parentNode) posizioneFooter.after(footerHome);
+      const contenuto=corsiSezione.querySelector(':scope > .home-corsi-content');
+      if(contenuto){
+        while(contenuto.firstChild) corsiSezione.insertBefore(contenuto.firstChild,contenuto);
+        contenuto.remove();
+      }
+      corsiSezione.style.removeProperty('--home-footer-width');
+    }
+  }
+
   function aggiornaSezioniHome(){
     const sostenitori=main.querySelector('.sostenitori-e-section, .sostenitori');
     const corsiSezione=main.querySelector('.corsi');
@@ -194,11 +229,14 @@ function inizializzaSezioniHome(){
       if(corsiSezione.parentElement!==main || precedente.nextElementSibling!==corsiSezione){
         precedente.after(corsiSezione);
       }
+      sistemaFooter(corsiSezione);
     }
   }
   aggiornaSezioniHome();
   const observer=new MutationObserver(aggiornaSezioniHome);
   observer.observe(main,{childList:true,subtree:true});
+  window.addEventListener('resize',aggiornaSezioniHome);
+  desktopHome.addEventListener('change',aggiornaSezioniHome);
   if(typeof adattaCaroselloAllaFinestra==='function') adattaCaroselloAllaFinestra();
 }
 
