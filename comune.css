@@ -82,7 +82,7 @@ footer{background:var(--rosso-scuro);color:#fff;padding:34px 20px;text-align:cen
   --rp:3px;           /* raggio degli intagli della perforazione */
   --perf:calc(100% - var(--stub));
   display:inline-flex;align-items:stretch;
-  font-family:var(--font-dettagli);color:#fff;text-transform:uppercase;line-height:1;
+  font-family:var(--font-dettagli);color:var(--testo-biglietto,#fff);text-transform:uppercase;line-height:1;
   -webkit-mask:
     radial-gradient(circle at 0 50%,#0000 var(--r),#000 calc(var(--r) + .5px)),
     radial-gradient(circle at 100% 50%,#0000 var(--r),#000 calc(var(--r) + .5px)),
@@ -96,7 +96,7 @@ footer{background:var(--rosso-scuro);color:#fff;padding:34px 20px;text-align:cen
     radial-gradient(circle at var(--perf) 100%,#0000 var(--rp),#000 calc(var(--rp) + .5px));
   mask-composite:intersect;
 }
-.biglietto-corpo{flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;gap:2px;padding:5px 9px 5px 10px;background:var(--rosso);white-space:nowrap;}
+.biglietto-corpo{flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;gap:2px;padding:5px 9px 5px 10px;background:var(--colore-biglietto,var(--rosso));white-space:nowrap;}
 .biglietto-corpo small{font-size:.4rem;letter-spacing:1.6px;opacity:.85;}
 .biglietto-corpo b{font-size:.56rem;font-weight:800;letter-spacing:.6px;}
-.biglietto-matrice{flex:0 0 var(--stub);display:flex;align-items:center;justify-content:center;background:var(--rosso-scuro);border-left:1px dashed rgba(255,255,255,.6);font-size:.42rem;font-weight:800;letter-spacing:.8px;writing-mode:vertical-rl;transform:rotate(180deg);}
+.biglietto-matrice{flex:0 0 var(--stub);display:flex;align-items:center;justify-content:center;background:var(--matrice-biglietto,var(--rosso-scuro));border-left:1px dashed currentColor;font-size:.42rem;font-weight:800;letter-spacing:.8px;writing-mode:vertical-rl;transform:rotate(180deg);}

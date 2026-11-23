@@ -58,6 +58,24 @@ function aggiungiAltriLoghi(contenitore,evento){
   contenitore.appendChild(gruppo);
 }
 
+// Colore del biglietto di una rassegna, da coloriRassegne in eventi.js.
+// Accetta solo colori esadecimali (#abc o #aabbcc); il testo diventa bianco o scuro in base alla luminosità.
+function stileColoreRassegna(nome){
+  const elenco=typeof coloriRassegne!=='undefined' && coloriRassegne ? coloriRassegne : {};
+  const chiave=Object.keys(elenco).find(k=>k.trim().toLowerCase()===nome.toLowerCase());
+  let colore=chiave ? String(elenco[chiave]).trim() : '';
+  if(/^#[0-9a-f]{3}$/i.test(colore)) colore='#'+[...colore.slice(1)].map(c=>c+c).join('');
+  if(!/^#[0-9a-f]{6}$/i.test(colore)) return '';
+  const [r,g,b]=[1,3,5].map(i=>parseInt(colore.slice(i,i+2),16)/255).map(c=>c<=.03928 ? c/12.92 : ((c+.055)/1.055)**2.4);
+  const luminosita=.2126*r+.7152*g+.0722*b;
+  const chiaro=luminosita>.4;
+  const testo=chiaro ? '#262626' : '#fff';
+  // Parte staccabile: un po' più scura del biglietto (meno scura se il colore è chiaro, per leggere il testo)
+  const fattore=chiaro ? .86 : .7;
+  const matrice='#'+[1,3,5].map(i=>Math.round(parseInt(colore.slice(i,i+2),16)*fattore).toString(16).padStart(2,'0')).join('');
+  return `--colore-biglietto:${colore};--matrice-biglietto:${matrice};--testo-biglietto:${testo};`;
+}
+
 // Biglietto della rassegna (campo 'rassegna' dell'evento in eventi.js).
 // Il nome va a capo prima dell'ultimo " di ", es. "Il favoloso cinema / di Amélie".
 function htmlBiglietto(evento){
@@ -65,7 +83,7 @@ function htmlBiglietto(evento){
   if(!nome) return '';
   const taglio=nome.toLowerCase().lastIndexOf(' di ');
   const righe=taglio>0 ? [nome.slice(0,taglio),nome.slice(taglio+1)] : [nome];
-  return `<div class="card-rassegna" role="note" aria-label="Rassegna ${escapeHtml(nome)}">
+  return `<div class="card-rassegna" role="note" aria-label="Rassegna ${escapeHtml(nome)}" style="${stileColoreRassegna(nome)}">
     <span class="biglietto" aria-hidden="true">
       <span class="biglietto-corpo"><small>Rassegna</small>${righe.map(r=>`<b>${escapeHtml(r)}</b>`).join('')}</span>
       <span class="biglietto-matrice">Ingresso</span>

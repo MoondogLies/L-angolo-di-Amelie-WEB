@@ -42,6 +42,18 @@ const videoInEvidenza = {
 // CONTENUTI DELLE CARD EVENTI
 // rassegna: nome della rassegna a cui appartiene l'evento (es. 'Il favoloso cinema di Amélie').
 //           Se c'è, sulla card compare il biglietto con il nome; se manca o è '', niente biglietto.
+//           Il colore del biglietto si sceglie qui sotto in coloriRassegne.
+
+// COLORI DEI BIGLIETTI DELLE RASSEGNE
+// Scrivi il nome della rassegna esattamente come nel campo 'rassegna' degli eventi
+// e il colore in formato esadecimale (es. '#1d5b8f'). Puoi trovare i codici su https://htmlcolorcodes.com
+// Il testo diventa bianco o scuro da solo, in base a quanto è chiaro il colore.
+// Una rassegna che non è in elenco usa il rosso del sito.
+const coloriRassegne = {
+  'Il favoloso cinema di Amélie': '#c8102e',
+  'Novembre Nordico': '#1d5b8f'
+};
+
 const eventiCinema = [
   {
     tipo: 'film',
@@ -59,7 +71,6 @@ const eventiCinema = [
     supporto: '',
     'altri loghi': ['citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png', 'icm.jpeg'],
     rassegna: 'Il favoloso cinema di Amélie',
-    logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
   {
     tipo: 'film',
@@ -77,7 +88,6 @@ const eventiCinema = [
     supporto: 'istitutobulgarodicultura.png',
     'altri loghi': ['citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png', 'icm.jpeg'],
     rassegna: 'Il favoloso cinema di Amélie',
-    logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
   {
     tipo: 'film',
@@ -95,7 +105,6 @@ const eventiCinema = [
     supporto: 'IMG_9104.jpeg',
     'altri loghi': ['citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png', 'icm.jpeg'],
     rassegna: 'Il favoloso cinema di Amélie',
-    logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
   {
     tipo: 'film',
@@ -113,7 +122,6 @@ const eventiCinema = [
     supporto: 'MKIungheria.png',
     'altri loghi': ['nationalfilmhungary.jpg', 'citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png', 'icm.jpeg'],
     rassegna: 'Il favoloso cinema di Amélie',
-    logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
   {
     tipo: 'film',
@@ -131,7 +139,6 @@ const eventiCinema = [
     supporto: 'irish-film-festa-contorno-bianco.svg',
     'altri loghi': ['citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png', 'icm.jpeg'],
     rassegna: 'Il favoloso cinema di Amélie',
-    logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
   {
     tipo: 'film',
@@ -149,7 +156,6 @@ const eventiCinema = [
     supporto: 'ifcinema.png',
     'altri loghi': ['citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png', 'icm.jpeg'],
     rassegna: 'Il favoloso cinema di Amélie',
-    logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
   {
     tipo: 'film',
@@ -166,7 +172,7 @@ const eventiCinema = [
     videoPoster: 'https://images.squarespace-cdn.com/content/v1/5d5c376ffd05ea0001470e05/4857e971-fcaf-4e5e-a75e-bf1a6e972a59/A+Happy+Day+Still+1.jpg',
     supporto: '',
     'altri loghi': [],
-    logoAlto: 'novembrenordico.png'
+    rassegna: 'Novembre Nordico'
   },
   {
     tipo: 'film',
@@ -184,7 +190,6 @@ const eventiCinema = [
     supporto: 'GoetheInstitut.png',
     'altri loghi': ['citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png', 'icm.jpeg'],
     rassegna: 'Il favoloso cinema di Amélie',
-    logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
   {
     tipo: 'film',
@@ -202,7 +207,6 @@ const eventiCinema = [
     supporto: '',
     'altri loghi': ['citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png', 'icm.jpeg'],
     rassegna: 'Il favoloso cinema di Amélie',
-    logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   }
 ];
 
@@ -223,7 +227,6 @@ const eventiConcorsi = [{
   supporto: '',
   'altri loghi': ['citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png', 'icm.jpeg'],
   rassegna: 'Il favoloso cinema di Amélie',
-  logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
 }];
 
 const eventi = [...eventiCinema, ...eventiMusica, ...eventiConcorsi];
