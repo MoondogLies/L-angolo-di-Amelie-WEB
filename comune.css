@@ -34,7 +34,7 @@ body.card-aperta .header-btn{pointer-events:none}
 @media(max-width:760px){.header-btn{top:calc(14px + env(safe-area-inset-top,0px));right:calc(14px + env(safe-area-inset-right,0px));width:44px;height:44px}}
 @media(prefers-reduced-motion:reduce){.header-btn{transition:none}.header-btn:hover{transform:none}}
 
-/* Footer
+/* Footer */
 footer{background:var(--rosso-scuro);color:#fff;padding:34px 20px;text-align:center;margin-top:auto;}
 .footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-bottom:18px;}
 .footer-links a,.footer-links button{font:inherit;font-family:var(--font-dettagli);color:#fff;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.3);padding:11px 20px;border-radius:12px;font-weight:700;font-size:.95rem;transition:.2s;cursor:pointer;}
