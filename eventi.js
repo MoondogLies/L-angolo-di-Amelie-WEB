@@ -33,9 +33,9 @@ const sostenitoriBox = [
 // Per mostrarla: carica il file video nel sito e scrivi il suo nome in 'video'.
 // Per nasconderla: lascia video: '' (la sezione non viene creata).
 const videoInEvidenza = {
-  titolo: '',        // facoltativo, es. 'Il nostro anno insieme'
+  titolo: 'Il Favoloso Cinema di Amélie',        // facoltativo, es. 'Il nostro anno insieme'
   descrizione: '',   // facoltativo, testo breve sotto al titolo
-  video: '',         // es. 'video-associazione.mp4'
+  video: 'Il-Faloso-Cinema-Di-Amelie-DEMO.mp4',         // es. 'video-associazione.mp4'
   poster: ''         // facoltativo: immagine mostrata prima dell'avvio, es. 'foto.jpg'
 };
 
