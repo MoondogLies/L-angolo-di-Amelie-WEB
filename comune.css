@@ -11,6 +11,7 @@
   --font-dettagli:"Futura", "Futura PT", "Century Gothic", "Avenir Next", Arial, sans-serif;
 }
 *{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;}
 body{margin:0;color:var(--testo);background:var(--bianco);font-family:var(--font-dettagli);min-height:100vh;display:flex;flex-direction:column;}
 a{color:inherit;text-decoration:none}
 button{font-family:var(--font-dettagli)}
@@ -74,29 +75,36 @@ footer{background:var(--rosso-scuro);color:#fff;padding:34px 20px;text-align:cen
 .card-altri-loghi-fila img{display:block;position:static;flex:0 0 auto;width:auto;height:44px;max-width:120px;object-fit:contain;transform:none;}
 .card-altri-loghi:focus-visible{outline:2px solid var(--rosso);outline-offset:-2px;}
 
-/* Biglietto della rassegna: compare sulle card degli eventi con il campo 'rassegna' in eventi.js */
-.card-rassegna{position:absolute;right:12px;top:22px;z-index:5;transform:rotate(7deg);transform-origin:right top;filter:drop-shadow(0 3px 6px rgba(0,0,0,.35));pointer-events:none;}
+/* Biglietto della rassegna: compare sulle card degli eventi con il campo 'rassegna' in eventi.js.
+   La forma (intagli e perforazione) è disegnata con sfumature di sfondo, senza maschere né filtri,
+   così è stabile su tutti i browser e non lampeggia nel carosello 3D della versione mobile. */
+.card-rassegna{position:absolute;right:12px;top:22px;z-index:5;transform:translateZ(1px) rotate(7deg);transform-origin:right top;backface-visibility:hidden;-webkit-backface-visibility:hidden;pointer-events:none;}
 .biglietto{
   --r:4.5px;          /* raggio degli intagli laterali */
-  --stub:18px;        /* larghezza della parte staccabile */
   --rp:3px;           /* raggio degli intagli della perforazione */
-  --perf:calc(100% - var(--stub));
+  --c:var(--colore-biglietto,var(--rosso));
+  --m:var(--matrice-biglietto,var(--rosso-scuro));
   display:inline-flex;align-items:stretch;
   font-family:var(--font-dettagli);color:var(--testo-biglietto,#fff);text-transform:uppercase;line-height:1;
-  -webkit-mask:
-    radial-gradient(circle at 0 50%,#0000 var(--r),#000 calc(var(--r) + .5px)),
-    radial-gradient(circle at 100% 50%,#0000 var(--r),#000 calc(var(--r) + .5px)),
-    radial-gradient(circle at var(--perf) 0,#0000 var(--rp),#000 calc(var(--rp) + .5px)),
-    radial-gradient(circle at var(--perf) 100%,#0000 var(--rp),#000 calc(var(--rp) + .5px));
-  -webkit-mask-composite:source-in;
-  mask:
-    radial-gradient(circle at 0 50%,#0000 var(--r),#000 calc(var(--r) + .5px)),
-    radial-gradient(circle at 100% 50%,#0000 var(--r),#000 calc(var(--r) + .5px)),
-    radial-gradient(circle at var(--perf) 0,#0000 var(--rp),#000 calc(var(--rp) + .5px)),
-    radial-gradient(circle at var(--perf) 100%,#0000 var(--rp),#000 calc(var(--rp) + .5px));
-  mask-composite:intersect;
 }
-.biglietto-corpo{flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;gap:2px;padding:5px 9px 5px 10px;background:var(--colore-biglietto,var(--rosso));white-space:nowrap;}
-.biglietto-corpo small{font-size:.4rem;letter-spacing:1.6px;opacity:.85;}
-.biglietto-corpo b{font-size:.56rem;font-weight:800;letter-spacing:.6px;}
-.biglietto-matrice{flex:0 0 var(--stub);display:flex;align-items:center;justify-content:center;background:var(--matrice-biglietto,var(--rosso-scuro));border-left:1px dashed currentColor;font-size:.42rem;font-weight:800;letter-spacing:.8px;writing-mode:vertical-rl;transform:rotate(180deg);}
+.biglietto-corpo{
+  flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;gap:2px;padding:5px 9px 5px 10px;white-space:nowrap;
+  background:
+    radial-gradient(circle at 0 100%,transparent var(--r),var(--c) calc(var(--r) + .5px)) top left/51% 51% no-repeat,
+    radial-gradient(circle at 0 0,transparent var(--r),var(--c) calc(var(--r) + .5px)) bottom left/51% 51% no-repeat,
+    radial-gradient(circle at 100% 0,transparent var(--rp),var(--c) calc(var(--rp) + .5px)) top right/51% 51% no-repeat,
+    radial-gradient(circle at 100% 100%,transparent var(--rp),var(--c) calc(var(--rp) + .5px)) bottom right/51% 51% no-repeat;
+}
+.biglietto-corpo small{font-size:6.5px;letter-spacing:1.6px;opacity:.85;}
+.biglietto-corpo b{font-size:9px;font-weight:800;letter-spacing:.6px;}
+.biglietto-matrice{
+  position:relative;flex:0 0 18px;display:flex;align-items:center;justify-content:center;
+  font-size:6.5px;font-weight:800;letter-spacing:.8px;writing-mode:vertical-rl;
+  background:
+    radial-gradient(circle at 0 0,transparent var(--rp),var(--m) calc(var(--rp) + .5px)) top left/51% 51% no-repeat,
+    radial-gradient(circle at 0 100%,transparent var(--rp),var(--m) calc(var(--rp) + .5px)) bottom left/51% 51% no-repeat,
+    radial-gradient(circle at 100% 100%,transparent var(--r),var(--m) calc(var(--r) + .5px)) top right/51% 51% no-repeat,
+    radial-gradient(circle at 100% 0,transparent var(--r),var(--m) calc(var(--r) + .5px)) bottom right/51% 51% no-repeat;
+}
+/* Linea tratteggiata della perforazione, tra i due intagli */
+.biglietto-matrice::before{content:"";position:absolute;left:0;top:calc(var(--rp) + 1px);bottom:calc(var(--rp) + 1px);border-left:1px dashed currentColor;opacity:.6;}
