@@ -170,6 +170,9 @@ function inizializzaDona(){
 
   const overlay=document.createElement('div');
   overlay.className='dona-overlay';
+  overlay.setAttribute('role','dialog');
+  overlay.setAttribute('aria-modal','true');
+  overlay.setAttribute('aria-label','Sostienici');
   overlay.id='donaOverlay';
 
   overlay.innerHTML=`
@@ -181,22 +184,22 @@ function inizializzaDona(){
 
       <div class="dona-dato">
         <strong>Intestatario</strong>
-        <span>${datiBonifico.intestatario}</span>
+        <span>${escapeHtml(datiBonifico.intestatario)}</span>
       </div>
 
       <div class="dona-dato">
         <strong>IBAN</strong>
-        <span>${datiBonifico.iban}</span>
+        <span>${escapeHtml(datiBonifico.iban)}</span>
       </div>
 
       <div class="dona-dato">
         <strong>BIC / SWIFT</strong>
-        <span>${datiBonifico.bic || "Non necessario per bonifici nazionali"}</span>
+        <span>${escapeHtml(datiBonifico.bic || "Non necessario per bonifici nazionali")}</span>
       </div>
 
       <div class="dona-dato">
         <strong>Causale</strong>
-        <span>${datiBonifico.causale}</span>
+        <span>${escapeHtml(datiBonifico.causale)}</span>
       </div>
 
       <button class="dona-chiudi" id="chiudiDona" type="button">Chiudi</button>

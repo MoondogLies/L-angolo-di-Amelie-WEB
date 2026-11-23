@@ -6,28 +6,40 @@ const INFO_ASSOCIAZIONE = {
 };
 
 // SOSTENITORI/E
+// 'nome' è il nome reale del sostenitore: viene letto dai lettori di schermo e mostrato al passaggio del mouse.
 const sostenitoriBox = [
   {
     titolo: 'Sostenitori',
-    loghi: [{nome: 'Sostenitore', logo: 'bcc.jpg', sito: 'https://www.bccroma.it'}]
+    loghi: [{nome: 'BCC Roma', logo: 'bcc.jpg', sito: 'https://www.bccroma.it'}]
   },
   {
     titolo: 'Sostenitori',
     loghi: [
-      {nome: 'Sostenitore', logo: 'delavallee.png', sito: 'https://www.delavallee.it'},
-      {nome: 'Sostenitore', logo: 'papili.jpeg', sito: ''},
-      {nome: 'Sostenitore', logo: 'dascenzi.png', sito: 'https://www.dascenzi.it'},
-      {nome: 'Sostenitore', logo: 'isolaceliaca.png', sito: 'https://lisolaceliaca.it/affiliato/monterotondo/'},
-      {nome: 'Sostenitore', logo: 'iezzi.png', sito: 'https://www.gruppoiezzi.it'},
-      {nome: 'Sostenitore', logo: 'unieuro.jpg', sito: 'https://www.unieuro.it/online/negozi/Unieuro-Monterotondo-Scalo'},
-      {nome: 'Sostenitore', logo: 'fioridipina.png', sito: 'https://www.facebook.com/p/I-Fiori-di-Pina-61575371019310/'},
-      {nome: 'Sostenitore', logo: 'agenziatosca.jpg', sito: ''},
-      {nome: 'Sostenitore', logo: 'valery.png', sito: 'https://www.hotelvalery.it'}
+      {nome: 'De La Vallée', logo: 'delavallee.png', sito: 'https://www.delavallee.it'},
+      {nome: 'Autofficina Papili', logo: 'papili.jpeg', sito: ''},
+      {nome: 'D’Ascenzi', logo: 'dascenzi.png', sito: 'https://www.dascenzi.it'},
+      {nome: 'L’Isola Celiaca Monterotondo', logo: 'isolaceliaca.png', sito: 'https://lisolaceliaca.it/affiliato/monterotondo/'},
+      {nome: 'Gruppo Iezzi', logo: 'iezzi.png', sito: 'https://www.gruppoiezzi.it'},
+      {nome: 'Unieuro Monterotondo Scalo', logo: 'unieuro.jpg', sito: 'https://www.unieuro.it/online/negozi/Unieuro-Monterotondo-Scalo'},
+      {nome: 'I Fiori di Pina', logo: 'fioridipina.png', sito: 'https://www.facebook.com/p/I-Fiori-di-Pina-61575371019310/'},
+      {nome: 'Agenzia Tosca', logo: 'agenziatosca.jpg', sito: ''},
+      {nome: 'Hotel Valery', logo: 'valery.png', sito: 'https://www.hotelvalery.it'}
     ]
   }
 ];
 
-// CONTENUTI DELLE CARD EVENTI IMPORTATI DA MAIN
+// VIDEO IN EVIDENZA (HOME)
+// Sezione che compare in home tra gli eventi e i sostenitori.
+// Per mostrarla: carica il file video nel sito e scrivi il suo nome in 'video'.
+// Per nasconderla: lascia video: '' (la sezione non viene creata).
+const videoInEvidenza = {
+  titolo: '',        // facoltativo, es. 'Il nostro anno insieme'
+  descrizione: '',   // facoltativo, testo breve sotto al titolo
+  video: '',         // es. 'video-associazione.mp4'
+  poster: ''         // facoltativo: immagine mostrata prima dell'avvio, es. 'foto.jpg'
+};
+
+// CONTENUTI DELLE CARD EVENTI
 const eventiCinema = [
   {
     tipo: 'film',
@@ -205,7 +217,7 @@ const eventiConcorsi = [{
 
 const eventi = [...eventiCinema, ...eventiMusica, ...eventiConcorsi];
 
-// CORSI: DATI CONSERVATI DA FIX_
+// CORSI
 const corsi = [
   {
     categoria: 'Fotografia',
@@ -264,219 +276,3 @@ const datiBonifico = {
   bic: '',
   causale: 'Donazione'
 };
-
-// RENDERING E FUNZIONI CONSERVATI DA FIX_
-function inizializzaSostenitori() {
-  const pulsanteProgrammazione = document.querySelector('.programma-btn-wrap');
-  if (!pulsanteProgrammazione) {
-    console.warn('Sostenitori: contenitore .programma-btn-wrap non trovato');
-    return;
-  }
-  const stile = document.createElement('style');
-  stile.textContent = `
-    .sostenitori-e-section{margin-top:70px;text-align:center;}
-    .sostenitori-e-section .section-title{margin-bottom:22px;}
-    .sostenitori-e-section h2{color:var(--rosso);margin:0 0 8px;font-size:clamp(24px,3.5vw,34px);}
-    .sostenitori-e-section p{margin:0;color:var(--grigio);}
-    .sostenitori-e-grid{display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:24px;align-items:center;}
-    .sostenitori-e-box{background:transparent;border:none;box-shadow:none;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-    .sostenitori-e-stage{position:relative;width:100%;height:150px;}
-    .sostenitori-e-logo{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .7s ease;pointer-events:none;}
-    .sostenitori-e-logo.attivo{opacity:1;pointer-events:auto;}
-    .sostenitori-e-logo img{max-width:100%;max-height:130px;object-fit:contain;display:block;}
-    @media(max-width:600px){
-      .sostenitori-e-grid{grid-template-columns:1fr;}
-      .sostenitori-e-stage{height:110px;}
-      .sostenitori-e-logo img{max-height:95px;}
-    }
-  `;
-  document.head.appendChild(stile);
-  const sezione = document.createElement('section');
-  sezione.className = 'sostenitori-e-section';
-  sezione.innerHTML = `
-    <div class="section-title">
-      <h2>I nostri sostenitori</h2>
-      <p>Grazie a chi sostiene le attività de L’Angolo di Amelie.</p>
-    </div>
-    <div class="sostenitori-e-grid" id="sostenitoriEGrid"></div>
-  `;
-  pulsanteProgrammazione.after(sezione);
-  const grid = document.getElementById('sostenitoriEGrid');
-  sostenitoriBox.forEach(box => {
-    const boxElemento = document.createElement('div');
-    boxElemento.className = 'sostenitori-e-box';
-    const stage = document.createElement('div');
-    stage.className = 'sostenitori-e-stage';
-    boxElemento.appendChild(stage);
-    const loghi = [];
-    (box.loghi || []).forEach(sostenitore => {
-      const elemento = document.createElement('div');
-      elemento.className = 'sostenitori-e-logo';
-      const immagine = document.createElement('img');
-      immagine.src = sostenitore.logo;
-      immagine.alt = sostenitore.nome || 'Sostenitore';
-      immagine.loading = 'lazy';
-      if (sostenitore.sito) {
-        const link = document.createElement('a');
-        link.href = sostenitore.sito;
-        link.target = '_blank';
-        link.rel = 'noopener';
-        link.setAttribute('aria-label', sostenitore.nome || 'Sito del sostenitore');
-        link.appendChild(immagine);
-        elemento.appendChild(link);
-      } else {
-        elemento.appendChild(immagine);
-      }
-      stage.appendChild(elemento);
-      loghi.push(elemento);
-    });
-    grid.appendChild(boxElemento);
-    let indiceAttivo = 0;
-    function mostraSostenitore(indice) {
-      loghi.forEach((logo, i) => {logo.classList.toggle('attivo', i === indice);});
-    }
-    mostraSostenitore(indiceAttivo);
-    if (loghi.length > 1) {
-      setInterval(() => {
-        indiceAttivo = (indiceAttivo + 1) % loghi.length;
-        mostraSostenitore(indiceAttivo);
-      }, 5000);
-    }
-  });
-}
-inizializzaSostenitori();
-
-function inizializzaSupporto() {
-  const stile = document.createElement('style');
-  stile.textContent = `
-    body.card-aperta .nav-arrow{opacity:0;visibility:hidden;pointer-events:none;transition:none;}
-    .card-supporto{position:absolute;right:10px;bottom:10px;z-index:5;display:flex;align-items:center;gap:6px;max-width:45%;}
-    .card-supporto img{max-height:44px;max-width:120px;object-fit:contain;display:block;}
-    .card-supporto-testo{display:none;font-size:.7rem;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.8);}
-    .card.expanded .card-supporto-testo{display:inline;}
-    .card-logo-alto{position:absolute;left:10px;top:10px;z-index:5;display:flex;align-items:center;gap:6px;max-width:45%;}
-    .card-logo-alto img{max-height:44px;max-width:120px;object-fit:contain;display:block;}
-  `;
-  document.head.appendChild(stile);
-  const cards = document.querySelectorAll('.card');
-  eventi.forEach((evento, i) => {
-    const card = cards[i];
-    if (!card) return;
-    const poster = card.querySelector('.card-poster');
-    if (!poster) return;
-    const logoSupporto = evento.supporto;
-    if (logoSupporto) {
-      const supporto = document.createElement('div');
-      supporto.className = 'card-supporto';
-      supporto.innerHTML = `<img src="${logoSupporto}" alt="Sostenitore">`;
-      poster.appendChild(supporto);
-    }
-    const logoAlto = evento.logoAlto;
-    if (logoAlto) {
-      const logo = document.createElement('div');
-      logo.className = 'card-logo-alto';
-      logo.innerHTML = `<img src="${logoAlto}" alt="Logo">`;
-      poster.appendChild(logo);
-    }
-  });
-}
-document.addEventListener('DOMContentLoaded', inizializzaSupporto);
-
-const scriptCorsi = document.createElement('script');
-scriptCorsi.src = 'corsi.js?v=20261123a';
-scriptCorsi.onload = () => {
-  const scriptDona = document.createElement('script');
-  scriptDona.src = 'dona.js?v=20261112c';
-  document.body.appendChild(scriptDona);
-};
-document.body.appendChild(scriptCorsi);
-
-function inizializzaPulsanteStatuto() {
-  document.querySelectorAll('#chiSiamoOverlay .legal-box').forEach(box => {
-    const link = box.querySelector('a[href="statuto.pdf"]');
-    if (!link) return;
-    const titolo = [...box.querySelectorAll('h3')].find(elemento => elemento.textContent.trim() === 'Statuto dell’associazione');
-    if (titolo) {
-      const testo = titolo.nextElementSibling;
-      if (testo && testo.tagName === 'P' && !testo.contains(link)) testo.remove();
-      titolo.remove();
-    }
-    link.textContent = 'Statuto';
-    link.setAttribute('download', 'statuto.pdf');
-    link.removeAttribute('target');
-    link.removeAttribute('rel');
-    link.style.display = 'inline-block';
-    link.style.backgroundColor = 'var(--rosso)';
-    link.style.color = '#fff';
-    link.style.padding = '12px 24px';
-    link.style.borderRadius = '999px';
-    link.style.fontWeight = '800';
-    link.style.textDecoration = 'none';
-    link.style.textTransform = 'none';
-    link.setAttribute('aria-label', 'Scarica lo statuto in PDF');
-  });
-}
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', inizializzaPulsanteStatuto);
-} else {
-  inizializzaPulsanteStatuto();
-}
-
-function aggiungiAltriLoghi(card, evento) {
-  const contenitore = card.querySelector('.card-details, .evento-info');
-  if (!contenitore || contenitore.querySelector('.card-altri-loghi')) return;
-  const elenco = evento && evento['altri loghi'];
-  const loghi = Array.isArray(elenco) ? elenco.filter(src => typeof src === 'string' && src.trim()).map(src => src.trim()) : [];
-  if (!loghi.length) return;
-  const gruppo = document.createElement('div');
-  gruppo.className = 'card-altri-loghi';
-  gruppo.tabIndex = 0;
-  gruppo.setAttribute('role', 'group');
-  gruppo.setAttribute('aria-label', 'Altri loghi dell’evento');
-  const fila = document.createElement('div');
-  fila.className = 'card-altri-loghi-fila';
-  loghi.forEach((src, indice) => {
-    const img = document.createElement('img');
-    img.alt = 'Logo aggiuntivo ' + (indice + 1);
-    img.decoding = 'async';
-    img.addEventListener('error', () => {
-      img.remove();
-      if (!fila.children.length) gruppo.remove();
-    }, {once: true});
-    img.src = src;
-    fila.appendChild(img);
-  });
-  gruppo.appendChild(fila);
-  contenitore.appendChild(gruppo);
-}
-function inizializzaAltriLoghi() {
-  if (inizializzaAltriLoghi.attivo) return;
-  inizializzaAltriLoghi.attivo = true;
-  const stile = document.createElement('style');
-  stile.textContent = `
-    .card-altri-loghi{width:100%;max-width:100%;min-width:0;grid-column:1 / -1;margin-top:18px;overflow-x:auto;overscroll-behavior-x:contain;direction:rtl;-webkit-overflow-scrolling:touch;}
-    .card-altri-loghi-fila{display:flex;flex-wrap:nowrap;align-items:center;justify-content:flex-end;gap:12px;width:max-content;min-width:100%;direction:ltr;}
-    .card-altri-loghi-fila img{display:block;position:static;flex:0 0 auto;width:auto;height:44px;max-width:120px;object-fit:contain;transform:none;}
-    .card:not(.expanded) .card-altri-loghi{display:none;}
-    .card-altri-loghi:focus-visible{outline:2px solid var(--rosso);outline-offset:-2px;}
-  `;
-  document.head.appendChild(stile);
-  document.querySelectorAll('.card[data-index]').forEach(card => {
-    const evento = eventi[Number(card.dataset.index)];
-    aggiungiAltriLoghi(card, evento);
-  });
-  if (typeof window.creaCard === 'function' && typeof window.renderGrid === 'function') {
-    const creaCardOriginale = window.creaCard;
-    window.creaCard = function(evento) {
-      const card = creaCardOriginale.call(this, evento);
-      aggiungiAltriLoghi(card, evento);
-      return card;
-    };
-    window.renderGrid();
-  }
-}
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', inizializzaAltriLoghi, {once: true});
-} else {
-  inizializzaAltriLoghi();
-}
