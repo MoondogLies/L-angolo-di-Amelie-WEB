@@ -165,6 +165,13 @@ function inizializzaSezioniHome(){
       main > .corsi.home-panel{min-height:100svh;scroll-margin-top:0;padding-bottom:0;justify-content:flex-start}
       main > .corsi.home-panel > .home-corsi-content{display:flex;flex:1 0 auto;flex-direction:column;justify-content:center;padding-bottom:24px}
       .home-corsi-content > *{flex-shrink:0}
+      main > .corsi.home-panel > .home-corsi-content{gap:clamp(28px,5vh,56px);padding-top:8px}
+      .home-corsi-content > .home-sostenitori-unita{margin:0}
+      .home-sostenitori-unita .section-title,.corsi.home-panel .section-title{margin-bottom:16px}
+      .home-sostenitori-unita .sostenitori-e-stage{height:clamp(80px,12vh,130px)}
+      .home-sostenitori-unita .sostenitori-e-logo img{max-height:clamp(70px,11vh,115px)}
+      .home-sostenitori-unita .dona-wrap{margin-top:clamp(12px,2.5vh,28px)}
+      .corsi.home-panel .course-card img{height:clamp(120px,18vh,200px)}
       html.home-snap footer{scroll-snap-align:none}
       main > .corsi.home-panel > footer{flex:0 0 auto;margin-top:0;width:var(--home-footer-width,100%);margin-left:calc((100% - var(--home-footer-width,100%))/2);margin-right:calc((100% - var(--home-footer-width,100%))/2)}
     }
@@ -233,23 +240,31 @@ function inizializzaSezioniHome(){
   function aggiornaSezioniHome(){
     const sostenitori=main.querySelector('.sostenitori-e-section, .sostenitori');
     const corsiSezione=main.querySelector('.corsi');
+    // Desktop: due pannelli (1. eventi, 2. sostenitori + corsi + footer).
+    // Mobile: sezioni in sequenza come prima (eventi, sostenitori, corsi, footer).
+    const unisciSostenitori=desktopHome.matches && sostenitori && corsiSezione;
     if(sostenitori){
       sostenitori.id='home-sostenitori';
-      sostenitori.classList.add('home-panel');
       sostenitori.setAttribute('aria-label','I nostri sostenitori');
-      if(sostenitori.parentElement!==main || sezioneEventi.nextElementSibling!==sostenitori){
+      sostenitori.classList.toggle('home-panel',!unisciSostenitori);
+      sostenitori.classList.toggle('home-sostenitori-unita',!!unisciSostenitori);
+      if(!unisciSostenitori && (sostenitori.parentElement!==main || sezioneEventi.nextElementSibling!==sostenitori)){
         sezioneEventi.after(sostenitori);
       }
     }
     if(corsiSezione){
       corsiSezione.id='home-corsi';
       corsiSezione.classList.add('home-panel');
-      corsiSezione.setAttribute('aria-label','I nostri corsi');
-      const precedente=sostenitori || sezioneEventi;
+      corsiSezione.setAttribute('aria-label',unisciSostenitori?'Sostenitori e corsi':'I nostri corsi');
+      const precedente=(sostenitori && !unisciSostenitori) ? sostenitori : sezioneEventi;
       if(corsiSezione.parentElement!==main || precedente.nextElementSibling!==corsiSezione){
         precedente.after(corsiSezione);
       }
       sistemaFooter(corsiSezione);
+      if(unisciSostenitori){
+        const contenuto=corsiSezione.querySelector(':scope > .home-corsi-content');
+        if(contenuto && contenuto.firstElementChild!==sostenitori) contenuto.prepend(sostenitori);
+      }
     }
   }
   aggiornaSezioniHome();

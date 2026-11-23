@@ -383,7 +383,7 @@ function inizializzaSupporto() {
 document.addEventListener('DOMContentLoaded', inizializzaSupporto);
 
 const scriptCorsi = document.createElement('script');
-scriptCorsi.src = 'corsi.js?v=20261112c';
+scriptCorsi.src = 'corsi.js?v=20261123a';
 scriptCorsi.onload = () => {
   const scriptDona = document.createElement('script');
   scriptDona.src = 'dona.js?v=20261112c';
