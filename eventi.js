@@ -40,6 +40,8 @@ const videoInEvidenza = {
 };
 
 // CONTENUTI DELLE CARD EVENTI
+// rassegna: nome della rassegna a cui appartiene l'evento (es. 'Il favoloso cinema di Amélie').
+//           Se c'è, sulla card compare il biglietto con il nome; se manca o è '', niente biglietto.
 const eventiCinema = [
   {
     tipo: 'film',
@@ -56,6 +58,7 @@ const eventiCinema = [
     videoPoster: 'lanimainpace.jpg',
     supporto: '',
     'altri loghi': ['citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png', 'icm.jpeg'],
+    rassegna: 'Il favoloso cinema di Amélie',
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
   {
@@ -73,6 +76,7 @@ const eventiCinema = [
     videoPoster: 'fragoleselvatiche.jpeg',
     supporto: 'istitutobulgarodicultura.png',
     'altri loghi': ['citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png', 'icm.jpeg'],
+    rassegna: 'Il favoloso cinema di Amélie',
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
   {
@@ -90,6 +94,7 @@ const eventiCinema = [
     videoPoster: 'bolladisapone.jpg',
     supporto: 'IMG_9104.jpeg',
     'altri loghi': ['citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png', 'icm.jpeg'],
+    rassegna: 'Il favoloso cinema di Amélie',
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
   {
@@ -107,6 +112,7 @@ const eventiCinema = [
     videoPoster: 'mambomaternica.jpg',
     supporto: 'MKIungheria.png',
     'altri loghi': ['nationalfilmhungary.jpg', 'citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png', 'icm.jpeg'],
+    rassegna: 'Il favoloso cinema di Amélie',
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
   {
@@ -124,6 +130,7 @@ const eventiCinema = [
     videoPoster: 'aontas.jpeg',
     supporto: 'irish-film-festa-contorno-bianco.svg',
     'altri loghi': ['citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png', 'icm.jpeg'],
+    rassegna: 'Il favoloso cinema di Amélie',
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
   {
@@ -141,6 +148,7 @@ const eventiCinema = [
     videoPoster: 'lavoieroyale.jpg',
     supporto: 'ifcinema.png',
     'altri loghi': ['citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png', 'icm.jpeg'],
+    rassegna: 'Il favoloso cinema di Amélie',
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
   {
@@ -175,6 +183,7 @@ const eventiCinema = [
     videoPoster: 'https://www.dffb.de/wp-content/uploads/2022/01/WETTER-Still-1.jpg',
     supporto: 'GoetheInstitut.png',
     'altri loghi': ['citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png', 'icm.jpeg'],
+    rassegna: 'Il favoloso cinema di Amélie',
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   },
   {
@@ -192,6 +201,7 @@ const eventiCinema = [
     videoPoster: 'https://m.media-amazon.com/images/M/MV5BNzkzOTMxYzItMjMxMS00ODgwLThjZGUtM2E1YzFjOTEwMDkzXkEyXkFqcGc@._V1_.jpg',
     supporto: '',
     'altri loghi': ['citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png', 'icm.jpeg'],
+    rassegna: 'Il favoloso cinema di Amélie',
     logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
   }
 ];
@@ -212,6 +222,7 @@ const eventiConcorsi = [{
   videoPoster: '',
   supporto: '',
   'altri loghi': ['citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png', 'icm.jpeg'],
+  rassegna: 'Il favoloso cinema di Amélie',
   logoAlto: 'ilfavolosocinemadiamelie_bianco.svg'
 }];
 

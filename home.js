@@ -39,6 +39,7 @@ function creaCardCarosello(e,i){
       ${media}
       ${logoAlto}
       ${supporto}
+      ${htmlBiglietto(e)}
       <div class="card-info">
         <span class="card-date">${formattaData(e.data,escapeHtml(e.ora))}</span>
         ${ospiti}

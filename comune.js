@@ -58,6 +58,21 @@ function aggiungiAltriLoghi(contenitore,evento){
   contenitore.appendChild(gruppo);
 }
 
+// Biglietto della rassegna (campo 'rassegna' dell'evento in eventi.js).
+// Il nome va a capo prima dell'ultimo " di ", es. "Il favoloso cinema / di Amélie".
+function htmlBiglietto(evento){
+  const nome=evento && typeof evento.rassegna==='string' ? evento.rassegna.trim() : '';
+  if(!nome) return '';
+  const taglio=nome.toLowerCase().lastIndexOf(' di ');
+  const righe=taglio>0 ? [nome.slice(0,taglio),nome.slice(taglio+1)] : [nome];
+  return `<div class="card-rassegna" role="note" aria-label="Rassegna ${escapeHtml(nome)}">
+    <span class="biglietto" aria-hidden="true">
+      <span class="biglietto-corpo"><small>Rassegna</small>${righe.map(r=>`<b>${escapeHtml(r)}</b>`).join('')}</span>
+      <span class="biglietto-matrice">Ingresso</span>
+    </span>
+  </div>`;
+}
+
 // ---------- Footer e finestre informative ----------
 
 function htmlFooter(){
