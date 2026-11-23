@@ -220,14 +220,10 @@ function inizializzaComune(){
     }
   });
 
-  // Il logo in alto sparisce scorrendo la pagina.
-  // data-dissolvenza="graduale" lo fa sfumare nei primi 100px, altrimenti sparisce dopo 50px.
+  // Il logo in alto sparisce dopo 50px di scorrimento (uguale in tutte le pagine)
   const logoBg=document.getElementById('logoBg');
   if(logoBg){
-    const graduale=logoBg.dataset.dissolvenza==='graduale';
-    const aggiornaLogo=()=>{
-      logoBg.style.opacity=graduale ? String(1-Math.min(window.scrollY/100,1)) : (window.scrollY>50?'0':'1');
-    };
+    const aggiornaLogo=()=>{logoBg.style.opacity=window.scrollY>50?'0':'1';};
     window.addEventListener('scroll',aggiornaLogo,{passive:true});
     aggiornaLogo();
   }

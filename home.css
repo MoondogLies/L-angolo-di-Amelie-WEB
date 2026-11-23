@@ -10,7 +10,6 @@ body.card-aperta header,body.card-aperta footer,body.card-aperta main > *:not(.c
 @keyframes comparsaTesto{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .card h3,.page-title h2,.section-title h2,.course-card h3{font-family:var(--font-titoli);}
 small,p,span,a,button,.card-date,.card-ospiti,.card p,.place,.course-card p,.social-caption,.hint,.footer-links a{font-family:var(--font-dettagli);}
-.logo-bg{background-image:url("amelie-logo-vecchio.JPG");}
 main{width:100%;max-width:3840px;margin:0 auto;padding:calc(clamp(160px, 12vw, 200px) + 28px) 18px 70px;flex:1;}
 .page-title{text-align:center;margin-bottom:2px;}
 .page-title h2{color:var(--rosso);margin:0 0 8px;font-size:clamp(24px,4vw,38px)}
@@ -104,7 +103,6 @@ main{width:100%;max-width:3840px;margin:0 auto;padding:calc(clamp(160px, 12vw, 2
   .nav-arrow{width:42px;height:42px;font-size:18px}
   .nav-arrow.prev{left:5px}
   .nav-arrow.next{right:5px}
-  .logo-bg{max-width:100%}
   main{padding-top:calc(clamp(160px, 12vw, 200px) + 22px);}
   .card.expanded .card-poster{height:clamp(180px, 28vh, 320px);}
   .card.expanded h3{font-size:clamp(22px,6.5vw,32px);}
@@ -138,14 +136,6 @@ body.card-aperta .nav-arrow{opacity:0;visibility:hidden;pointer-events:none;tran
 .card-supporto img{max-height:44px;max-width:120px;object-fit:contain;display:block;}
 .card-logo-alto{position:absolute;left:10px;top:10px;z-index:5;display:flex;align-items:center;gap:6px;max-width:45%;}
 .card-logo-alto img{max-height:44px;max-width:120px;object-fit:contain;display:block;}
-
-/* Icona calendario in alto a destra (porta a "Tutti gli eventi") */
-header .home-calendar-link{position:absolute;top:calc(20px + env(safe-area-inset-top,0px));right:calc(24px + env(safe-area-inset-right,0px));width:48px;height:48px;display:flex;align-items:center;justify-content:center;pointer-events:auto;color:var(--rosso);background:rgba(255,255,255,.94);border:1px solid rgba(200,16,46,.2);border-radius:14px;box-shadow:0 5px 18px rgba(0,0,0,.12);transition:transform .2s ease,background .2s ease,color .2s ease}
-header .home-calendar-link svg{width:27px;height:27px;display:block}
-header .home-calendar-link:hover{transform:translateY(-2px);background:var(--rosso);color:#fff}
-header .home-calendar-link:focus-visible{outline:3px solid var(--rosso);outline-offset:4px}
-body.card-aperta header .home-calendar-link{pointer-events:none}
-@media(max-width:760px){header .home-calendar-link{top:calc(14px + env(safe-area-inset-top,0px));right:calc(14px + env(safe-area-inset-right,0px));width:44px;height:44px}}
 
 /* Sostenitori */
 .sostenitori-e-section{margin-top:70px;text-align:center;}
@@ -198,6 +188,6 @@ body.card-aperta header .home-calendar-link{pointer-events:none}
   .home-finale > footer{flex:0 0 auto;margin-top:0;width:var(--home-footer-width,100%);margin-left:calc((100% - var(--home-footer-width,100%))/2);margin-right:calc((100% - var(--home-footer-width,100%))/2)}
 }
 @media(prefers-reduced-motion:reduce){
-  .carousel-label button,.carousel-label button::after,header .home-calendar-link{transition:none}
-  .carousel-label button:hover,.carousel-label button:focus-visible,.carousel-label button:active,header .home-calendar-link:hover{transform:none}
+  .carousel-label button,.carousel-label button::after{transition:none}
+  .carousel-label button:hover,.carousel-label button:focus-visible,.carousel-label button:active{transform:none}
 }

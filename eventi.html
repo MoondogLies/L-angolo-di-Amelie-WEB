@@ -8,7 +8,6 @@
 <link rel="apple-touch-icon" href="L-angolo-di-Amelie_favicon.png">
 <link rel="stylesheet" href="comune.css?v=20261123b">
 <style>
-.logo-bg{background-image:url("angolodiamelie_logo-nome_nero.svg");}
 main{
   width:100%;
   max-width:1200px;
@@ -216,25 +215,11 @@ main{
 }
 
 
-.torna-home{
-  display:inline-block;
-  margin-top:30px;
-  background:var(--rosso);
-  color:#fff;
-  padding:12px 24px;
-  border-radius:999px;
-  font-weight:800;
-  letter-spacing:.5px;
-  text-transform:uppercase;
-  box-shadow:0 10px 26px rgba(0,0,0,.18);
-  transition:.2s;
-}
-.torna-home:hover{
-  background:var(--rosso-scuro);
-  transform:translateY(-2px);
-}
 
 
+@media(max-width:760px){
+  main{padding-top:calc(clamp(160px, 12vw, 200px) + 22px);}
+}
 @media(max-width:600px){
   .evento-info{
     padding:14px;
@@ -250,9 +235,10 @@ main{
 <header>
   <div class="header-inner">
     <div class="logo">
-      <div class="logo-bg" id="logoBg" data-dissolvenza="graduale" role="img" aria-label="L’Angolo di Amelie"></div>
+      <div class="logo-bg" id="logoBg" role="img" aria-label="L’Angolo di Amelie"></div>
     </div>
   </div>
+  <a class="header-btn" href="index.html" aria-label="Torna alla home" title="Torna alla home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg></a>
 </header>
 <main>
   <div class="filtri">
@@ -264,9 +250,6 @@ main{
   </div>
   <div class="filtri" id="contenitoreAltriPassati" style="display:none">
     <button id="btnAltriPassati" class="filtro-btn" type="button">Mostra altri eventi passati</button>
-  </div>
-  <div style="text-align:center;">
-    <a class="torna-home" href="index.html">Torna alla home</a>
   </div>
 </main>
 <footer></footer>

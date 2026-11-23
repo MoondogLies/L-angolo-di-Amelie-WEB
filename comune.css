@@ -20,9 +20,21 @@ h1,h2,h3{font-family:var(--font-titoli);}
 header{position:fixed;top:0;left:0;right:0;z-index:100;background:transparent;color:#fff;box-shadow:none;pointer-events:none;}
 .header-inner{max-width:3840px;margin:auto;padding:10px 20px;display:flex;align-items:center;justify-content:center;gap:16px;}
 .logo{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;}
-.logo-bg{position:relative;width:100%;max-width:560px;height:clamp(160px, 12vw, 200px);background-size:contain;background-repeat:no-repeat;background-position:center;opacity:1;transition:opacity .12s linear;will-change:opacity;}
+/* Logo unico per tutte le pagine: per cambiarlo basta modificare questa riga */
+.logo-bg{position:relative;width:100%;max-width:560px;height:clamp(160px, 12vw, 200px);background-image:url("amelie-logo-vecchio.JPG");background-size:contain;background-repeat:no-repeat;background-position:center;opacity:1;transition:opacity .12s linear;will-change:opacity;}
 
-/* Footer */
+@media(max-width:760px){.logo-bg{max-width:100%}}
+
+/* Pulsante tondo in alto a destra (calendario in home, casa nella pagina eventi) */
+.header-btn{position:absolute;top:calc(20px + env(safe-area-inset-top,0px));right:calc(24px + env(safe-area-inset-right,0px));width:48px;height:48px;display:flex;align-items:center;justify-content:center;pointer-events:auto;color:var(--rosso);background:rgba(255,255,255,.94);border:1px solid rgba(200,16,46,.2);border-radius:14px;box-shadow:0 5px 18px rgba(0,0,0,.12);transition:transform .2s ease,background .2s ease,color .2s ease}
+.header-btn svg{width:27px;height:27px;display:block}
+.header-btn:hover{transform:translateY(-2px);background:var(--rosso);color:#fff}
+.header-btn:focus-visible{outline:3px solid var(--rosso);outline-offset:4px}
+body.card-aperta .header-btn{pointer-events:none}
+@media(max-width:760px){.header-btn{top:calc(14px + env(safe-area-inset-top,0px));right:calc(14px + env(safe-area-inset-right,0px));width:44px;height:44px}}
+@media(prefers-reduced-motion:reduce){.header-btn{transition:none}.header-btn:hover{transform:none}}
+
+/* Footer
 footer{background:var(--rosso-scuro);color:#fff;padding:34px 20px;text-align:center;margin-top:auto;}
 .footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-bottom:18px;}
 .footer-links a,.footer-links button{font:inherit;font-family:var(--font-dettagli);color:#fff;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.3);padding:11px 20px;border-radius:12px;font-weight:700;font-size:.95rem;transition:.2s;cursor:pointer;}
