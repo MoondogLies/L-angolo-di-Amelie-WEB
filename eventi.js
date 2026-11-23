@@ -36,7 +36,7 @@ const videoInEvidenza = {
   titolo: 'Il Favoloso Cinema di Amélie',        // facoltativo, es. 'Il nostro anno insieme'
   descrizione: '',   // facoltativo, testo breve sotto al titolo
   video: 'Il-Faloso-Cinema-Di-Amelie-DEMO.mp4',         // es. 'video-associazione.mp4'
-  poster: ''         // facoltativo: immagine mostrata prima dell'avvio, es. 'foto.jpg'
+  poster: 'il-favoloso-cinema-poster.jpg'         // facoltativo: immagine mostrata prima dell'avvio, es. 'foto.jpg'
 };
 
 // CONTENUTI DELLE CARD EVENTI
