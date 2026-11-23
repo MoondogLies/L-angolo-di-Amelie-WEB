@@ -183,7 +183,6 @@ body.card-aperta .nav-arrow{opacity:0;visibility:hidden;pointer-events:none;tran
   .home-finale .section-title{margin-bottom:16px}
   .home-finale .sostenitori-e-stage{height:clamp(80px,12vh,130px)}
   .home-finale .sostenitori-e-logo img{max-height:clamp(70px,11vh,115px)}
-  .home-finale .dona-wrap{margin-top:clamp(12px,2.5vh,28px)}
   .home-finale .course-card img{height:clamp(120px,18vh,200px)}
   .home-finale > footer{flex:0 0 auto;margin-top:0;width:var(--home-footer-width,100%);margin-left:calc((100% - var(--home-footer-width,100%))/2);margin-right:calc((100% - var(--home-footer-width,100%))/2)}
 }

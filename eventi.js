@@ -270,6 +270,13 @@ const corsi = [
   }
 ];
 
+// RIQUADRO "SOSTIENICI" (home, sezione sostenitori)
+const invitoSostegno = {
+  titolo: 'Ti piace quello che facciamo?',
+  testo: 'Con un piccolo contributo ci aiuti a portare cinema, musica e corsi a Monterotondo.'
+};
+
+// DATI PER LA DONAZIONE (finestra che si apre cliccando "Sostienici")
 const datiBonifico = {
   intestatario: 'L’Angolo di Amelie',
   iban: 'IT72 F083 2739 2400 0000 0002 311',
