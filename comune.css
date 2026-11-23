@@ -21,7 +21,7 @@ header{position:fixed;top:0;left:0;right:0;z-index:100;background:transparent;co
 .header-inner{max-width:3840px;margin:auto;padding:10px 20px;display:flex;align-items:center;justify-content:center;gap:16px;}
 .logo{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;}
 /* Logo unico per tutte le pagine: per cambiarlo basta modificare questa riga */
-.logo-bg{position:relative;width:100%;max-width:560px;height:clamp(160px, 12vw, 200px);background-image:url("amelie-logo-vecchio.JPG");background-size:contain;background-repeat:no-repeat;background-position:center;opacity:1;transition:opacity .12s linear;will-change:opacity;}
+.logo-bg{position:relative;width:100%;max-width:560px;height:clamp(160px, 12vw, 200px);background-image:url("L-angolo-di-Amelie_logo2.svg");background-size:contain;background-repeat:no-repeat;background-position:center;opacity:1;transition:opacity .12s linear;will-change:opacity;}
 
 @media(max-width:760px){.logo-bg{max-width:100%}}
 
