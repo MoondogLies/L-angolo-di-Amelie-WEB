@@ -28,6 +28,9 @@ function creaCardCarosello(e,i){
       : `<img src="${escapeHtml(e.immagine)}" alt="${titolo}">`);
   // Il video non sta nella card: viene creato solo quando deve partire (vedi creaVideoCard)
   if(e.video && !usaSlideshow) card.dataset.video=e.video;
+  // Zoom del trailer per nascondere le bande nere incise nel file (campo zoomVideo in eventi.js, tra 1 e 2)
+  const zoom=Number(e.zoomVideo);
+  if(zoom>1 && zoom<=2) card.dataset.zoomVideo=String(zoom);
   const sottotitolo=e.tipo==='film' ? `di ${e.regia} · ${e.paese}` : (e.tipo==='concorso' ? '' : `Con ${e.artista}`);
   const testoPulsante=e.tipo==='film' ? 'Trama' : 'Descrizione';
   const nomiOspiti=e.ospiti ? e.ospiti.split(',').map(nome=>nome.trim()).filter(Boolean) : [];
@@ -109,6 +112,7 @@ function creaVideoCard(card){
   video.muted=true;video.defaultMuted=true;video.loop=true;video.playsInline=true;
   video.setAttribute('muted','');video.setAttribute('playsinline','');video.setAttribute('webkit-playsinline','');
   video.preload='auto';
+  if(card.dataset.zoomVideo) video.style.setProperty('--zoom-video',card.dataset.zoomVideo);
   video.src=card.dataset.video;
   const poster=card.querySelector('.card-video-poster');
   if(poster) poster.after(video); else card.querySelector('.card-poster').prepend(video);

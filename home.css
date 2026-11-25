@@ -20,6 +20,9 @@ main{width:100%;max-width:3840px;margin:0 auto;padding:calc(clamp(160px, 12vw, 2
 .card-video-poster,.card-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:opacity .45s ease;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:translateZ(0);}
 .card-video{opacity:0;z-index:1;}
 .card-video.playing{opacity:1;}
+/* Zoom del trailer (zoomVideo in eventi.js): nasconde le bande nere incise nel file.
+   Nella card aperta (larga e bassa) il video è già tagliato sopra e sotto, quindi niente zoom. */
+.card:not(.expanded) .card-video{transform:translateZ(0) scale(var(--zoom-video,1));}
 .card-video-poster{z-index:2;}
 .card-video-poster.hidden{opacity:0;pointer-events:none;}
 .card-slideshow{position:absolute;inset:0;overflow:hidden;}

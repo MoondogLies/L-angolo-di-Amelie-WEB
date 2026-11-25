@@ -40,6 +40,10 @@ const videoInEvidenza = {
 };
 
 // CONTENUTI DELLE CARD EVENTI
+// zoomVideo: ingrandimento del trailer nella card, per nascondere le bande nere incise nel video
+//            (tanti trailer di film panoramici sono salvati in 16:9 con le bande nere sopra e sotto).
+//            1 = nessuno zoom (si può anche omettere). Valori tipici: 1.13 (bande sottili), 1.35 (film in 2.39:1).
+//            Per un trailer nuovo chiedi a Claude di misurarlo, oppure prova valori finché le bande spariscono.
 // rassegna: nome della rassegna a cui appartiene l'evento (es. 'Il favoloso cinema di Amélie').
 //           Se c'è, sopra il titolo della card compare l'icona di un biglietto con il nome della rassegna;
 //           se manca o è '', niente. Il colore dell'icona si sceglie qui sotto in coloriRassegne.
@@ -67,6 +71,7 @@ const eventiCinema = [
     immagine: 'lanimainpace.jpg',
     immagini: [],
     video: 'lanimainpace.mp4',
+    zoomVideo: 1.13,
     videoPoster: 'lanimainpace.jpg',
     supporto: '',
     'altri loghi': ['citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png', 'icm.jpeg'],
@@ -101,6 +106,7 @@ const eventiCinema = [
     immagine: 'bolladisapone.jpg',
     immagini: [],
     video: 'bolladisapone.mp4',
+    zoomVideo: 1.05,
     videoPoster: 'bolladisapone.jpg',
     supporto: 'IMG_9104.jpeg',
     'altri loghi': ['citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png', 'icm.jpeg'],
@@ -118,6 +124,7 @@ const eventiCinema = [
     immagine: 'mambomaternica.jpg',
     immagini: [],
     video: 'mambo-maternica-trailer.mp4',
+    zoomVideo: 1.05,
     videoPoster: 'mambomaternica.jpg',
     supporto: 'MKIungheria.png',
     'altri loghi': ['nationalfilmhungary.jpg', 'citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png', 'icm.jpeg'],
@@ -135,6 +142,7 @@ const eventiCinema = [
     immagine: 'aontas.jpeg',
     immagini: [],
     video: 'aontas.mp4',
+    zoomVideo: 1.33,
     videoPoster: 'aontas.jpeg',
     supporto: 'irish-film-festa-contorno-bianco.svg',
     'altri loghi': ['citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png', 'icm.jpeg'],
@@ -152,6 +160,7 @@ const eventiCinema = [
     immagine: 'lavoieroyale.jpg',
     immagini: [],
     video: 'lavoieroyale.mp4',
+    zoomVideo: 1.35,
     videoPoster: 'lavoieroyale.jpg',
     supporto: 'ifcinema.png',
     'altri loghi': ['citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png', 'icm.jpeg'],
@@ -186,6 +195,7 @@ const eventiCinema = [
     immagine: 'https://www.dffb.de/wp-content/uploads/2022/01/WETTER-Still-1.jpg',
     immagini: [],
     video: 'tuttiparlanodeltempo.mp4',
+    zoomVideo: 1.13,
     videoPoster: 'https://www.dffb.de/wp-content/uploads/2022/01/WETTER-Still-1.jpg',
     supporto: 'GoetheInstitut.png',
     'altri loghi': ['citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png', 'icm.jpeg'],
@@ -203,6 +213,7 @@ const eventiCinema = [
     immagine: 'https://m.media-amazon.com/images/M/MV5BNzkzOTMxYzItMjMxMS00ODgwLThjZGUtM2E1YzFjOTEwMDkzXkEyXkFqcGc@._V1_.jpg',
     immagini: [],
     video: 'escapenet.mp4',
+    zoomVideo: 1.35,
     videoPoster: 'https://m.media-amazon.com/images/M/MV5BNzkzOTMxYzItMjMxMS00ODgwLThjZGUtM2E1YzFjOTEwMDkzXkEyXkFqcGc@._V1_.jpg',
     supporto: '',
     'altri loghi': ['citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png', 'icm.jpeg'],
