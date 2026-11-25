@@ -501,14 +501,47 @@ function inizializzaSezioniHome(){
 inizializzaSezioniHome();
 
 // ---------- Intro ----------
+// Normale: il logo resta 2,5 secondi e poi sparisce.
+// Modalità presentazione (indirizzo con ?presentazione, es. angolodiamelie.it/?presentazione):
+// dopo l'animazione il logo resta fermo finché non si preme la barra spaziatrice,
+// che fa entrare la pagina a schermo intero (Esc per uscire) e mostra il sito.
 const introOverlay=document.getElementById('introOverlay');
+const modalitaPresentazione=new URLSearchParams(location.search).has('presentazione');
+
+function chiudiIntro(){
+  introOverlay.classList.add('hidden');
+  document.body.style.overflow='';
+  setTimeout(()=>introOverlay.remove(),900);
+}
+
+function entraSchermoIntero(){
+  const pagina=document.documentElement;
+  if(document.fullscreenElement || document.webkitFullscreenElement) return;
+  const richiesta=pagina.requestFullscreen || pagina.webkitRequestFullscreen;
+  if(!richiesta) return;
+  try{
+    const esito=richiesta.call(pagina);
+    if(esito && esito.catch) esito.catch(()=>{});
+  }catch(errore){}
+}
+
 if(introOverlay){
   document.body.style.overflow='hidden';
-  setTimeout(()=>{
-    introOverlay.classList.add('hidden');
-    document.body.style.overflow='';
-    setTimeout(()=>introOverlay.remove(),900);
-  },2500);
+  if(modalitaPresentazione){
+    introOverlay.classList.add('presentazione');
+    const allaBarraSpaziatrice=evento=>{
+      if(evento.code!=='Space' && evento.key!==' ') return;
+      evento.preventDefault();
+      if(evento.repeat) return;
+      document.removeEventListener('keydown',allaBarraSpaziatrice);
+      entraSchermoIntero();
+      chiudiIntro();
+    };
+    // il tasto viene accettato solo a animazione del logo conclusa (1 secondo)
+    setTimeout(()=>document.addEventListener('keydown',allaBarraSpaziatrice),1000);
+  }else{
+    setTimeout(chiudiIntro,2500);
+  }
 }
 
 adattaCaroselloAllaFinestra();
