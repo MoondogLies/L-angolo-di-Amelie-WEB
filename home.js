@@ -522,6 +522,7 @@ function chiudiIntro(){
 // Se cambi il file del logo nuovo, questi numeri vanno rimisurati.
 const VECCHIO_LOGO={
   file:'amelie-logo-vecchio.JPG',
+  sala:'presentazione-poltrone.svg',   // sala del cinema in bianco e nero attorno al vecchio logo
   proporzione:600/843,                 // larghezza / altezza del vecchio logo
   tela:{larghezza:701,altezza:456},    // viewBox del logo nuovo (L-angolo-di-Amelie_logo2.svg)
   riquadro:{x:160.2,y:-118,larghezza:385,altezza:541} // dove cade il vecchio logo, in unità del logo nuovo
@@ -544,10 +545,19 @@ function rettangoloInizialeVecchioLogo(){
 
 function avviaPresentazione(){
   introOverlay.classList.add('presentazione');
-  const vecchio=document.createElement('img');
+  // Contenitore grande quanto il vecchio logo: dentro la sala in bianco e nero (dietro, molto più grande,
+  // vedi presentazione-poltrone.svg) e il vecchio logo a colori (davanti). Si muovono insieme.
+  const vecchio=document.createElement('div');
   vecchio.className='intro-logo-vecchio';
-  vecchio.alt='';
-  vecchio.decoding='async';
+  const sala=document.createElement('img');
+  sala.className='intro-sala';
+  sala.alt='';
+  sala.src=VECCHIO_LOGO.sala;
+  const immagine=document.createElement('img');
+  immagine.className='intro-vecchio-img';
+  immagine.alt='';
+  immagine.decoding='async';
+  vecchio.append(sala,immagine);
   introOverlay.appendChild(vecchio);
   let fase=0; // 0 = vecchio logo, 1 = logo nuovo, 2 = sito
 
@@ -565,8 +575,8 @@ function avviaPresentazione(){
   }
   posiziona();
   window.addEventListener('resize',posiziona);
-  vecchio.addEventListener('load',()=>vecchio.classList.add('pronto'),{once:true});
-  vecchio.src=VECCHIO_LOGO.file;
+  immagine.addEventListener('load',()=>vecchio.classList.add('pronto'),{once:true});
+  immagine.src=VECCHIO_LOGO.file;
 
   let pronto=false;
   setTimeout(()=>{pronto=true;},900); // pressioni accettate solo a logo comparso

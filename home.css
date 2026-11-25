@@ -7,9 +7,14 @@ body.card-aperta header,body.card-aperta footer,body.card-aperta main > *:not(.c
 .intro-overlay.presentazione{cursor:none;}
 .intro-overlay.presentazione .intro-logo{animation:none;opacity:0;transition:opacity .75s ease .45s;}
 .intro-overlay.presentazione.logo-nuovo .intro-logo{opacity:1;}
-.intro-logo-vecchio{position:fixed;display:block;object-fit:cover;transform-origin:0 0;opacity:0;pointer-events:none;
+.intro-logo-vecchio{position:fixed;display:block;transform-origin:0 0;opacity:0;pointer-events:none;
   transition:transform .9s cubic-bezier(.65,0,.35,1),opacity .6s ease;}
 .intro-logo-vecchio.pronto{opacity:1;}
+.intro-vecchio-img{position:absolute;inset:0;width:100%;height:100%;display:block;}
+/* Sala in bianco e nero attorno al vecchio logo: il disegno va da -2400 a 3000 in larghezza e da -700 a 1600
+   in altezza, nelle unità del vecchio logo (600×843), quindi si posiziona in percentuale rispetto al logo */
+.intro-sala{position:absolute;left:-400%;top:-83.037%;width:900%;height:272.835%;max-width:none;display:block;transition:opacity .45s ease;}
+.intro-overlay.logo-nuovo .intro-sala{opacity:0;}
 /* alla prima pressione: il vecchio logo scivola sopra l'illustrazione del logo nuovo e sfuma in esso */
 .intro-overlay.logo-nuovo .intro-logo-vecchio{opacity:0;transition:transform .9s cubic-bezier(.65,0,.35,1),opacity .7s ease .55s;}
 
