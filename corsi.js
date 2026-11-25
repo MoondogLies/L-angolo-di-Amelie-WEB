@@ -18,10 +18,10 @@ function inizializzaCorsi(){
     const moduli=Array.isArray(corso.moduli) ? corso.moduli : [];
 
     card.innerHTML=`
-      <img src="${corso.immagine}" alt="${nomeCorso}">
+      <img src="${escapeHtml(corso.immagine)}" alt="${escapeHtml(nomeCorso)}">
       <div class="course-body">
-        <span class="course-tag">${nomeCorso}</span>
-        <p>${corso.descrizione}</p>
+        <span class="course-tag">${escapeHtml(nomeCorso)}</span>
+        <p>${escapeHtml(corso.descrizione)}</p>
       </div>
     `;
 
@@ -75,8 +75,8 @@ function apriSchedaCorso(nomeCorso,contatti,moduli){
 
         return `
           <div class="course-module${concluso?' scaduto':''}">
-            <h4>${modulo.nome}</h4>
-            <p><strong>Docente:</strong> ${modulo.docente || 'Non disponibile'}</p>
+            <h4>${escapeHtml(modulo.nome)}</h4>
+            <p><strong>Docente:</strong> ${escapeHtml(modulo.docente || 'Non disponibile')}</p>
             <p><strong>Date:</strong> ${dataModulo}</p>
           </div>
         `;
@@ -87,15 +87,15 @@ function apriSchedaCorso(nomeCorso,contatti,moduli){
   overlay.innerHTML=`
     <div class="course-info-modal" role="dialog" aria-modal="true">
       <button class="course-info-close" type="button" aria-label="Chiudi">&times;</button>
-      <h3>${nomeCorso}</h3>
-      <p class="course-info-text">${informazioni}</p>
+      <h3>${escapeHtml(nomeCorso)}</h3>
+      <p class="course-info-text">${escapeHtml(informazioni)}</p>
 
       ${boxModuli}
 
       ${email ? `
       <div class="course-info-row">
         <strong>Per informazioni scrivi a</strong>
-        <a href="mailto:${email}">${email}</a>
+        <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a>
       </div>` : ''}
     </div>
   `;

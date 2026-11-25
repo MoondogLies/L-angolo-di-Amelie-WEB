@@ -11,70 +11,121 @@ function inizializzaDona(){
 
   const stileDona=document.createElement('style');
   stileDona.textContent=`
+    /* Riquadro "Sostienici": invito + pulsante con riflesso di luce */
     .dona-wrap{
+      width:min(100%,380px);
+      margin:34px auto 0;
       text-align:center;
-      margin-top:34px;
-      position:relative;
+      padding:24px 22px 26px;
+      border-radius:20px;
+      background:linear-gradient(160deg,#fff 0%,#fff6f2 100%);
+      border:1px solid #f1d9d2;
+      box-shadow:var(--ombra);
+    }
+
+    .dona-icona{
+      width:46px;
+      height:46px;
+      margin:0 auto 10px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(200,16,46,.1);
+      color:var(--rosso);
+    }
+
+    .dona-icona svg{
+      width:24px;
+      height:24px;
+      display:block;
+    }
+
+    .sostenitori-e-section .dona-wrap h3{
+      font-family:var(--font-titoli);
+      margin:0 0 6px;
+      color:var(--rosso-scuro);
+      font-size:1.15rem;
+    }
+
+    .sostenitori-e-section .dona-wrap p{
+      margin:0 0 16px;
+      color:var(--grigio);
+      font-size:.9rem;
+      line-height:1.5;
     }
 
     .dona-btn{
       position:relative;
-      display:inline-block;
+      overflow:hidden;
+      isolation:isolate;
       border:0;
       cursor:pointer;
-      padding:24px 64px;
-      min-width:280px;
+      padding:14px 34px;
       border-radius:999px;
+      background:var(--rosso);
+      color:#fff;
       font-family:var(--font-dettagli);
-      font-size:1.5rem;
+      font-size:1rem;
       font-weight:800;
       letter-spacing:1.5px;
       text-transform:uppercase;
-      color:#4a3000;
-      background:linear-gradient(135deg,#ffe082 0%,#ffc107 45%,#ff9800 100%);
-      box-shadow:
-        0 10px 26px rgba(255,193,7,.38),
-        inset 0 1px 0 rgba(255,255,255,.75);
-      animation:donaVibrazione 2.4s ease-in-out infinite;
-      transition:transform .2s, box-shadow .2s;
-      overflow:visible;
+      box-shadow:0 8px 20px rgba(200,16,46,.28);
+      transition:transform .2s ease, background .2s ease;
+    }
+
+    /* Riflesso di luce che attraversa il pulsante ogni pochi secondi */
+    .dona-btn::after{
+      content:"";
+      position:absolute;
+      top:0;
+      bottom:0;
+      left:-60%;
+      width:40%;
+      background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);
+      transform:skewX(-20deg);
+      animation:donaRiflesso 3.8s ease-in-out infinite;
+      pointer-events:none;
     }
 
     .dona-btn:hover{
-      transform:translateY(-3px) scale(1.03);
-      box-shadow:
-        0 16px 34px rgba(255,193,7,.5),
-        inset 0 1px 0 rgba(255,255,255,.8);
+      background:var(--rosso-scuro);
+      transform:translateY(-2px);
     }
 
-    @keyframes donaVibrazione{
-      0%,100%{transform:translate(0,0) rotate(0deg)}
-      20%{transform:translate(-1px,1px) rotate(-.4deg)}
-      40%{transform:translate(1px,-1px) rotate(.4deg)}
-      60%{transform:translate(-1px,-1px) rotate(-.3deg)}
-      80%{transform:translate(1px,1px) rotate(.3deg)}
+    .dona-btn:focus-visible{
+      outline:3px solid var(--rosso);
+      outline-offset:4px;
     }
 
-    .stella{
-      position:absolute;
-      color:#ffb300;
-      font-size:14px;
-      opacity:0;
-      pointer-events:none;
-      animation:stellaBrilla 2.6s ease-in-out infinite;
-      text-shadow:0 0 8px rgba(255,193,7,.9);
+    @keyframes donaRiflesso{
+      0%,60%{left:-60%}
+      85%,100%{left:130%}
     }
 
-    .stella:nth-child(1){top:-14px;left:-18px;animation-delay:0s}
-    .stella:nth-child(2){top:-20px;right:-12px;animation-delay:.45s}
-    .stella:nth-child(3){bottom:-14px;left:-10px;animation-delay:.9s}
-    .stella:nth-child(4){bottom:-18px;right:-20px;animation-delay:1.35s}
-    .stella:nth-child(5){top:50%;left:-26px;animation-delay:1.8s}
-    .stella:nth-child(6){top:50%;right:-26px;animation-delay:2.2s}
+    /* Desktop: il riquadro sta al centro, tra i due loghi dei sostenitori */
+    @media(min-width:761px){
+      .sostenitori-e-grid.con-dona{
+        grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+      }
+      .sostenitori-e-grid.con-dona .dona-wrap{
+        width:380px;
+        margin:0;
+      }
+    }
 
-    @keyframes stellaBrilla{
-      0%,100%{opacity:0;transform:scale(.5) rotate(0deg)}
-      50%{opacity:1;transform:scale(1.15) rotate(25deg)}
+    /* Schermi più stretti: il riquadro va sotto ai loghi, su tutta la riga */
+    @media(max-width:760px){
+      .sostenitori-e-grid.con-dona .dona-wrap{
+        grid-column:1 / -1;
+        order:1;
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      .dona-btn::after{animation:none;display:none}
+      .dona-btn{transition:none}
+      .dona-btn:hover{transform:none}
     }
 
     .dona-overlay{
@@ -152,24 +203,35 @@ function inizializzaDona(){
 
   document.head.appendChild(stileDona);
 
+  const invito=(typeof invitoSostegno!=='undefined' && invitoSostegno) || {};
+  const titoloInvito=invito.titolo || 'Ti piace quello che facciamo?';
+  const testoInvito=invito.testo || '';
+
   const contenitore=document.createElement('div');
   contenitore.className='dona-wrap';
   contenitore.innerHTML=`
-    <button class="dona-btn" id="btnDona" type="button">
-      <span class="stella">✦</span>
-      <span class="stella">✦</span>
-      <span class="stella">✦</span>
-      <span class="stella">✦</span>
-      <span class="stella">✦</span>
-      <span class="stella">✦</span>
-      Dona
-    </button>
+    <div class="dona-icona" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.8 4.5c2.1 0 3.6 1.1 4.4 2.5h1.6c.8-1.4 2.3-2.5 4.4-2.5 3.8 0 5.9 3.9 4.4 7.3C19.5 16.4 12 21 12 21z"/></svg>
+    </div>
+    <h3>${escapeHtml(titoloInvito)}</h3>
+    ${testoInvito ? `<p>${escapeHtml(testoInvito)}</p>` : ''}
+    <button class="dona-btn" id="btnDona" type="button">Sostienici</button>
   `;
 
-  sezioneSostenitori.after(contenitore);
+  // Su desktop il riquadro va al centro tra i due loghi; altrimenti sotto ai loghi
+  const grigliaSostenitori=sezioneSostenitori.querySelector('.sostenitori-e-grid');
+  if(grigliaSostenitori && grigliaSostenitori.children.length===2){
+    grigliaSostenitori.classList.add('con-dona');
+    grigliaSostenitori.insertBefore(contenitore,grigliaSostenitori.children[1]);
+  }else{
+    sezioneSostenitori.appendChild(contenitore);
+  }
 
   const overlay=document.createElement('div');
   overlay.className='dona-overlay';
+  overlay.setAttribute('role','dialog');
+  overlay.setAttribute('aria-modal','true');
+  overlay.setAttribute('aria-label','Sostienici');
   overlay.id='donaOverlay';
 
   overlay.innerHTML=`
@@ -181,22 +243,22 @@ function inizializzaDona(){
 
       <div class="dona-dato">
         <strong>Intestatario</strong>
-        <span>${datiBonifico.intestatario}</span>
+        <span>${escapeHtml(datiBonifico.intestatario)}</span>
       </div>
 
       <div class="dona-dato">
         <strong>IBAN</strong>
-        <span>${datiBonifico.iban}</span>
+        <span>${escapeHtml(datiBonifico.iban)}</span>
       </div>
 
       <div class="dona-dato">
         <strong>BIC / SWIFT</strong>
-        <span>${datiBonifico.bic || "Non necessario per bonifici nazionali"}</span>
+        <span>${escapeHtml(datiBonifico.bic || "Non necessario per bonifici nazionali")}</span>
       </div>
 
       <div class="dona-dato">
         <strong>Causale</strong>
-        <span>${datiBonifico.causale}</span>
+        <span>${escapeHtml(datiBonifico.causale)}</span>
       </div>
 
       <button class="dona-chiudi" id="chiudiDona" type="button">Chiudi</button>
