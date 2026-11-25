@@ -58,8 +58,9 @@ function aggiungiAltriLoghi(contenitore,evento){
   contenitore.appendChild(gruppo);
 }
 
-// Colore del biglietto di una rassegna, da coloriRassegne in eventi.js.
-// Accetta solo colori esadecimali (#abc o #aabbcc); il testo diventa bianco o scuro in base alla luminosità.
+// Colore di una rassegna, da coloriRassegne in eventi.js (solo colori esadecimali, #abc o #aabbcc).
+// --colore-rassegna colora l'icona del biglietto; --scritta-rassegna è il colore del nome su fondo bianco
+// (se il colore è molto chiaro il nome diventa scuro, altrimenti non si leggerebbe).
 function stileColoreRassegna(nome){
   const elenco=typeof coloriRassegne!=='undefined' && coloriRassegne ? coloriRassegne : {};
   const chiave=Object.keys(elenco).find(k=>k.trim().toLowerCase()===nome.toLowerCase());
@@ -67,28 +68,18 @@ function stileColoreRassegna(nome){
   if(/^#[0-9a-f]{3}$/i.test(colore)) colore='#'+[...colore.slice(1)].map(c=>c+c).join('');
   if(!/^#[0-9a-f]{6}$/i.test(colore)) return '';
   const [r,g,b]=[1,3,5].map(i=>parseInt(colore.slice(i,i+2),16)/255).map(c=>c<=.03928 ? c/12.92 : ((c+.055)/1.055)**2.4);
-  const luminosita=.2126*r+.7152*g+.0722*b;
-  const chiaro=luminosita>.4;
-  const testo=chiaro ? '#262626' : '#fff';
-  // Parte staccabile: un po' più scura del biglietto (meno scura se il colore è chiaro, per leggere il testo)
-  const fattore=chiaro ? .86 : .7;
-  const matrice='#'+[1,3,5].map(i=>Math.round(parseInt(colore.slice(i,i+2),16)*fattore).toString(16).padStart(2,'0')).join('');
-  return `--colore-biglietto:${colore};--matrice-biglietto:${matrice};--testo-biglietto:${testo};`;
+  const chiaro=.2126*r+.7152*g+.0722*b>.4;
+  return `--colore-rassegna:${colore};--scritta-rassegna:${chiaro ? 'var(--testo)' : colore};`;
 }
 
-// Biglietto della rassegna (campo 'rassegna' dell'evento in eventi.js).
-// Il nome va a capo prima dell'ultimo " di ", es. "Il favoloso cinema / di Amélie".
-function htmlBiglietto(evento){
+// Riga della rassegna (campo 'rassegna' dell'evento in eventi.js): icona del biglietto + nome, sopra il titolo.
+function htmlRassegna(evento){
   const nome=evento && typeof evento.rassegna==='string' ? evento.rassegna.trim() : '';
   if(!nome) return '';
-  const taglio=nome.toLowerCase().lastIndexOf(' di ');
-  const righe=taglio>0 ? [nome.slice(0,taglio),nome.slice(taglio+1)] : [nome];
-  return `<div class="card-rassegna" role="note" aria-label="Rassegna ${escapeHtml(nome)}" style="${stileColoreRassegna(nome)}">
-    <span class="biglietto" aria-hidden="true">
-      <span class="biglietto-corpo"><small>Rassegna</small>${righe.map(r=>`<b>${escapeHtml(r)}</b>`).join('')}</span>
-      <span class="biglietto-matrice">Ingresso</span>
-    </span>
-  </div>`;
+  return `<p class="riga-rassegna" style="${stileColoreRassegna(nome)}">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path class="biglietto-forma" d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4z"/><path class="biglietto-perforazione" d="M15.5 6.5v11"/></svg>
+    <span><span class="testo-nascosto">Rassegna: </span>${escapeHtml(nome)}</span>
+  </p>`;
 }
 
 // ---------- Footer e finestre informative ----------

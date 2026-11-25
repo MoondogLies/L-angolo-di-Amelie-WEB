@@ -39,10 +39,10 @@ function creaCardCarosello(e,i){
       ${media}
       ${logoAlto}
       ${supporto}
-      ${htmlBiglietto(e)}
       <div class="card-info">
         <span class="card-date">${formattaData(e.data,escapeHtml(e.ora))}</span>
         ${ospiti}
+        ${htmlRassegna(e)}
         <h3>${titolo}</h3>
         ${sottotitolo ? `<p class="sottotitolo">${escapeHtml(sottotitolo)}</p>` : ''}
         <button class="sinossi-btn" type="button">${testoPulsante}</button>

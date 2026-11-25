@@ -41,13 +41,13 @@ const videoInEvidenza = {
 
 // CONTENUTI DELLE CARD EVENTI
 // rassegna: nome della rassegna a cui appartiene l'evento (es. 'Il favoloso cinema di Amélie').
-//           Se c'è, sulla card compare il biglietto con il nome; se manca o è '', niente biglietto.
-//           Il colore del biglietto si sceglie qui sotto in coloriRassegne.
+//           Se c'è, sopra il titolo della card compare l'icona di un biglietto con il nome della rassegna;
+//           se manca o è '', niente. Il colore dell'icona si sceglie qui sotto in coloriRassegne.
 
-// COLORI DEI BIGLIETTI DELLE RASSEGNE
+// COLORI DELLE RASSEGNE (icona del biglietto e nome)
 // Scrivi il nome della rassegna esattamente come nel campo 'rassegna' degli eventi
 // e il colore in formato esadecimale (es. '#1d5b8f'). Puoi trovare i codici su https://htmlcolorcodes.com
-// Il testo diventa bianco o scuro da solo, in base a quanto è chiaro il colore.
+// Se il colore è molto chiaro, nella pagina eventi il nome viene scritto scuro per restare leggibile.
 // Una rassegna che non è in elenco usa il rosso del sito.
 const coloriRassegne = {
   'Il favoloso cinema di Amélie': '#c8102e',

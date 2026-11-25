@@ -191,3 +191,9 @@ body.card-aperta .nav-arrow{opacity:0;visibility:hidden;pointer-events:none;tran
   .carousel-label button,.carousel-label button::after{transition:none}
   .carousel-label button:hover,.carousel-label button:focus-visible,.carousel-label button:active{transform:none}
 }
+
+/* Rassegna sulle card del carosello (fondo scuro) */
+.card .riga-rassegna{color:rgba(255,255,255,.92);font-size:.62rem;text-shadow:0 1px 6px rgba(0,0,0,.8);}
+.card .riga-rassegna svg{width:18px;height:18px;}
+.card .riga-rassegna .biglietto-forma{stroke:rgba(255,255,255,.85);stroke-width:.8;}
+.card.expanded .riga-rassegna{font-size:clamp(.7rem,2vw,.85rem);}
