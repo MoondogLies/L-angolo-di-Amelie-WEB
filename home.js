@@ -96,6 +96,15 @@ function getStep(){
   return riferimento && riferimento.offsetWidth ? riferimento.offsetWidth*.8 : 280;
 }
 
+// Ferma un video e lo riporta all'inizio SOLO se serve.
+// Riportare all'inizio un video già fermo all'inizio costringe comunque il browser a ricaricarne
+// e decodificarne il primo fotogramma: farlo su tutti i video a ogni scorrimento rendeva il carosello a scatti.
+function riportaAllInizio(video){
+  if(!video.paused) video.pause();
+  if(video.currentTime>0){try{video.currentTime=0;}catch(errore){}}
+  video.classList.remove('playing');
+}
+
 // Mobile: il video della card centrale parte dopo 3 secondi
 let videoTimer=null;
 function annullaVideoInAttesa(){clearTimeout(videoTimer);videoTimer=null;}
@@ -104,7 +113,9 @@ function avviaVideoDopo3Secondi(){
   const cardCorrente=cards[currentIndex];
   const video=cardCorrente.querySelector('.card-video');
   if(!video) return;
-  video.muted=true;video.defaultMuted=true;video.playsInline=true;video.setAttribute('playsinline','');video.currentTime=0;video.classList.remove('playing');
+  if(!video.paused && video.classList.contains('playing')) return; // sta già andando: non ricominciare
+  video.muted=true;video.defaultMuted=true;video.playsInline=true;video.setAttribute('playsinline','');
+  riportaAllInizio(video);
   const poster=cardCorrente.querySelector('.card-video-poster');
   if(poster) poster.classList.remove('hidden');
   videoTimer=setTimeout(()=>{
@@ -127,7 +138,7 @@ function aggiornaVideoCorrente(){
     const poster=card.querySelector('.card-video-poster');
     if(!video || !poster) return;
     if(i===currentIndex){avviaVideoDopo3Secondi();}
-    else{video.pause();video.currentTime=0;video.classList.remove('playing');poster.classList.remove('hidden');}
+    else{riportaAllInizio(video);poster.classList.remove('hidden');}
   });
 }
 
@@ -262,9 +273,7 @@ function fermaVideoCard(card){
   if(video){
     richiesteVideo.set(video,(richiesteVideo.get(video)||0)+1);
     delete video.dataset.hoverAttivo;
-    video.pause();
-    try{video.currentTime=0;}catch(errore){}
-    video.classList.remove('playing');
+    riportaAllInizio(video);
   }
   const poster=card.querySelector('.card-video-poster');
   if(poster) poster.classList.remove('hidden');
