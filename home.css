@@ -127,6 +127,11 @@ main{width:100%;max-width:3840px;margin:0 auto;padding:calc(clamp(160px, 12vw, 2
  /* La card che esce scivola via e sfuma, e diventa invisibile solo a fine animazione */
  .carousel-zone .card.hidden{visibility:hidden;pointer-events:none;transition:transform .35s ease,opacity .3s,filter .3s,box-shadow .25s,visibility 0s .35s}
  .carousel-zone .card.edge-preview{pointer-events:none;cursor:default;--hover-scale:1;opacity:.4;}
+ /* Desktop: poster, immagine e sfumatura non hanno bisogno di un livello grafico proprio (servono
+    solo nel carosello 3D del mobile). Ogni card resta un'unica lastra che si sposta: molta meno
+    memoria grafica e meno sovrapposizioni da ridisegnare, soprattutto sugli schermi Retina. */
+ .carousel-zone .card-poster,.carousel-zone .card-poster img,.carousel-zone .card-video-poster,.carousel-zone .card-poster::after{transform:none;will-change:auto;backface-visibility:visible;-webkit-backface-visibility:visible;}
+ .carousel-zone .card-supporto img{transform:none;}
 }
 
 /* Loghi sulle card del carosello.

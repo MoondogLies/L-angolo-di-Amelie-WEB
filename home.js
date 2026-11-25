@@ -24,9 +24,10 @@ function creaCardCarosello(e,i){
   const media=usaSlideshow
     ? `<div class="card-slideshow">${e.immagini.map((immagine,indice)=>`<img class="${indice===0?'attivo':''}" src="${escapeHtml(immagine)}" alt="${titolo}">`).join('')}</div>`
     : (e.video
-      ? `<img class="card-video-poster" src="${escapeHtml(e.videoPoster || e.immagine)}" alt="${titolo}">
-         <video class="card-video" src="${escapeHtml(e.video)}" muted loop playsinline webkit-playsinline preload="metadata"></video>`
+      ? `<img class="card-video-poster" src="${escapeHtml(e.videoPoster || e.immagine)}" alt="${titolo}">`
       : `<img src="${escapeHtml(e.immagine)}" alt="${titolo}">`);
+  // Il video non sta nella card: viene creato solo quando deve partire (vedi creaVideoCard)
+  if(e.video && !usaSlideshow) card.dataset.video=e.video;
   const sottotitolo=e.tipo==='film' ? `di ${e.regia} · ${e.paese}` : (e.tipo==='concorso' ? '' : `Con ${e.artista}`);
   const testoPulsante=e.tipo==='film' ? 'Trama' : 'Descrizione';
   const nomiOspiti=e.ospiti ? e.ospiti.split(',').map(nome=>nome.trim()).filter(Boolean) : [];
@@ -96,13 +97,38 @@ function getStep(){
   return riferimento && riferimento.offsetWidth ? riferimento.offsetWidth*.8 : 280;
 }
 
-// Ferma un video e lo riporta all'inizio SOLO se serve.
-// Riportare all'inizio un video già fermo all'inizio costringe comunque il browser a ricaricarne
-// e decodificarne il primo fotogramma: farlo su tutti i video a ogni scorrimento rendeva il carosello a scatti.
-function riportaAllInizio(video){
-  if(!video.paused) video.pause();
-  if(video.currentTime>0){try{video.currentTime=0;}catch(errore){}}
-  video.classList.remove('playing');
+// ---------- Video delle card ----------
+// Il <video> esiste solo mentre il trailer va: viene creato quando deve partire e tolto quando si ferma.
+// Dieci video sempre presenti erano dieci livelli grafici in più e dieci decodificatori occupati,
+// e rendevano lo scorrimento a scatti sui computer meno potenti.
+function creaVideoCard(card){
+  let video=card.querySelector('.card-video');
+  if(video || !card.dataset.video) return video;
+  video=document.createElement('video');
+  video.className='card-video';
+  video.muted=true;video.defaultMuted=true;video.loop=true;video.playsInline=true;
+  video.setAttribute('muted','');video.setAttribute('playsinline','');video.setAttribute('webkit-playsinline','');
+  video.preload='auto';
+  video.src=card.dataset.video;
+  const poster=card.querySelector('.card-video-poster');
+  if(poster) poster.after(video); else card.querySelector('.card-poster').prepend(video);
+  return video;
+}
+function rimuoviVideoCard(card){
+  const video=card.querySelector('.card-video');
+  if(video){
+    video.pause();
+    video.removeAttribute('src');
+    video.load(); // libera subito il decodificatore
+    video.remove();
+  }
+  const poster=card.querySelector('.card-video-poster');
+  if(poster) poster.classList.remove('hidden');
+}
+function mostraVideoCard(card,video){
+  video.classList.add('playing');
+  const poster=card.querySelector('.card-video-poster');
+  if(poster) poster.classList.add('hidden');
 }
 
 // Mobile: il video della card centrale parte dopo 3 secondi
@@ -111,22 +137,15 @@ function annullaVideoInAttesa(){clearTimeout(videoTimer);videoTimer=null;}
 function avviaVideoDopo3Secondi(){
   annullaVideoInAttesa();
   const cardCorrente=cards[currentIndex];
-  const video=cardCorrente.querySelector('.card-video');
-  if(!video) return;
-  if(!video.paused && video.classList.contains('playing')) return; // sta già andando: non ricominciare
-  video.muted=true;video.defaultMuted=true;video.playsInline=true;video.setAttribute('playsinline','');
-  riportaAllInizio(video);
-  const poster=cardCorrente.querySelector('.card-video-poster');
-  if(poster) poster.classList.remove('hidden');
+  if(!cardCorrente.dataset.video) return;
+  const esistente=cardCorrente.querySelector('.card-video');
+  if(esistente && !esistente.paused) return; // sta già andando: non ricominciare
   videoTimer=setTimeout(()=>{
-    const playPromise=video.play();
-    if(playPromise){
-      playPromise.then(()=>{
-        video.classList.add('playing');
-        const poster=cardCorrente.querySelector('.card-video-poster');
-        if(poster) poster.classList.add('hidden');
-      }).catch(()=>{});
-    }
+    if(cards[currentIndex]!==cardCorrente || expandedIndex!==null && Number(cardCorrente.dataset.index)!==expandedIndex) return;
+    const video=creaVideoCard(cardCorrente);
+    Promise.resolve(video.play()).then(()=>{
+      if(cardCorrente.querySelector('.card-video')===video) mostraVideoCard(cardCorrente,video);
+    }).catch(()=>{});
   },3000);
 }
 
@@ -134,11 +153,9 @@ function aggiornaVideoCorrente(){
   if(desktopCarousel.matches){sincronizzaVideoHover();return;}
   annullaVideoInAttesa();
   cards.forEach((card,i)=>{
-    const video=card.querySelector('.card-video');
-    const poster=card.querySelector('.card-video-poster');
-    if(!video || !poster) return;
+    if(!card.dataset.video) return;
     if(i===currentIndex){avviaVideoDopo3Secondi();}
-    else{riportaAllInizio(video);poster.classList.remove('hidden');}
+    else{rimuoviVideoCard(card);}
   });
 }
 
@@ -269,33 +286,26 @@ document.addEventListener('click',evento=>{
 // Desktop: i video partono al passaggio del mouse
 const richiesteVideo=new WeakMap();
 function fermaVideoCard(card){
-  const video=card.querySelector('.card-video');
-  if(video){
-    richiesteVideo.set(video,(richiesteVideo.get(video)||0)+1);
-    delete video.dataset.hoverAttivo;
-    riportaAllInizio(video);
-  }
-  const poster=card.querySelector('.card-video-poster');
-  if(poster) poster.classList.remove('hidden');
+  if(!card.dataset.video) return;
+  richiesteVideo.set(card,(richiesteVideo.get(card)||0)+1);
+  delete card.dataset.hoverAttivo;
+  rimuoviVideoCard(card);
 }
 function avviaVideoHover(card){
   if(!desktopCarousel.matches || isDragging || document.hidden || card.inert) return;
   if(expandedIndex!==null && Number(card.dataset.index)!==expandedIndex) return;
-  const video=card.querySelector('.card-video');
-  if(!video || card.classList.contains('hidden') || !card.matches(':hover')) return;
-  if(video.dataset.hoverAttivo==='1') return;
+  if(!card.dataset.video || card.classList.contains('hidden') || !card.matches(':hover')) return;
+  if(card.dataset.hoverAttivo==='1') return;
   cards.forEach(altra=>{if(altra!==card) fermaVideoCard(altra);});
-  const token=(richiesteVideo.get(video)||0)+1;
-  richiesteVideo.set(video,token);
-  video.dataset.hoverAttivo='1';
-  video.muted=true;video.defaultMuted=true;video.playsInline=true;
+  const token=(richiesteVideo.get(card)||0)+1;
+  richiesteVideo.set(card,token);
+  card.dataset.hoverAttivo='1';
+  const video=creaVideoCard(card);
   Promise.resolve(video.play()).then(()=>{
-    if(richiesteVideo.get(video)!==token) return;
+    if(richiesteVideo.get(card)!==token) return;
     if(!desktopCarousel.matches || !card.matches(':hover') || isDragging || document.hidden || card.inert){fermaVideoCard(card);return;}
-    video.classList.add('playing');
-    const poster=card.querySelector('.card-video-poster');
-    if(poster) poster.classList.add('hidden');
-  }).catch(()=>{if(richiesteVideo.get(video)===token) fermaVideoCard(card);});
+    mostraVideoCard(card,video);
+  }).catch(()=>{if(richiesteVideo.get(card)===token) fermaVideoCard(card);});
 }
 function sincronizzaVideoHover(){
   if(!desktopCarousel.matches) return;
