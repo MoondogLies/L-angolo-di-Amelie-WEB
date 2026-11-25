@@ -182,12 +182,17 @@ main{
   opacity:.8;
 }
 
+/* Loghi in fondo alla card: sempre centrati, con spazi uguali tra loro.
+   Se non ci stanno si rimpiccioliscono invece di uscire dalla card. */
 .evento-card .card-altri-loghi{
   position:absolute;
   left:18px;
   right:18px;
   bottom:18px;
   margin-top:0;
+  width:auto;
+  direction:ltr;
+  overflow:hidden;
 }
 
 .evento-card:has(.card-altri-loghi) .evento-info{
@@ -198,15 +203,14 @@ main{
   display:flex;
   flex-wrap:nowrap;
   align-items:center;
-  justify-content:flex-end;
-  gap:8px;
+  justify-content:center;
+  gap:12px;
   width:100%;
   min-width:0;
-  direction:ltr;
 }
 
 .evento-card .card-altri-loghi .card-altri-loghi-fila img{
-  flex:1 1 0;
+  flex:0 1 auto;
   min-width:0;
   width:auto;
   height:44px;
