@@ -243,6 +243,12 @@ function chiudiCardEspansa(){
   update();
 }
 document.addEventListener('keydown',evento=>{if(evento.key==='Escape') chiudiCardEspansa();});
+// Card aperta: un clic (o un tocco) fuori dalla card la chiude
+document.addEventListener('click',evento=>{
+  if(expandedIndex===null) return;
+  if(evento.target.closest && evento.target.closest('.card.expanded')) return;
+  chiudiCardEspansa();
+});
 
 // Desktop: i video partono al passaggio del mouse
 const richiesteVideo=new WeakMap();
