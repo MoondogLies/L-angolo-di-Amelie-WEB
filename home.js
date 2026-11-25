@@ -91,7 +91,9 @@ function geometriaDesktop(){
 
 function getStep(){
   if(desktopCarousel.matches){const g=geometriaDesktop();return g.larghezza+g.gap;}
-  return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--carousel-step')) || 280;
+  // Mobile: distanza tra le card = 80% della larghezza della card, così le laterali si intravedono ai bordi
+  const riferimento=cards.find(c=>!c.classList.contains('expanded'));
+  return riferimento && riferimento.offsetWidth ? riferimento.offsetWidth*.8 : 280;
 }
 
 // Mobile: il video della card centrale parte dopo 3 secondi
@@ -160,7 +162,7 @@ function update(dragOffset=0){
     }
     if(Math.abs(offset)>2){card.classList.add('hidden');card.style.transform=`translate(-50%,-50%) translateX(${x}px) scale(.55)`;return;}
     card.classList.remove('hidden');
-    const scale=offset===0 ? 1.12 : (Math.abs(offset)===1 ? .8 : .6);
+    const scale=offset===0 ? 1 : (Math.abs(offset)===1 ? .8 : .6);
     const z=-Math.abs(offset)*160;
     const rot=offset*-6;
     card.style.transform=`translate(-50%,-50%) translateX(${x}px) translateZ(${z}px) rotateY(${rot}deg) scale(${scale})`;
