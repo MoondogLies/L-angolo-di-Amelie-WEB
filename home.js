@@ -28,7 +28,7 @@ function creaCardCarosello(e,i){
          <video class="card-video" src="${escapeHtml(e.video)}" muted loop playsinline webkit-playsinline preload="metadata"></video>`
       : `<img src="${escapeHtml(e.immagine)}" alt="${titolo}">`);
   const sottotitolo=e.tipo==='film' ? `di ${e.regia} · ${e.paese}` : (e.tipo==='concorso' ? '' : `Con ${e.artista}`);
-  const testoPulsante=e.tipo==='film' ? 'Sinossi' : 'Descrizione';
+  const testoPulsante=e.tipo==='film' ? 'Trama' : 'Descrizione';
   const nomiOspiti=e.ospiti ? e.ospiti.split(',').map(nome=>nome.trim()).filter(Boolean) : [];
   const etichettaOspiti=nomiOspiti.length===1 ? 'Ospite' : 'Ospiti';
   const ospiti=nomiOspiti.length ? `<span class="card-ospiti">${etichettaOspiti}: ${escapeHtml(nomiOspiti.join(', '))}</span>` : '';
