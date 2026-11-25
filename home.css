@@ -116,17 +116,17 @@ main{width:100%;max-width:3840px;margin:0 auto;padding:calc(clamp(160px, 12vw, 2
  .carousel-label.su-scuro{color:#fff}
  .carousel-label button{font:inherit;text-transform:inherit;color:inherit;text-align:left;background:transparent;border:0;padding:0;cursor:pointer;line-height:inherit;}
  .carousel-label button:focus-visible{outline:2px solid currentColor;outline-offset:6px;border-radius:3px;}
- .carousel-zone::before,.carousel-zone::after{content:"";position:absolute;top:0;bottom:0;z-index:35;pointer-events:none;background:transparent;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}
- .carousel-zone::before{left:0;width:calc(var(--desktop-start) - 12px);mask-image:linear-gradient(to right,#000 60%,transparent);-webkit-mask-image:linear-gradient(to right,#000 60%,transparent);}
- .carousel-zone::after{right:0;width:calc(var(--desktop-peek) + 16px);mask-image:linear-gradient(to left,#000 35%,transparent);-webkit-mask-image:linear-gradient(to left,#000 35%,transparent);}
- .carousel-zone .card:not(.expanded){width:var(--desktop-card-w);transform-style:flat;--hover-scale:1;box-shadow:0 10px 26px rgba(0,0,0,.14);transition:transform .35s ease,opacity .3s,filter .3s,box-shadow .25s;}
+ /* Card di bordo semitrasparenti (prima erano sfocate con backdrop-filter, che andava ricalcolato
+    a ogni fotogramma mentre le card scorrevano e rendeva lo scorrimento a scatti) */
+ .carousel-zone .card:not(.expanded){width:var(--desktop-card-w);transform-style:flat;--hover-scale:1;box-shadow:0 10px 26px rgba(0,0,0,.14);transition:transform .35s ease,opacity .3s,filter .3s,box-shadow .25s,visibility 0s;}
  .carousel-zone .card:not(.expanded) .card-poster{aspect-ratio:auto;height:var(--desktop-card-h);}
  .carousel-zone .card:not(.expanded):not(.edge-preview):hover{--hover-scale:var(--desktop-hover-scale,1.025);z-index:30;box-shadow:0 12px 25px rgba(0,0,0,.22);}
  .carousel-zone .card:not(.expanded) h3,.carousel-zone .card.current:not(.expanded) h3{font-size:clamp(1rem,1.7vw,1.5rem)}
  .carousel-zone.dragging .card:not(.expanded){transition:none;--hover-scale:1;cursor:grabbing}
  .carousel-zone img{user-select:none;-webkit-user-drag:none}
- .carousel-zone .card.hidden{visibility:hidden;pointer-events:none}
- .carousel-zone .card.edge-preview{pointer-events:none;cursor:default;--hover-scale:1;}
+ /* La card che esce scivola via e sfuma, e diventa invisibile solo a fine animazione */
+ .carousel-zone .card.hidden{visibility:hidden;pointer-events:none;transition:transform .35s ease,opacity .3s,filter .3s,box-shadow .25s,visibility 0s .35s}
+ .carousel-zone .card.edge-preview{pointer-events:none;cursor:default;--hover-scale:1;opacity:.4;}
 }
 
 /* Loghi sulle card del carosello.

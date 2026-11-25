@@ -188,6 +188,11 @@ document.getElementById('nextBtn').addEventListener('click',()=>move(1));
 let isDragging=false,startX=0,currentX=0,dragOffset=0,hasMoved=false;
 function iniziaTrascinamento(evento){
   if(expandedIndex!==null) return;
+  // Ogni nuova pressione azzera il trascinamento precedente: altrimenti, dopo aver trascinato,
+  // il primo clic su "Trama" veniva scambiato per la fine del trascinamento e non apriva la card
+  hasMoved=false;
+  // Le frecce non avviano il trascinamento (su mobile il tocco aggiornava il carosello due volte)
+  if(evento.target.closest('.nav-arrow')) return;
   if(desktopCarousel.matches && evento.target.closest('button')) return;
   isDragging=true;
   if(desktopCarousel.matches) sincronizzaVideoHover();
@@ -346,7 +351,7 @@ function aggiornaColoreTitolo(){
     try{
       ctxColore.drawImage(media,sx,sy,1,1,0,0,1,1);
       const p=ctxColore.getImageData(0,0,1,1).data;
-      const opacita=card.classList.contains('past') ? .78 : 1;
+      const opacita=parseFloat(getComputedStyle(card).opacity) || 1;
       somma+=(.2126*p[0]+.7152*p[1]+.0722*p[2])*opacita+255*(1-opacita);
       numero++;
     }catch(errore){somma+=255;numero++;}
