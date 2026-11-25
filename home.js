@@ -503,7 +503,8 @@ inizializzaSezioniHome();
 // ---------- Intro ----------
 // Normale: il logo resta 2,5 secondi e poi sparisce.
 // Modalità presentazione (indirizzo con ?presentazione, es. angolodiamelie.it/?presentazione):
-// dopo l'animazione il logo resta fermo finché non si preme la barra spaziatrice.
+// compare il vecchio logo, fermo; 1ª barra spaziatrice → si trasforma nel logo nuovo;
+// 2ª barra spaziatrice → si svela il sito.
 // In entrambi i casi il sito si svela così: il logo si dissolve e poi lo sfondo bianco sfuma (vedi home.css).
 const introOverlay=document.getElementById('introOverlay');
 const modalitaPresentazione=new URLSearchParams(location.search).has('presentazione');
@@ -514,22 +515,85 @@ function chiudiIntro(){
   setTimeout(()=>introOverlay.remove(),1500);
 }
 
+// --- Presentazione: vecchio logo → logo nuovo → sito, a ogni pressione della barra spaziatrice ---
+// Il vecchio logo è la stessa illustrazione di Amélie contenuta nel logo nuovo: alla prima pressione
+// scivola esattamente sopra l'illustrazione del logo nuovo e sfuma in esso.
+// Posizione dell'illustrazione nel file del logo nuovo (misurata confrontando le due immagini).
+// Se cambi il file del logo nuovo, questi numeri vanno rimisurati.
+const VECCHIO_LOGO={
+  file:'amelie-logo-vecchio.JPG',
+  proporzione:600/843,                 // larghezza / altezza del vecchio logo
+  tela:{larghezza:701,altezza:456},    // viewBox del logo nuovo (L-angolo-di-Amelie_logo2.svg)
+  riquadro:{x:160.2,y:-118,larghezza:385,altezza:541} // dove cade il vecchio logo, in unità del logo nuovo
+};
+
+function rettangoloFinaleVecchioLogo(){
+  // dove deve stare il vecchio logo per coincidere con l'illustrazione del logo nuovo (sfondo "contain", centrato)
+  const r=introOverlay.querySelector('.intro-logo').getBoundingClientRect();
+  const {tela,riquadro}=VECCHIO_LOGO;
+  const k=Math.min(r.width/tela.larghezza,r.height/tela.altezza);
+  const x0=r.left+(r.width-tela.larghezza*k)/2, y0=r.top+(r.height-tela.altezza*k)/2;
+  return {left:x0+riquadro.x*k,top:y0+riquadro.y*k,width:riquadro.larghezza*k,height:riquadro.altezza*k};
+}
+function rettangoloInizialeVecchioLogo(){
+  // all'apertura: grande e al centro dello schermo
+  const altezza=Math.min(innerHeight*.72,innerWidth*.8/VECCHIO_LOGO.proporzione);
+  const larghezza=altezza*VECCHIO_LOGO.proporzione;
+  return {left:(innerWidth-larghezza)/2,top:(innerHeight-altezza)/2,width:larghezza,height:altezza};
+}
+
+function avviaPresentazione(){
+  introOverlay.classList.add('presentazione');
+  const vecchio=document.createElement('img');
+  vecchio.className='intro-logo-vecchio';
+  vecchio.alt='';
+  vecchio.decoding='async';
+  introOverlay.appendChild(vecchio);
+  let fase=0; // 0 = vecchio logo, 1 = logo nuovo, 2 = sito
+
+  // Il vecchio logo sta sempre nella posizione finale; nella fase 0 una trasformazione lo porta al centro, grande
+  function posiziona(){
+    const fine=rettangoloFinaleVecchioLogo();
+    Object.assign(vecchio.style,{left:fine.left+'px',top:fine.top+'px',width:fine.width+'px',height:fine.height+'px'});
+    if(fase===0){
+      const inizio=rettangoloInizialeVecchioLogo();
+      const scala=inizio.width/fine.width;
+      vecchio.style.transform=`translate(${inizio.left-fine.left}px,${inizio.top-fine.top}px) scale(${scala})`;
+    }else{
+      vecchio.style.transform='none';
+    }
+  }
+  posiziona();
+  window.addEventListener('resize',posiziona);
+  vecchio.addEventListener('load',()=>vecchio.classList.add('pronto'),{once:true});
+  vecchio.src=VECCHIO_LOGO.file;
+
+  let pronto=false;
+  setTimeout(()=>{pronto=true;},900); // pressioni accettate solo a logo comparso
+  const allaBarraSpaziatrice=evento=>{
+    if(evento.code!=='Space' && evento.key!==' ') return;
+    evento.preventDefault();
+    if(evento.repeat || !pronto) return;
+    pronto=false;
+    if(fase===0){
+      fase=1;
+      introOverlay.classList.add('logo-nuovo'); // il vecchio scivola sul nuovo e sfuma (transizioni in home.css)
+      posiziona();
+      setTimeout(()=>{pronto=true;},1300);
+    }else if(fase===1){
+      fase=2;
+      document.removeEventListener('keydown',allaBarraSpaziatrice);
+      window.removeEventListener('resize',posiziona);
+      chiudiIntro();
+    }
+  };
+  document.addEventListener('keydown',allaBarraSpaziatrice);
+}
+
 if(introOverlay){
   document.body.style.overflow='hidden';
-  if(modalitaPresentazione){
-    introOverlay.classList.add('presentazione');
-    const allaBarraSpaziatrice=evento=>{
-      if(evento.code!=='Space' && evento.key!==' ') return;
-      evento.preventDefault();
-      if(evento.repeat) return;
-      document.removeEventListener('keydown',allaBarraSpaziatrice);
-      chiudiIntro();
-    };
-    // il tasto viene accettato solo a animazione del logo conclusa (1 secondo)
-    setTimeout(()=>document.addEventListener('keydown',allaBarraSpaziatrice),1000);
-  }else{
-    setTimeout(chiudiIntro,2500);
-  }
+  if(modalitaPresentazione) avviaPresentazione();
+  else setTimeout(chiudiIntro,2500);
 }
 
 adattaCaroselloAllaFinestra();
