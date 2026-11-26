@@ -201,6 +201,7 @@ const eventiCinema = [
     'altri loghi': ['citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png', 'icm.jpeg'],
     rassegna: 'Il favoloso cinema di Amélie',
   },
+  /*
   {
     tipo: 'film',
     titolo: 'ESCAPE NET',
@@ -219,6 +220,7 @@ const eventiCinema = [
     'altri loghi': ['citta-metropolitana-di-roma-capitale.svg', 'Comune-Monterotondo.png', 'icm.jpeg'],
     rassegna: 'Il favoloso cinema di Amélie',
   }
+*/
 ];
 
 const eventiMusica = [];
