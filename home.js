@@ -522,7 +522,8 @@ function chiudiIntro(){
 // Se cambi il file del logo nuovo, questi numeri vanno rimisurati.
 const VECCHIO_LOGO={
   file:'amelie-logo-vecchio.JPG',
-  sala:'presentazione-poltrone.svg',   // sala del cinema in bianco e nero attorno al vecchio logo
+  sala:'presentazione-poltrone.svg',   // sala del cinema in bianco e nero dietro al vecchio logo
+  salaDavanti:'presentazione-poltrone-davanti.svg', // fila più vicina, sopra il vecchio logo
   proporzione:600/843,                 // larghezza / altezza del vecchio logo
   tela:{larghezza:701,altezza:456},    // viewBox del logo nuovo (L-angolo-di-Amelie_logo2.svg)
   riquadro:{x:160.2,y:-118,larghezza:385,altezza:541} // dove cade il vecchio logo, in unità del logo nuovo
@@ -557,7 +558,11 @@ function avviaPresentazione(){
   immagine.className='intro-vecchio-img';
   immagine.alt='';
   immagine.decoding='async';
-  vecchio.append(sala,immagine);
+  const filaDavanti=document.createElement('img'); // fila più vicina allo schermo: si sovrappone al logo
+  filaDavanti.className='intro-sala intro-sala-davanti';
+  filaDavanti.alt='';
+  filaDavanti.src=VECCHIO_LOGO.salaDavanti;
+  vecchio.append(sala,immagine,filaDavanti);
   introOverlay.appendChild(vecchio);
   let fase=0; // 0 = vecchio logo, 1 = logo nuovo, 2 = sito
 
