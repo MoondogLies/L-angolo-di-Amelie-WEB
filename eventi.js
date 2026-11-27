@@ -1,3 +1,10 @@
+// FOGLIO GOOGLE DEGLI EVENTI
+// Il sito legge gli eventi da un foglio Google pubblicato come CSV:
+// nel foglio, File → Condividi → Pubblica sul web → foglio «Eventi» → «Valori separati da virgola (.csv)» → Pubblica,
+// poi incolla qui sotto l'indirizzo che Google mostra (tra le virgolette).
+// Se l'indirizzo è vuoto, o il foglio non risponde, il sito usa gli eventi scritti più in basso in questo file.
+const FOGLIO_EVENTI = '';
+
 // INFORMAZIONI DELL’ASSOCIAZIONE
 const INFO_ASSOCIAZIONE = {
   indirizzo: 'Via delle Rimesse 14/16, 00015 Monterotondo (RM)',
@@ -40,6 +47,7 @@ const videoInEvidenza = {
 };
 
 // CONTENUTI DELLE CARD EVENTI
+// Se FOGLIO_EVENTI è impostato, questi eventi servono solo di riserva (quando il foglio non risponde).
 // zoomVideo: ingrandimento del trailer nella card, per nascondere le bande nere incise nel video
 //            (tanti trailer di film panoramici sono salvati in 16:9 con le bande nere sopra e sotto).
 //            1 = nessuno zoom (si può anche omettere). Valori tipici: 1.13 (bande sottili), 1.35 (film in 2.39:1).
