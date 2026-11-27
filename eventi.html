@@ -6,7 +6,7 @@
 <title>L'Angolo di Amelie — Tutti gli eventi</title>
 <link rel="icon" type="image/png" href="L-angolo-di-Amelie_favicon.png">
 <link rel="apple-touch-icon" href="L-angolo-di-Amelie_favicon.png">
-<link rel="stylesheet" href="comune.css?v=20261127a">
+<link rel="stylesheet" href="comune.css?v=20261126j">
 <style>
 main{
   width:100%;
@@ -257,11 +257,9 @@ main{
   </div>
 </main>
 <footer></footer>
-<script src="eventi.js?v=20261127a"></script>
-<script src="comune.js?v=20261127a"></script>
+<script src="eventi.js?v=20261126j"></script>
+<script src="comune.js?v=20261126j"></script>
 <script>
-// La pagina si costruisce quando gli eventi sono pronti (dal foglio Google o da eventi.js)
-quandoEventiPronti(()=>{
 const oggi=oggiMezzanotte();
 const eventiOrdinati=[...eventi].sort(ordinaPerData);
 const eventiFuturi=eventiOrdinati.filter(e=>dataLocale(e.data)>=oggi);
@@ -368,7 +366,6 @@ document.getElementById('btnAltriPassati').addEventListener('click',()=>{
 });
 
 renderGrid();
-});
 </script>
 </body>
 </html>
