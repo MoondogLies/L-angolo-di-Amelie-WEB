@@ -3,10 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>L'Angolo di Amelie — Tutti gli eventi</title>
+<title>Tutti gli eventi — L'Angolo di Amelie, Monterotondo</title>
+<meta name="description" content="Calendario completo degli eventi de L’Angolo di Amelie a Monterotondo (RM): film con registi e ospiti, rassegne, concerti e concorsi di cortometraggi.">
+<link rel="canonical" href="https://angolodiamelie.it/eventi.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:site_name" content="L’Angolo di Amelie">
+<meta property="og:title" content="Tutti gli eventi — L’Angolo di Amelie">
+<meta property="og:description" content="Film con ospiti, rassegne, concerti e concorsi di cortometraggi a Monterotondo.">
+<meta property="og:url" content="https://angolodiamelie.it/eventi.html">
+<meta property="og:image" content="https://angolodiamelie.it/anteprima-social.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Logo L’Angolo di Amelie su fondo bianco">
 <link rel="icon" type="image/png" href="L-angolo-di-Amelie_favicon.png">
 <link rel="apple-touch-icon" href="L-angolo-di-Amelie_favicon.png">
-<link rel="stylesheet" href="comune.css?v=20261127b">
+<link rel="stylesheet" href="comune.css?v=20261127c">
 <style>
 main{
   width:100%;
@@ -245,6 +258,7 @@ main{
   <a class="header-btn" href="index.html" aria-label="Torna alla home" title="Torna alla home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg></a>
 </header>
 <main>
+  <h1 class="testo-nascosto">Tutti gli eventi de L’Angolo di Amelie</h1>
   <div class="filtri">
     <button id="btnPassati" class="filtro-btn" type="button" aria-expanded="false" aria-controls="eventiGrid">Mostra eventi passati</button>
   </div>
@@ -257,8 +271,8 @@ main{
   </div>
 </main>
 <footer></footer>
-<script src="eventi.js?v=20261127b"></script>
-<script src="comune.js?v=20261127b"></script>
+<script src="eventi.js?v=20261127c"></script>
+<script src="comune.js?v=20261127c"></script>
 <script>
 const oggi=oggiMezzanotte();
 const eventiOrdinati=[...eventi].sort(ordinaPerData);

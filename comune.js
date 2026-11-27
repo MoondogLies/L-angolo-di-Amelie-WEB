@@ -253,4 +253,67 @@ function inizializzaComune(){
   }
 }
 
+// DATI PER GOOGLE (schema.org): descrivono gli eventi ai motori di ricerca, non si vedono nella pagina.
+// Vengono creati da eventi.js, quindi si aggiornano da soli quando si aggiunge un evento.
+const INDIRIZZO_SITO='https://angolodiamelie.it/';
+
+function indirizzoPostale(){
+  const testo=(typeof INFO_ASSOCIAZIONE!=='undefined' && INFO_ASSOCIAZIONE.indirizzo) || '';
+  const parti=testo.match(/^(.*?),\s*(\d{5})\s+(.+?)\s*(?:\((\w+)\))?$/);
+  if(!parti) return testo;
+  return {'@type':'PostalAddress',streetAddress:parti[1],postalCode:parti[2],addressLocality:parti[3],addressRegion:parti[4]||undefined,addressCountry:'IT'};
+}
+
+// Fuso orario italiano (+01:00 d'inverno, +02:00 d'estate) per la data e l'ora indicate
+function fusoRoma(iso,ora){
+  try{
+    const istante=new Date(`${iso}T${ora||'12:00'}:00Z`);
+    const nome=new Intl.DateTimeFormat('en-US',{timeZone:'Europe/Rome',timeZoneName:'longOffset'})
+      .formatToParts(istante).find(p=>p.type==='timeZoneName').value;
+    const scarto=nome.replace('GMT','');
+    return /^[+-]\d{2}:\d{2}$/.test(scarto) ? scarto : '+01:00';
+  }catch(errore){return '';}
+}
+
+function inserisciDatiStrutturati(){
+  if(typeof eventi==='undefined' || !Array.isArray(eventi)) return;
+  const indirizzo=indirizzoPostale();
+  const organizzatore={'@type':'Organization',name:'L’Angolo di Amelie',url:INDIRIZZO_SITO};
+  const luogo={'@type':'Place',name:'L’Angolo di Amelie',address:indirizzo};
+  const assoluto=file=>file ? new URL(file,INDIRIZZO_SITO).href : undefined;
+
+  const datiEventi=eventi.filter(e=>e && e.titolo && e.data).map(e=>{
+    const ora=/^\d{1,2}:\d{2}$/.test(e.ora||'') ? e.ora.padStart(5,'0') : '';
+    const immagini=[...new Set([e.immagine,...(Array.isArray(e.immagini)?e.immagini:[])].filter(Boolean))].map(assoluto);
+    const dettaglio=e.tipo==='film' ? [e.regia && `di ${e.regia}`, e.paese].filter(Boolean).join(' · ') : (e.sottotitolo || '');
+    const evento={
+      '@type':e.tipo==='film' ? 'ScreeningEvent' : 'Event',
+      name:e.titolo,
+      startDate:ora ? `${e.data}T${ora}:00${fusoRoma(e.data,ora)}` : e.data,
+      eventStatus:'https://schema.org/EventScheduled',
+      eventAttendanceMode:'https://schema.org/OfflineEventAttendanceMode',
+      location:luogo,
+      organizer:organizzatore,
+      image:immagini.length ? immagini : undefined,
+      description:[dettaglio,e.descrizione].filter(Boolean).join('. ') || undefined,
+      url:INDIRIZZO_SITO+'eventi.html'
+    };
+    if(e.tipo==='film' && e.titolo){
+      evento.workPresented={'@type':'Movie',name:e.titolo,director:e.regia ? {'@type':'Person',name:e.regia} : undefined};
+    }
+    const artisti=e.tipo==='film' ? '' : (e.artista || '');
+    const nomi=[...artisti.split(','),...(e.ospiti||'').split(',')].map(n=>n.trim()).filter(Boolean);
+    if(nomi.length) evento.performer=nomi.map(name=>({'@type':'Person',name}));
+    if(e.rassegna) evento.superEvent={'@type':'EventSeries',name:e.rassegna};
+    return evento;
+  });
+  if(!datiEventi.length) return;
+
+  const script=document.createElement('script');
+  script.type='application/ld+json';
+  script.textContent=JSON.stringify({'@context':'https://schema.org','@graph':datiEventi}).replace(/</g,'\\u003c');
+  document.head.appendChild(script);
+}
+
 inizializzaComune();
+inserisciDatiStrutturati();
