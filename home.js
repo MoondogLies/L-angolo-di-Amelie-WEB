@@ -1,4 +1,4 @@
-// Codice della home page (index.html).
+// Codice della home page (anteprima-smza67.html; tornerà index.html quando il sito sarà ufficiale).
 // Va caricato dopo eventi.js e comune.js.
 
 // ---------- Carosello eventi ----------
