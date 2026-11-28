@@ -197,6 +197,7 @@ function update(dragOffset=0){
       card.classList.toggle('edge-preview',bordo);
       card.inert=bordo || !visibile;
       card.style.transform=`translate(-50%,-50%) translateX(${desktopX}px) scale(var(--hover-scale,1))`;
+      card.destinazioneX=desktopX; // dove arriverà la card: serve al colore del titolo
       return;
     }
     if(Math.abs(offset)>2){card.classList.add('hidden');card.style.transform=`translate(-50%,-50%) translateX(${x}px) scale(.55)`;return;}
@@ -394,6 +395,26 @@ function richiediColoreTitolo(){
   coloreTitoloRichiesto=true;
   requestAnimationFrame(()=>{coloreTitoloRichiesto=false;aggiornaColoreTitolo();});
 }
+// Il colore del titolo si decide in base a dove le card ARRIVERANNO, non a dove sono ora:
+// così cambia mentre la card scorre dietro al titolo, non dopo. Durante il trascinamento conta la posizione reale.
+function rettangoloCard(card){
+  if(isDragging || card.destinazioneX===undefined) return card.getBoundingClientRect();
+  const base=track.getBoundingClientRect();
+  const left=base.left+card.offsetLeft-card.offsetWidth/2+card.destinazioneX;
+  const top=base.top+card.offsetTop-card.offsetHeight/2;
+  return {left,top,right:left+card.offsetWidth,bottom:top+card.offsetHeight,width:card.offsetWidth,height:card.offsetHeight};
+}
+function rettangoloPoster(card){
+  const poster=card.querySelector('.card-poster');
+  if(isDragging || card.destinazioneX===undefined) return poster.getBoundingClientRect();
+  const r=rettangoloCard(card);
+  return {left:r.left+poster.offsetLeft,top:r.top+poster.offsetTop,width:poster.offsetWidth,height:poster.offsetHeight};
+}
+function opacitaCard(card){
+  if(isDragging) return parseFloat(getComputedStyle(card).opacity) || 1;
+  if(card.classList.contains('edge-preview')) return .4;
+  return card.classList.contains('past') ? .78 : 1;
+}
 function aggiornaColoreTitolo(){
   if(!ctxColore || !desktopCarousel.matches || document.hidden || expandedIndex!==null) return;
   const box=carouselLabel.getBoundingClientRect();
@@ -402,12 +423,12 @@ function aggiornaColoreTitolo(){
     const x=box.left+box.width*fx,y=box.top+box.height*fy;
     const card=cards.find(c=>{
       if(c.classList.contains('hidden')) return false;
-      const r=c.getBoundingClientRect();
+      const r=rettangoloCard(c);
       return x>=r.left && x<=r.right && y>=r.top && y<=r.bottom;
     });
     if(!card){somma+=255;numero++;continue;}
     const media=card.querySelector('.card-video.playing') || card.querySelector('.card-slideshow img.attivo') || card.querySelector('.card-video-poster') || card.querySelector('.card-poster img');
-    const r=card.querySelector('.card-poster').getBoundingClientRect();
+    const r=rettangoloPoster(card);
     const iw=media && (media.videoWidth || media.naturalWidth);
     const ih=media && (media.videoHeight || media.naturalHeight);
     if(!iw || !ih){somma+=255;numero++;continue;}
@@ -417,7 +438,7 @@ function aggiornaColoreTitolo(){
     try{
       ctxColore.drawImage(media,sx,sy,1,1,0,0,1,1);
       const p=ctxColore.getImageData(0,0,1,1).data;
-      const opacita=parseFloat(getComputedStyle(card).opacity) || 1;
+      const opacita=opacitaCard(card);
       somma+=(.2126*p[0]+.7152*p[1]+.0722*p[2])*opacita+255*(1-opacita);
       numero++;
     }catch(errore){somma+=255;numero++;}
@@ -554,9 +575,54 @@ const modalitaPresentazione=new URLSearchParams(location.search).has('presentazi
 
 function chiudiIntro(){
   if(introOverlay.classList.contains('hidden')) return;
+  const presentazione=introOverlay.classList.contains('presentazione');
+  let finito=false;
+  const fine=()=>{
+    if(finito) return;
+    finito=true;
+    const logoHeader=document.querySelector('header .logo-bg');
+    if(logoHeader) logoHeader.style.removeProperty('visibility');
+    document.body.style.overflow='';
+    introOverlay.remove();
+  };
+  const volo=voloLogoNellHeader(presentazione ? 800 : 500);
   introOverlay.classList.add('hidden');
-  document.body.style.overflow='';
-  setTimeout(()=>introOverlay.remove(),1500);
+  if(volo){
+    // il logo in volo lascia il posto a quello dell'header nello stesso fotogramma in cui atterra
+    volo.finished.then(fine,fine);
+  }else{
+    document.body.style.overflow='';
+  }
+  setTimeout(fine,presentazione ? 1500 : 1000); // rete di sicurezza
+}
+
+// Il logo dell'intro e quello dell'header sono la stessa immagine: invece di farne sparire uno e
+// comparire l'altro, il logo grande si sposta e si rimpicciolisce fino al posto di quello dell'header.
+function rettangoloImmagineLogo(elemento){
+  // il logo è uno sfondo "contain" centrato: calcola dove cade davvero il disegno dentro l'elemento
+  const r=elemento.getBoundingClientRect();
+  const {larghezza,altezza}=VECCHIO_LOGO.tela;
+  const k=Math.min(r.width/larghezza,r.height/altezza);
+  return {cx:r.left+r.width/2,cy:r.top+r.height/2,larghezza:larghezza*k};
+}
+function voloLogoNellHeader(durata){
+  if(riduciMovimento.matches) return null;
+  const logo=introOverlay.querySelector('.intro-logo');
+  const logoHeader=document.querySelector('header .logo-bg');
+  if(!logo || !logoHeader || !logo.animate) return null;
+  if(parseFloat(getComputedStyle(logoHeader).opacity)<.5) return null; // header già sfumato dallo scroll
+  const da=rettangoloImmagineLogo(logo), a=rettangoloImmagineLogo(logoHeader);
+  if(!da.larghezza || !a.larghezza) return null;
+  // se l'intro viene saltata mentre il logo sta ancora salendo, si parte dalla sua posizione senza lo spostamento in corso
+  const spostamentoInCorso=new DOMMatrixReadOnly(getComputedStyle(logo).transform==='none' ? undefined : getComputedStyle(logo).transform).m42;
+  const dx=a.cx-da.cx, dy=a.cy-(da.cy-spostamentoInCorso);
+  const scala=a.larghezza/da.larghezza;
+  introOverlay.classList.add('in-volo');
+  logoHeader.style.visibility='hidden';
+  return logo.animate(
+    {transform:`translate(${dx}px,${dy}px) scale(${scala})`,opacity:1},
+    {duration:durata,easing:getComputedStyle(document.documentElement).getPropertyValue('--ease-in-out').trim() || 'ease-in-out',fill:'forwards'}
+  );
 }
 
 // --- Presentazione: vecchio logo → logo nuovo → sito, a ogni pressione della barra spaziatrice ---
