@@ -1,11 +1,15 @@
 /* Stili della home page (index.html). Gli stili comuni sono in comune.css */
 body.card-aperta{overflow:hidden;}
-body.card-aperta .carousel-zone{touch-action:auto;perspective:none;filter:blur(8px);pointer-events:none;transition:filter .3s ease;}
-body.card-aperta header,body.card-aperta footer,body.card-aperta main > *:not(.carousel-zone){filter:blur(8px);pointer-events:none;transition:filter .3s ease;}
+body.card-aperta .carousel-zone{touch-action:auto;perspective:none;pointer-events:none;}
+body.card-aperta header,body.card-aperta footer,body.card-aperta main > *:not(.carousel-zone){pointer-events:none;}
+/* Sfondo della card aperta: un unico livello sfocato che sfuma (sfocare ogni sezione con filter era pesante, soprattutto su Safari) */
+.card-sfondo{position:fixed;inset:0;z-index:450;background:rgba(255,255,255,.12);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .18s ease,visibility 0s linear .18s;}
+body.card-aperta .card-sfondo{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .25s ease,visibility 0s;}
 .intro-overlay{position:fixed;inset:0;z-index:999;background:var(--bianco);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;transition:opacity .8s ease, visibility .8s ease;}
 /* Presentazione (?presentazione): prima il vecchio logo, poi quello nuovo, poi il sito */
 .intro-overlay.presentazione{cursor:none;}
-.intro-overlay.presentazione .intro-logo{animation:none;opacity:0;transition:opacity .75s ease .45s;}
+/* il logo nuovo compare quando il vecchio è quasi arrivato (≈96% del percorso), così non si vedono due Amélie */
+.intro-overlay.presentazione .intro-logo{animation:none;opacity:0;transition:opacity .45s var(--ease-out) .7s;}
 .intro-overlay.presentazione.logo-nuovo .intro-logo{opacity:1;}
 .intro-logo-vecchio{position:fixed;display:block;transform-origin:0 0;opacity:0;pointer-events:none;
   transition:transform .9s cubic-bezier(.65,0,.35,1),opacity .6s ease;}
@@ -18,17 +22,25 @@ body.card-aperta header,body.card-aperta footer,body.card-aperta main > *:not(.c
 /* (la fila davanti è nel codice dopo il logo, quindi viene disegnata sopra di esso) */
 .intro-overlay.logo-nuovo .intro-sala{opacity:0;}
 /* alla prima pressione: il vecchio logo scivola sopra l'illustrazione del logo nuovo e sfuma in esso */
-.intro-overlay.logo-nuovo .intro-logo-vecchio{opacity:0;transition:transform .9s cubic-bezier(.65,0,.35,1),opacity .7s ease .55s;}
+.intro-overlay.logo-nuovo .intro-logo-vecchio{opacity:0;transition:transform .9s cubic-bezier(.65,0,.35,1),opacity .4s ease .8s;}
 
-/* Chiusura dell'intro in due tempi: prima il logo si dissolve, poi lo sfondo bianco sfuma e svela il sito */
-.intro-overlay.hidden{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .8s ease .45s, visibility 0s linear 1.25s;}
-.intro-overlay.hidden .intro-logo{animation:dissolvenzaLogo .7s ease forwards;}
+/* Chiusura dell'intro: il logo vola al posto di quello dell'header (home.js, chiudiIntro) mentre lo sfondo bianco sfuma.
+   Se il volo non è possibile (movimento ridotto, logo dell'header nascosto) il logo si dissolve. */
+.intro-overlay.hidden{background-color:transparent;visibility:hidden;pointer-events:none;transition:background-color .4s ease .1s, visibility 0s linear .6s;}
+.intro-overlay.hidden:not(.in-volo) .intro-logo{animation:dissolvenzaLogo .3s var(--ease-out) forwards;}
+/* Presentazione: stesso gesto, più lento e scenico */
+.intro-overlay.presentazione.hidden{transition:background-color .6s ease .2s, visibility 0s linear .9s;}
+.intro-overlay.presentazione.hidden:not(.in-volo) .intro-logo{animation:dissolvenzaLogo .7s ease forwards;}
 @keyframes dissolvenzaLogo{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(1.06)}}
+@keyframes soloDissolvenza{to{opacity:0}}
+@keyframes soloComparsa{from{opacity:0}}
 @media(prefers-reduced-motion:reduce){
-  .intro-overlay.hidden .intro-logo{animation:none;opacity:0}
+  .intro-overlay.hidden:not(.in-volo) .intro-logo,.intro-overlay.presentazione.hidden:not(.in-volo) .intro-logo{animation:soloDissolvenza .3s ease forwards}
+  .intro-overlay.presentazione .intro-logo{transition:opacity .4s ease .4s}
+  .intro-logo{animation-name:soloComparsa}
   .intro-logo-vecchio,.intro-overlay.logo-nuovo .intro-logo-vecchio{transition:opacity .4s ease}
 }
-.intro-logo{width:min(86vw,640px);height:clamp(160px,34vh,380px);background-image:var(--logo-sito);background-size:contain;background-repeat:no-repeat;background-position:center;animation:comparsaLogo 1s ease both;}
+.intro-logo{width:min(86vw,640px);height:clamp(160px,34vh,380px);background-image:var(--logo-sito);background-size:contain;background-repeat:no-repeat;background-position:center;animation:comparsaLogo .6s var(--ease-out) both;}
 @keyframes comparsaLogo{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .card h3,.page-title h2,.section-title h2,.course-card h3{font-family:var(--font-titoli);}
 small,p,span,a,button,.card-date,.card-ospiti,.card p,.place,.course-card p,.social-caption,.hint,.footer-links a{font-family:var(--font-dettagli);}
@@ -38,7 +50,7 @@ main{width:100%;max-width:3840px;margin:0 auto;padding:calc(clamp(160px, 12vw, 2
 .page-title p{margin:0;color:var(--grigio)}
 .carousel-zone{position:relative;height:clamp(520px, 78vh, 660px);display:flex;align-items:center;justify-content:center;perspective:1400px;overflow:hidden;touch-action:pan-y;}
 .track{position:relative;width:100%;height:100%;transform-style:preserve-3d}
-.card{position:absolute;left:50%;top:50%;width:var(--card-w);height:auto;background:#fff;color:var(--testo);border-radius:14px;box-shadow:var(--ombra);overflow:hidden;cursor:pointer;border:1px solid #eee;transition:transform .55s cubic-bezier(.22,.68,.32,1), opacity .45s, filter .45s, box-shadow .45s, width .45s;transform:translate(-50%,-50%);transform-style:preserve-3d;backface-visibility:hidden;-webkit-backface-visibility:hidden;will-change:transform, opacity;touch-action:pan-y;}
+.card{position:absolute;left:50%;top:50%;width:var(--card-w);height:auto;background:#fff;color:var(--testo);border-radius:14px;box-shadow:var(--ombra);overflow:hidden;cursor:pointer;border:1px solid #eee;transition:transform .38s cubic-bezier(.22,.68,.32,1), opacity .3s ease, filter .3s ease, box-shadow .3s ease;transform:translate(-50%,-50%);transform-style:preserve-3d;backface-visibility:hidden;-webkit-backface-visibility:hidden;will-change:transform, opacity;touch-action:pan-y;}
 .card-poster{position:relative;aspect-ratio:2 / 3;background:#000;overflow:hidden;transform:translateZ(0);backface-visibility:hidden;-webkit-backface-visibility:hidden;will-change:transform, opacity;}
 .card-poster img,.card-poster video{width:100%;height:100%;object-fit:cover;display:block;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:translateZ(0);}
 .card-video-poster,.card-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:opacity .45s ease;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:translateZ(0);}
@@ -59,13 +71,13 @@ main{width:100%;max-width:3840px;margin:0 auto;padding:calc(clamp(160px, 12vw, 2
 .card-ospiti.multi{border-radius:12px;line-height:1.25;}
 .card h3{margin:0;color:#fff;font-size:1.35rem;line-height:1.08;text-shadow:0 2px 12px rgba(0,0,0,.85);}
 .card .sottotitolo{margin:0;color:rgba(255,255,255,.85);font-size:.82rem;font-weight:700;letter-spacing:.3px;}
-.sinossi-btn{margin-top:6px;background:var(--rosso);color:#fff;border:0;padding:8px 15px;border-radius:999px;font-size:.75rem;font-weight:800;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.35);}
+.sinossi-btn{margin-top:6px;background:var(--rosso);color:#fff;border:0;padding:8px 15px;border-radius:999px;font-size:.75rem;font-weight:800;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.35);transition:transform 160ms var(--ease-out),background-color .2s ease;}
 .sinossi-btn:hover{background:var(--rosso-scuro);}
+.sinossi-btn:active{transform:scale(.97)}
 .card.past{filter:grayscale(1);opacity:.78}
 .card.past .card-date{background:#555}
 .card.past .card-ospiti{background:#777}
 .card.current{z-index:20;box-shadow:0 30px 70px rgba(0,0,0,.25)}
-.card.current h3{font-size:1.5rem}
 .card.hidden{opacity:0;pointer-events:none}
 .card-details{display:none;padding:clamp(14px,3vw,24px);background:#fff;color:var(--testo);}
 .card.expanded .card-details{display:block;}
@@ -80,24 +92,30 @@ main{width:100%;max-width:3840px;margin:0 auto;padding:calc(clamp(160px, 12vw, 2
 .card.expanded .card-details p.desc{font-size:clamp(1.05rem,2.8vw,1.4rem);line-height:1.7;}
 .card-close{display:none;position:fixed;top:14px;right:14px;z-index:501;width:40px;height:40px;border:0;border-radius:50%;background:var(--rosso);color:#fff;font-size:24px;font-weight:800;line-height:1;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.25);}
 .card-close:hover{background:var(--rosso-scuro);}
+.card-close{transition:transform 160ms var(--ease-out),background-color .2s ease;}
+.card-close:active{transform:scale(.95)}
 .card.expanded .card-close{display:block;}
 .card-details p.desc{margin:0;color:#444;font-size:clamp(.9rem,2vw,1rem);line-height:1.5;}
-.nav-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:40;width:52px;height:52px;border-radius:50%;border:0;cursor:pointer;background:var(--rosso);color:#fff;font-size:23px;font-weight:800;box-shadow:var(--ombra);transition:.2s}
+.nav-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:40;width:52px;height:52px;border-radius:50%;border:0;cursor:pointer;background:var(--rosso);color:#fff;font-size:23px;font-weight:800;box-shadow:var(--ombra);transition:transform 160ms var(--ease-out),background-color .2s ease,opacity .2s ease}
 .nav-arrow:hover{background:var(--rosso-scuro)}
+.nav-arrow:active:not(:disabled){transform:translateY(-50%) scale(.95)}
 .nav-arrow.prev{left:10px}
 .nav-arrow.next{right:10px}
 .nav-arrow:disabled{opacity:.28;cursor:not-allowed}
 .hint{text-align:center;color:var(--grigio);font-size:.9rem;margin-top:12px}
 .programma-btn-wrap{text-align:center;margin-top:26px;}
-.programma-btn{display:inline-block;background:var(--rosso);color:#fff;padding:14px 28px;border-radius:999px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;box-shadow:0 10px 26px rgba(0,0,0,.18);transition:.2s;}
-.programma-btn:hover{background:var(--rosso-scuro);transform:translateY(-2px);}
+.programma-btn{display:inline-block;background:var(--rosso);color:#fff;padding:14px 28px;border-radius:999px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;box-shadow:0 10px 26px rgba(0,0,0,.18);transition:transform 160ms var(--ease-out),background-color .2s ease;}
+.programma-btn:hover{background:var(--rosso-scuro);}
+@media(hover:hover) and (pointer:fine){.programma-btn:hover{transform:translateY(-2px)}}
+.programma-btn:active{transform:scale(.97)}
 .corsi{margin-top:80px}
 .section-title{text-align:center;margin-bottom:24px}
 .section-title h2{color:var(--rosso);margin:0 0 8px;font-size:clamp(24px,3.5vw,34px)}
 .section-title p{margin:0;color:var(--grigio)}
 .course-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px;}
-.course-card{background:#fff;border:1px solid #eee;border-radius:20px;overflow:hidden;box-shadow:0 10px 28px rgba(0,0,0,.09);transition:transform .25s, box-shadow .25s;cursor:pointer;}
-.course-card:hover{transform:translateY(-5px);box-shadow:var(--ombra)}
+.course-card{background:#fff;border:1px solid #eee;border-radius:20px;overflow:hidden;box-shadow:0 10px 28px rgba(0,0,0,.09);transition:transform .2s var(--ease-out), box-shadow .2s ease;cursor:pointer;}
+@media(hover:hover) and (pointer:fine){.course-card:hover{transform:translateY(-5px);box-shadow:var(--ombra)}}
+.course-card:active{transform:scale(.98)}
 .course-card img{width:100%;height:200px;object-fit:cover;display:block}
 .course-body{padding:20px;display:grid;gap:9px}
 .course-tag{width:max-content;background:var(--rosso);color:#fff;padding:6px 12px;border-radius:999px;font-size:.74rem;font-weight:800;letter-spacing:.3px;}
@@ -119,13 +137,15 @@ main{width:100%;max-width:3840px;margin:0 auto;padding:calc(clamp(160px, 12vw, 2
 .course-info-row a{color:var(--rosso);font-weight:700;}
 .course-info-close{position:absolute;top:12px;right:12px;width:38px;height:38px;border:0;border-radius:50%;background:var(--rosso);color:#fff;font-size:22px;font-weight:800;cursor:pointer;}
 .course-info-close:hover{background:var(--rosso-scuro)}
+.course-info-close{transition:transform 160ms var(--ease-out),background-color .2s ease;}
+.course-info-close:active{transform:scale(.95)}
 @media(max-width:760px){
   /* Card centrale quasi a tutto schermo; resta abbastanza bassa da stare nello schermo anche sui telefoni corti */
   :root{--card-w:min(80vw, 380px, calc((100vh - 250px) / 1.5));--card-w:min(80vw, 380px, calc((100svh - 250px) / 1.5));}
   .carousel-zone{height:calc(var(--card-w) * 1.5 + 36px);margin-left:-18px;margin-right:-18px;}
   .card-info{padding:13px 12px 12px}
-  .card h3{font-size:1.12rem}
-  .card.current h3{font-size:1.25rem}
+  /* Stessa dimensione per tutte: la card centrale è già più grande grazie alla scala, il testo non deve saltare */
+  .card h3{font-size:1.25rem}
   /* Frecce piccole: servono solo a indicare che si può scorrere */
   .nav-arrow{width:30px;height:30px;font-size:15px;line-height:1;padding:0;opacity:.85;box-shadow:0 4px 12px rgba(0,0,0,.2)}
   .nav-arrow.prev{left:6px}
@@ -139,20 +159,20 @@ main{width:100%;max-width:3840px;margin:0 auto;padding:calc(clamp(160px, 12vw, 2
 @media(min-width:761px){
  .carousel-zone{perspective:none;width:100vw;max-width:none;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);--desktop-card-w:230px;--desktop-card-h:322px;--desktop-start:210px;--desktop-peek:64px;height:calc(var(--desktop-card-h) + 100px);isolation:isolate;}
  .track{transform-style:flat}
- .carousel-label{display:block;position:absolute;left:24px;top:calc(50px + var(--desktop-card-h) * .2133);transform:translateY(-50%);width:calc(var(--desktop-start) - 36px);margin:0;z-index:50;color:var(--rosso);font-size:clamp(24px,2.2vw,36px);font-weight:800;line-height:1.08;text-transform:uppercase;transition:color .2s;}
+ .carousel-label{display:block;position:absolute;left:24px;top:calc(50px + var(--desktop-card-h) * .2133);transform:translateY(-50%);width:calc(var(--desktop-start) - 36px);margin:0;z-index:50;color:var(--rosso);font-size:clamp(24px,2.2vw,36px);font-weight:800;line-height:1.08;text-transform:uppercase;transition:color .3s var(--ease-in-out);}
  .carousel-label.su-scuro{color:#fff}
  .carousel-label button{font:inherit;text-transform:inherit;color:inherit;text-align:left;background:transparent;border:0;padding:0;cursor:pointer;line-height:inherit;}
  .carousel-label button:focus-visible{outline:2px solid currentColor;outline-offset:6px;border-radius:3px;}
  /* Card di bordo semitrasparenti (prima erano sfocate con backdrop-filter, che andava ricalcolato
     a ogni fotogramma mentre le card scorrevano e rendeva lo scorrimento a scatti) */
- .carousel-zone .card:not(.expanded){width:var(--desktop-card-w);transform-style:flat;--hover-scale:1;box-shadow:0 10px 26px rgba(0,0,0,.14);transition:transform .35s ease,opacity .3s,filter .3s,box-shadow .25s,visibility 0s;}
+ .carousel-zone .card:not(.expanded){width:var(--desktop-card-w);transform-style:flat;--hover-scale:1;box-shadow:0 10px 26px rgba(0,0,0,.14);transition:transform .3s var(--ease-in-out),opacity .3s ease,filter .3s ease,box-shadow .25s ease,visibility 0s;}
  .carousel-zone .card:not(.expanded) .card-poster{aspect-ratio:auto;height:var(--desktop-card-h);}
- .carousel-zone .card:not(.expanded):not(.edge-preview):hover{--hover-scale:var(--desktop-hover-scale,1.025);z-index:30;box-shadow:0 12px 25px rgba(0,0,0,.22);}
+ @media(hover:hover) and (pointer:fine){.carousel-zone .card:not(.expanded):not(.edge-preview):hover{--hover-scale:var(--desktop-hover-scale,1.025);z-index:30;box-shadow:0 12px 25px rgba(0,0,0,.22);}}
  .carousel-zone .card:not(.expanded) h3,.carousel-zone .card.current:not(.expanded) h3{font-size:clamp(1rem,1.7vw,1.5rem)}
  .carousel-zone.dragging .card:not(.expanded){transition:none;--hover-scale:1;cursor:grabbing}
  .carousel-zone img{user-select:none;-webkit-user-drag:none}
  /* La card che esce scivola via e sfuma, e diventa invisibile solo a fine animazione */
- .carousel-zone .card.hidden{visibility:hidden;pointer-events:none;transition:transform .35s ease,opacity .3s,filter .3s,box-shadow .25s,visibility 0s .35s}
+ .carousel-zone .card.hidden{visibility:hidden;pointer-events:none;transition:transform .3s var(--ease-in-out),opacity .3s ease,filter .3s ease,box-shadow .25s ease,visibility 0s .3s}
  .carousel-zone .card.edge-preview{pointer-events:none;cursor:default;--hover-scale:1;opacity:.4;}
  /* Desktop: poster, immagine e sfumatura non hanno bisogno di un livello grafico proprio (servono
     solo nel carosello 3D del mobile). Ogni card resta un'unica lastra che si sposta: molta meno
@@ -199,10 +219,14 @@ body.card-aperta .nav-arrow{opacity:0;visibility:hidden;pointer-events:none;tran
 @media(min-width:761px){
   html{scroll-snap-type:y proximity}
   main{padding-bottom:0}
-  .carousel-label button{position:relative;display:inline-block;transform-origin:left center;transition:transform .22s ease,filter .22s ease}
-  .carousel-label button::after{content:"";position:absolute;left:0;right:0;bottom:-7px;height:2px;background:currentColor;transform:scaleX(0);transform-origin:left center;transition:transform .22s ease;pointer-events:none}
-  .carousel-label button:hover,.carousel-label button:focus-visible{transform:translateX(4px) scale(1.035);filter:drop-shadow(0 2px 5px rgba(0,0,0,.18))}
-  .carousel-label button:hover::after,.carousel-label button:focus-visible::after{transform:scaleX(1)}
+  .carousel-label button{position:relative;display:inline-block;transform-origin:left center;transition:transform .2s var(--ease-out),filter .2s ease}
+  .carousel-label button::after{content:"";position:absolute;left:0;right:0;bottom:-7px;height:2px;background:currentColor;transform:scaleX(0);transform-origin:left center;transition:transform .2s var(--ease-out);pointer-events:none}
+  .carousel-label button:focus-visible{transform:translateX(4px) scale(1.035);filter:drop-shadow(0 2px 5px rgba(0,0,0,.18))}
+  .carousel-label button:focus-visible::after{transform:scaleX(1)}
+  @media(hover:hover) and (pointer:fine){
+    .carousel-label button:hover{transform:translateX(4px) scale(1.035);filter:drop-shadow(0 2px 5px rgba(0,0,0,.18))}
+    .carousel-label button:hover::after{transform:scaleX(1)}
+  }
   .carousel-label button:active{transform:translateX(2px) scale(.99)}
   .home-panel{scroll-snap-align:start;scroll-margin-top:24px;min-height:calc(100svh - 48px);margin-top:0;padding-top:32px;padding-bottom:48px}
   .home-events{display:block;padding-top:0;scroll-margin-top:calc(clamp(160px,12vw,200px) + 28px)}
@@ -222,6 +246,9 @@ body.card-aperta .nav-arrow{opacity:0;visibility:hidden;pointer-events:none;tran
 @media(prefers-reduced-motion:reduce){
   .carousel-label button,.carousel-label button::after{transition:none}
   .carousel-label button:hover,.carousel-label button:focus-visible,.carousel-label button:active{transform:none}
+  .card,.carousel-zone .card:not(.expanded){transition:opacity .2s ease,visibility 0s}
+  .carousel-zone .card.hidden{transition:opacity .2s ease,visibility 0s .2s}
+  .programma-btn:hover,.course-card:hover{transform:none}
 }
 
 /* Rassegna sulle card del carosello (fondo scuro) */
