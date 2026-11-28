@@ -200,14 +200,16 @@ function apriFinestra(id){
   const overlay=document.getElementById(id);
   if(!overlay) return;
   elementoPrimaDellaFinestra=document.activeElement;
+  overlay.classList.remove('chiusura-istantanea');
   overlay.classList.add('open');
   const chiudi=overlay.querySelector('.legal-close-btn');
   if(chiudi) chiudi.focus();
 }
 
-function chiudiFinestra(id){
+function chiudiFinestra(id,istantanea=false){
   const overlay=document.getElementById(id);
   if(!overlay || !overlay.classList.contains('open')) return;
+  overlay.classList.toggle('chiusura-istantanea',istantanea);
   overlay.classList.remove('open');
   if(elementoPrimaDellaFinestra && document.contains(elementoPrimaDellaFinestra)) elementoPrimaDellaFinestra.focus();
   elementoPrimaDellaFinestra=null;
@@ -238,9 +240,9 @@ function inizializzaComune(){
 
   document.addEventListener('keydown',evento=>{
     if(evento.key==='Escape'){
-      chiudiScheda();
-      chiudiContatti();
-      chiudiLegal();
+      chiudiFinestra('chiSiamoOverlay',true);
+      chiudiFinestra('contattiOverlay',true);
+      chiudiFinestra('legalOverlay',true);
     }
   });
 

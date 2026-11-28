@@ -52,7 +52,7 @@ function formattaDataBreve(iso){
 
 
 function apriSchedaCorso(nomeCorso,contatti,moduli){
-  chiudiSchedaCorso();
+  chiudiSchedaCorso(true);
 
   const overlay=document.createElement('div');
   overlay.className='course-info-overlay';
@@ -113,19 +113,23 @@ function apriSchedaCorso(nomeCorso,contatti,moduli){
 }
 
 
-function chiudiSchedaCorso(){
-  const overlayEsistente=document.querySelector('.course-info-overlay');
-
-  if(overlayEsistente){
+// istantanea: senza animazione (tasto Esc, o una scheda che ne sostituisce un'altra)
+function chiudiSchedaCorso(istantanea=false){
+  const overlayEsistente=document.querySelector('.course-info-overlay:not(.in-chiusura)');
+  if(!overlayEsistente) return;
+  document.body.style.overflow='';
+  if(istantanea===true){
     overlayEsistente.remove();
-    document.body.style.overflow='';
+    return;
   }
+  overlayEsistente.classList.add('in-chiusura');
+  setTimeout(()=>overlayEsistente.remove(),180);
 }
 
 
 document.addEventListener('keydown',evento=>{
   if(evento.key==='Escape'){
-    chiudiSchedaCorso();
+    chiudiSchedaCorso(true);
   }
 });
 

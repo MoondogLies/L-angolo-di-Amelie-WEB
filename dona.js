@@ -302,6 +302,7 @@ function inizializzaDona(){
   }
 
   btnDona.addEventListener('click',()=>{
+    overlay.classList.remove('chiusura-istantanea');
     overlay.classList.add('aperta');
   });
 
@@ -316,7 +317,8 @@ function inizializzaDona(){
   });
 
   document.addEventListener('keydown',evento=>{
-    if(evento.key==='Escape'){
+    if(evento.key==='Escape' && overlay.classList.contains('aperta')){
+      overlay.classList.add('chiusura-istantanea');
       overlay.classList.remove('aperta');
     }
   });

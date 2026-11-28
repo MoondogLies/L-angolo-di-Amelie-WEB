@@ -8,7 +8,8 @@ body.card-aperta .card-sfondo{opacity:1;visibility:visible;pointer-events:auto;t
 .intro-overlay{position:fixed;inset:0;z-index:999;background:var(--bianco);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:18px;transition:opacity .8s ease, visibility .8s ease;}
 /* Presentazione (?presentazione): prima il vecchio logo, poi quello nuovo, poi il sito */
 .intro-overlay.presentazione{cursor:none;}
-.intro-overlay.presentazione .intro-logo{animation:none;opacity:0;transition:opacity .75s ease .45s;}
+/* il logo nuovo compare quando il vecchio è quasi arrivato (≈96% del percorso), così non si vedono due Amélie */
+.intro-overlay.presentazione .intro-logo{animation:none;opacity:0;transition:opacity .45s var(--ease-out) .7s;}
 .intro-overlay.presentazione.logo-nuovo .intro-logo{opacity:1;}
 .intro-logo-vecchio{position:fixed;display:block;transform-origin:0 0;opacity:0;pointer-events:none;
   transition:transform .9s cubic-bezier(.65,0,.35,1),opacity .6s ease;}
@@ -20,19 +21,21 @@ body.card-aperta .card-sfondo{opacity:1;visibility:visible;pointer-events:auto;t
 /* (la fila davanti è nel codice dopo il logo, quindi viene disegnata sopra di esso) */
 .intro-overlay.logo-nuovo .intro-sala{opacity:0;}
 /* alla prima pressione: il vecchio logo scivola sopra l'illustrazione del logo nuovo e sfuma in esso */
-.intro-overlay.logo-nuovo .intro-logo-vecchio{opacity:0;transition:transform .9s cubic-bezier(.65,0,.35,1),opacity .7s ease .55s;}
+.intro-overlay.logo-nuovo .intro-logo-vecchio{opacity:0;transition:transform .9s cubic-bezier(.65,0,.35,1),opacity .4s ease .8s;}
 
-/* Chiusura dell'intro in due tempi: prima il logo si dissolve, poi lo sfondo bianco sfuma e svela il sito */
-.intro-overlay.hidden{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .4s var(--ease-out) .15s, visibility 0s linear .55s;}
-.intro-overlay.hidden .intro-logo{animation:dissolvenzaLogo .3s var(--ease-out) forwards;}
-/* Presentazione: chiusura lenta e scenica, come prima */
-.intro-overlay.presentazione.hidden{transition:opacity .8s ease .45s, visibility 0s linear 1.25s;}
-.intro-overlay.presentazione.hidden .intro-logo{animation:dissolvenzaLogo .7s ease forwards;}
+/* Chiusura dell'intro: il logo vola al posto di quello dell'header (home.js, chiudiIntro) mentre lo sfondo bianco sfuma.
+   Se il volo non è possibile (movimento ridotto, logo dell'header nascosto) il logo si dissolve. */
+.intro-overlay.hidden{background-color:transparent;visibility:hidden;pointer-events:none;transition:background-color .4s ease .1s, visibility 0s linear .6s;}
+.intro-overlay.hidden:not(.in-volo) .intro-logo{animation:dissolvenzaLogo .3s var(--ease-out) forwards;}
+/* Presentazione: stesso gesto, più lento e scenico */
+.intro-overlay.presentazione.hidden{transition:background-color .6s ease .2s, visibility 0s linear .9s;}
+.intro-overlay.presentazione.hidden:not(.in-volo) .intro-logo{animation:dissolvenzaLogo .7s ease forwards;}
 @keyframes dissolvenzaLogo{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(1.06)}}
 @keyframes soloDissolvenza{to{opacity:0}}
 @keyframes soloComparsa{from{opacity:0}}
 @media(prefers-reduced-motion:reduce){
-  .intro-overlay.hidden .intro-logo,.intro-overlay.presentazione.hidden .intro-logo{animation:soloDissolvenza .3s ease forwards}
+  .intro-overlay.hidden:not(.in-volo) .intro-logo,.intro-overlay.presentazione.hidden:not(.in-volo) .intro-logo{animation:soloDissolvenza .3s ease forwards}
+  .intro-overlay.presentazione .intro-logo{transition:opacity .4s ease .4s}
   .intro-logo{animation-name:soloComparsa}
   .intro-logo-vecchio,.intro-overlay.logo-nuovo .intro-logo-vecchio{transition:opacity .4s ease}
 }
@@ -74,7 +77,6 @@ main{width:100%;max-width:3840px;margin:0 auto;padding:calc(clamp(160px, 12vw, 2
 .card.past .card-date{background:#555}
 .card.past .card-ospiti{background:#777}
 .card.current{z-index:20;box-shadow:0 30px 70px rgba(0,0,0,.25)}
-.card.current h3{font-size:1.5rem}
 .card.hidden{opacity:0;pointer-events:none}
 .card-details{display:none;padding:clamp(14px,3vw,24px);background:#fff;color:var(--testo);}
 .card.expanded .card-details{display:block;}
@@ -141,8 +143,8 @@ main{width:100%;max-width:3840px;margin:0 auto;padding:calc(clamp(160px, 12vw, 2
   :root{--card-w:min(80vw, 380px, calc((100vh - 250px) / 1.5));--card-w:min(80vw, 380px, calc((100svh - 250px) / 1.5));}
   .carousel-zone{height:calc(var(--card-w) * 1.5 + 36px);margin-left:-18px;margin-right:-18px;}
   .card-info{padding:13px 12px 12px}
-  .card h3{font-size:1.12rem}
-  .card.current h3{font-size:1.25rem}
+  /* Stessa dimensione per tutte: la card centrale è già più grande grazie alla scala, il testo non deve saltare */
+  .card h3{font-size:1.25rem}
   /* Frecce piccole: servono solo a indicare che si può scorrere */
   .nav-arrow{width:30px;height:30px;font-size:15px;line-height:1;padding:0;opacity:.85;box-shadow:0 4px 12px rgba(0,0,0,.2)}
   .nav-arrow.prev{left:6px}
@@ -156,7 +158,7 @@ main{width:100%;max-width:3840px;margin:0 auto;padding:calc(clamp(160px, 12vw, 2
 @media(min-width:761px){
  .carousel-zone{perspective:none;width:100vw;max-width:none;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);--desktop-card-w:230px;--desktop-card-h:322px;--desktop-start:210px;--desktop-peek:64px;height:calc(var(--desktop-card-h) + 100px);isolation:isolate;}
  .track{transform-style:flat}
- .carousel-label{display:block;position:absolute;left:24px;top:calc(50px + var(--desktop-card-h) * .2133);transform:translateY(-50%);width:calc(var(--desktop-start) - 36px);margin:0;z-index:50;color:var(--rosso);font-size:clamp(24px,2.2vw,36px);font-weight:800;line-height:1.08;text-transform:uppercase;transition:color .2s;}
+ .carousel-label{display:block;position:absolute;left:24px;top:calc(50px + var(--desktop-card-h) * .2133);transform:translateY(-50%);width:calc(var(--desktop-start) - 36px);margin:0;z-index:50;color:var(--rosso);font-size:clamp(24px,2.2vw,36px);font-weight:800;line-height:1.08;text-transform:uppercase;transition:color .3s var(--ease-in-out);}
  .carousel-label.su-scuro{color:#fff}
  .carousel-label button{font:inherit;text-transform:inherit;color:inherit;text-align:left;background:transparent;border:0;padding:0;cursor:pointer;line-height:inherit;}
  .carousel-label button:focus-visible{outline:2px solid currentColor;outline-offset:6px;border-radius:3px;}
