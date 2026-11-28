@@ -12,6 +12,13 @@ let expandedIndex=null;
 let cardOriginParent=null;
 let cardOriginNext=null;
 const track=document.getElementById('track');
+const riduciMovimento=window.matchMedia('(prefers-reduced-motion: reduce)');
+const EASE_OUT='cubic-bezier(.23,1,.32,1)';
+// Sfondo sfocato dietro la card aperta (vedi .card-sfondo in home.css)
+const cardSfondo=document.createElement('div');
+cardSfondo.className='card-sfondo';
+cardSfondo.setAttribute('aria-hidden','true');
+document.body.appendChild(cardSfondo);
 const carouselZone=document.getElementById('carouselZone');
 
 function creaCardCarosello(e,i){
@@ -196,7 +203,7 @@ function update(dragOffset=0){
     card.classList.remove('hidden');
     const scale=offset===0 ? 1 : (Math.abs(offset)===1 ? .8 : .6);
     const z=-Math.abs(offset)*160;
-    const rot=offset*-6;
+    const rot=riduciMovimento.matches ? 0 : offset*-6;
     card.style.transform=`translate(-50%,-50%) translateX(${x}px) translateZ(${z}px) rotateY(${rot}deg) scale(${scale})`;
   });
   if(desktop && isDragging) sincronizzaVideoHover();
@@ -217,9 +224,13 @@ function move(direction){
 document.getElementById('prevBtn').addEventListener('click',()=>move(-1));
 document.getElementById('nextBtn').addEventListener('click',()=>move(1));
 
-let isDragging=false,startX=0,currentX=0,dragOffset=0,hasMoved=false;
+let isDragging=false,startX=0,currentX=0,dragOffset=0,hasMoved=false,inizioTrascinamento=0,puntatoreAttivo=null;
+// Pointer Events: un solo gestore per mouse, dita e penna
 function iniziaTrascinamento(evento){
   if(expandedIndex!==null) return;
+  if(evento.pointerType==='mouse' && evento.button!==0) return;
+  // Più dita: si segue solo la prima, altrimenti cambiando dito il carosello salterebbe
+  if(isDragging) return;
   // Ogni nuova pressione azzera il trascinamento precedente: altrimenti, dopo aver trascinato,
   // il primo clic su "Trama" veniva scambiato per la fine del trascinamento e non apriva la card
   hasMoved=false;
@@ -227,37 +238,47 @@ function iniziaTrascinamento(evento){
   if(evento.target.closest('.nav-arrow')) return;
   if(desktopCarousel.matches && evento.target.closest('button')) return;
   isDragging=true;
+  puntatoreAttivo=evento.pointerId;
   if(desktopCarousel.matches) sincronizzaVideoHover();
-  hasMoved=false;
-  startX=evento.touches ? evento.touches[0].clientX : evento.clientX;
+  startX=evento.clientX;
   currentX=startX;dragOffset=0;
+  inizioTrascinamento=performance.now();
   carouselZone.classList.add('dragging');
 }
 function trascina(evento){
-  if(!isDragging) return;
-  currentX=evento.touches ? evento.touches[0].clientX : evento.clientX;
+  if(!isDragging || evento.pointerId!==puntatoreAttivo) return;
+  currentX=evento.clientX;
   dragOffset=currentX-startX;
-  if(Math.abs(dragOffset)>5) hasMoved=true;
+  if(!hasMoved && Math.abs(dragOffset)>5){
+    hasMoved=true;
+    // Da qui il carosello riceve il puntatore anche se esce dalla zona. Solo dopo un movimento vero:
+    // catturarlo subito cambierebbe il bersaglio del clic e le card non si aprirebbero più
+    try{carouselZone.setPointerCapture(evento.pointerId);}catch(errore){}
+  }
   update(dragOffset);
 }
-function terminaTrascinamento(){
-  if(!isDragging) return;
+function terminaTrascinamento(evento){
+  if(!isDragging || (evento && evento.pointerId!==puntatoreAttivo)) return;
   isDragging=false;
+  puntatoreAttivo=null;
   carouselZone.classList.remove('dragging');
   const soglia=getStep()/3;
-  if(dragOffset<-soglia&&currentIndex<eventi.length-1){currentIndex++;}
-  else if(dragOffset>soglia&&currentIndex>0){currentIndex--;}
+  // Un colpetto veloce basta, anche se corto (velocità in px/ms)
+  const velocita=Math.abs(dragOffset)/Math.max(1,performance.now()-inizioTrascinamento);
+  const lancio=Math.abs(dragOffset)>30 && velocita>0.11;
+  if((dragOffset<-soglia || (lancio && dragOffset<0)) && currentIndex<eventi.length-1){currentIndex++;}
+  else if((dragOffset>soglia || (lancio && dragOffset>0)) && currentIndex>0){currentIndex--;}
   dragOffset=0;
   update();
 }
-carouselZone.addEventListener('mousedown',iniziaTrascinamento);
-carouselZone.addEventListener('mousemove',trascina);
-carouselZone.addEventListener('mouseup',terminaTrascinamento);
-carouselZone.addEventListener('mouseleave',terminaTrascinamento);
-carouselZone.addEventListener('touchstart',iniziaTrascinamento,{passive:true});
-carouselZone.addEventListener('touchmove',trascina,{passive:true});
-carouselZone.addEventListener('touchend',terminaTrascinamento);
-carouselZone.addEventListener('touchcancel',terminaTrascinamento);
+carouselZone.addEventListener('pointerdown',iniziaTrascinamento);
+carouselZone.addEventListener('pointermove',trascina);
+carouselZone.addEventListener('pointerup',terminaTrascinamento);
+carouselZone.addEventListener('pointercancel',terminaTrascinamento);
+// Senza cattura (puntatore premuto ma non ancora mosso) l'uscita dalla zona chiude il gesto
+carouselZone.addEventListener('pointerleave',terminaTrascinamento);
+// Niente trascinamento nativo delle immagini: interromperebbe il gesto
+carouselZone.addEventListener('dragstart',evento=>evento.preventDefault());
 
 cards.forEach(card=>{
   card.addEventListener('click',()=>{
@@ -268,18 +289,40 @@ cards.forEach(card=>{
     cardOriginNext=card.nextSibling;
     document.body.appendChild(card);
     update();
+    // La card aperta compare dal centro: leggero ingrandimento + dissolvenza
+    if(card.animate){
+      const centro='translate(-50%,-50%)';
+      card.animate(riduciMovimento.matches
+        ? [{opacity:0},{opacity:1}]
+        : [{opacity:0,transform:centro+' scale(.96)'},{opacity:1,transform:centro+' scale(1)'}],
+        {duration:250,easing:EASE_OUT});
+    }
   });
 });
 
-function chiudiCardEspansa(){
-  if(expandedIndex!==null){
-    const card=cards[expandedIndex];
+let chiusuraInCorso=false;
+// istantanea: senza animazione (tasto Esc e chiusure fatte dal codice)
+function chiudiCardEspansa(istantanea=false){
+  if(chiusuraInCorso) return;
+  const card=expandedIndex!==null ? cards[expandedIndex] : null;
+  const completa=()=>{
+    chiusuraInCorso=false;
     if(card&&cardOriginParent) cardOriginParent.insertBefore(card,cardOriginNext);
-  }
-  expandedIndex=null;
-  update();
+    expandedIndex=null;
+    update();
+  };
+  if(istantanea || !card || !card.animate){completa();return;}
+  // Chiusura più rapida dell'apertura; lo sfondo sfuma insieme alla card
+  chiusuraInCorso=true;
+  document.body.classList.remove('card-aperta');
+  const centro='translate(-50%,-50%)';
+  const uscita=card.animate(riduciMovimento.matches
+    ? [{opacity:1},{opacity:0}]
+    : [{opacity:1,transform:centro+' scale(1)'},{opacity:0,transform:centro+' scale(.97)'}],
+    {duration:180,easing:EASE_OUT,fill:'forwards'});
+  uscita.onfinish=()=>{completa();uscita.cancel();};
 }
-document.addEventListener('keydown',evento=>{if(evento.key==='Escape') chiudiCardEspansa();});
+document.addEventListener('keydown',evento=>{if(evento.key==='Escape') chiudiCardEspansa(true);});
 // Card aperta: un clic (o un tocco) fuori dalla card la chiude
 document.addEventListener('click',evento=>{
   if(expandedIndex===null) return;
@@ -332,7 +375,7 @@ cards.forEach(card=>{
 const carouselLabel=document.getElementById('carouselLabel');
 document.getElementById('resetCarousel').addEventListener('click',()=>{
   if(!desktopCarousel.matches) return;
-  if(expandedIndex!==null) chiudiCardEspansa();
+  if(expandedIndex!==null) chiudiCardEspansa(true);
   isDragging=false;hasMoved=false;dragOffset=0;
   carouselZone.classList.remove('dragging');
   currentIndex=indiceIniziale;
@@ -510,6 +553,7 @@ const introOverlay=document.getElementById('introOverlay');
 const modalitaPresentazione=new URLSearchParams(location.search).has('presentazione');
 
 function chiudiIntro(){
+  if(introOverlay.classList.contains('hidden')) return;
   introOverlay.classList.add('hidden');
   document.body.style.overflow='';
   setTimeout(()=>introOverlay.remove(),1500);
@@ -605,10 +649,27 @@ function avviaPresentazione(){
   document.addEventListener('keydown',allaBarraSpaziatrice);
 }
 
+// L'intro normale si vede una volta per sessione; un clic, un tasto o lo scroll la saltano
+function introGiaVista(){
+  try{return sessionStorage.getItem('introVista')==='1';}catch(errore){return false;}
+}
+function segnaIntroVista(){
+  try{sessionStorage.setItem('introVista','1');}catch(errore){}
+}
 if(introOverlay){
-  document.body.style.overflow='hidden';
-  if(modalitaPresentazione) avviaPresentazione();
-  else setTimeout(chiudiIntro,2500);
+  if(modalitaPresentazione){
+    document.body.style.overflow='hidden';
+    avviaPresentazione();
+  }else if(introGiaVista()){
+    introOverlay.remove();
+  }else{
+    document.body.style.overflow='hidden';
+    segnaIntroVista();
+    const ascolto=new AbortController();
+    const salta=()=>{clearTimeout(timerIntro);ascolto.abort();chiudiIntro();};
+    const timerIntro=setTimeout(salta,2500);
+    ['pointerdown','keydown','wheel','touchmove'].forEach(tipo=>window.addEventListener(tipo,salta,{passive:true,signal:ascolto.signal}));
+  }
 }
 
 adattaCaroselloAllaFinestra();

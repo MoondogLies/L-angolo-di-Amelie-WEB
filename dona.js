@@ -71,10 +71,10 @@ function inizializzaDona(){
       letter-spacing:1.5px;
       text-transform:uppercase;
       box-shadow:0 8px 20px rgba(200,16,46,.28);
-      transition:transform .2s ease, background .2s ease;
+      transition:transform 160ms var(--ease-out), background-color .2s ease;
     }
 
-    /* Riflesso di luce che attraversa il pulsante ogni pochi secondi */
+    /* Riflesso di luce: passa tre volte quando il pulsante entra nello schermo, poi si ferma */
     .dona-btn::after{
       content:"";
       position:absolute;
@@ -83,14 +83,24 @@ function inizializzaDona(){
       left:-60%;
       width:40%;
       background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);
-      transform:skewX(-20deg);
-      animation:donaRiflesso 3.8s ease-in-out infinite;
+      transform:translateX(0) skewX(-20deg);
       pointer-events:none;
+    }
+
+    .dona-btn.in-vista::after{
+      animation:donaRiflesso 3.8s var(--ease-in-out) 3;
     }
 
     .dona-btn:hover{
       background:var(--rosso-scuro);
-      transform:translateY(-2px);
+    }
+
+    @media(hover:hover) and (pointer:fine){
+      .dona-btn:hover{transform:translateY(-2px)}
+    }
+
+    .dona-btn:active{
+      transform:scale(.97);
     }
 
     .dona-btn:focus-visible{
@@ -99,8 +109,8 @@ function inizializzaDona(){
     }
 
     @keyframes donaRiflesso{
-      0%,60%{left:-60%}
-      85%,100%{left:130%}
+      0%,60%{transform:translateX(0) skewX(-20deg)}
+      85%,100%{transform:translateX(475%) skewX(-20deg)}
     }
 
     /* Desktop: il riquadro sta al centro, tra i due loghi dei sostenitori */
@@ -123,9 +133,9 @@ function inizializzaDona(){
     }
 
     @media(prefers-reduced-motion:reduce){
-      .dona-btn::after{animation:none;display:none}
+      .dona-btn::after,.dona-btn.in-vista::after{animation:none;display:none}
       .dona-btn{transition:none}
-      .dona-btn:hover{transform:none}
+      .dona-btn:hover,.dona-btn:active{transform:none}
     }
 
     .dona-overlay{
@@ -199,6 +209,14 @@ function inizializzaDona(){
     .dona-chiudi:hover{
       background:var(--rosso-scuro);
     }
+
+    .dona-chiudi{
+      transition:transform 160ms var(--ease-out), background-color .2s ease;
+    }
+
+    .dona-chiudi:active{
+      transform:scale(.97);
+    }
   `;
 
   document.head.appendChild(stileDona);
@@ -269,6 +287,19 @@ function inizializzaDona(){
 
   const btnDona=document.getElementById('btnDona');
   const chiudiDona=document.getElementById('chiudiDona');
+
+  // Il riflesso parte solo quando il pulsante si vede (una volta)
+  if('IntersectionObserver' in window){
+    const osservatore=new IntersectionObserver(voci=>{
+      if(voci.some(voce=>voce.isIntersecting)){
+        btnDona.classList.add('in-vista');
+        osservatore.disconnect();
+      }
+    },{threshold:.6});
+    osservatore.observe(btnDona);
+  }else{
+    btnDona.classList.add('in-vista');
+  }
 
   btnDona.addEventListener('click',()=>{
     overlay.classList.add('aperta');
