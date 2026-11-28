@@ -21,7 +21,7 @@
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
 <link rel="apple-touch-icon" href="L-angolo-di-Amelie_favicon.png">
-<link rel="stylesheet" href="comune.css?v=20261127c">
+<link rel="stylesheet" href="comune.css?v=20261128a">
 <style>
 main{
   width:100%;
@@ -61,12 +61,23 @@ main{
   text-transform:uppercase;
   cursor:pointer;
   box-shadow:0 10px 26px rgba(0,0,0,.18);
-  transition:.2s;
+  transition:transform 160ms var(--ease-out),background-color .2s ease;
 }
 
 .filtro-btn:hover{
   background:var(--rosso-scuro);
-  transform:translateY(-2px);
+}
+
+@media(hover:hover) and (pointer:fine){
+  .filtro-btn:hover{transform:translateY(-2px)}
+}
+
+.filtro-btn:active{
+  transform:scale(.97);
+}
+
+@media(prefers-reduced-motion:reduce){
+  .filtro-btn:hover{transform:none}
 }
 
 
@@ -273,8 +284,8 @@ main{
   </div>
 </main>
 <footer></footer>
-<script src="eventi.js?v=20261127c"></script>
-<script src="comune.js?v=20261127c"></script>
+<script src="eventi.js?v=20261128a"></script>
+<script src="comune.js?v=20261128a"></script>
 <script>
 const oggi=oggiMezzanotte();
 const eventiOrdinati=[...eventi].sort(ordinaPerData);
