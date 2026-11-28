@@ -246,10 +246,18 @@ function iniziaTrascinamento(evento){
   inizioTrascinamento=performance.now();
   carouselZone.classList.add('dragging');
 }
+// Oltre la prima o l'ultima card il carosello segue il dito sempre meno, fino a un quarto di card:
+// si sente che non c'è altro, senza un muro improvviso
+function resistenzaAiBordi(distanza){
+  const oltre=(currentIndex===0 && distanza>0) || (currentIndex===eventi.length-1 && distanza<0);
+  if(!oltre) return distanza;
+  const passo=getStep();
+  return Math.sign(distanza)*passo*.25*(1-Math.exp(-Math.abs(distanza)/(passo*.5)));
+}
 function trascina(evento){
   if(!isDragging || evento.pointerId!==puntatoreAttivo) return;
   currentX=evento.clientX;
-  dragOffset=currentX-startX;
+  dragOffset=resistenzaAiBordi(currentX-startX);
   if(!hasMoved && Math.abs(dragOffset)>5){
     hasMoved=true;
     // Da qui il carosello riceve il puntatore anche se esce dalla zona. Solo dopo un movimento vero:

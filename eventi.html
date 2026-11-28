@@ -21,7 +21,7 @@
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
 <link rel="apple-touch-icon" href="L-angolo-di-Amelie_favicon.png">
-<link rel="stylesheet" href="comune.css?v=20261128b">
+<link rel="stylesheet" href="comune.css?v=20261128c">
 <style>
 main{
   width:100%;
@@ -74,6 +74,21 @@ main{
 
 .filtro-btn:active{
   transform:scale(.97);
+}
+
+/* Card aggiunte da "Mostra altri" / "Mostra eventi passati": salgono appena e compaiono.
+   Solo "from": a fine animazione restano gli stili normali (es. l'opacità delle card passate) */
+.evento-card.nuova{
+  animation:comparsaEvento .3s var(--ease-out) var(--ritardo,0ms) backwards;
+}
+@keyframes comparsaEvento{
+  from{opacity:0;transform:translateY(8px)}
+}
+@keyframes soloComparsaEvento{
+  from{opacity:0}
+}
+@media(prefers-reduced-motion:reduce){
+  .evento-card.nuova{animation:soloComparsaEvento .2s ease backwards}
 }
 
 @media(prefers-reduced-motion:reduce){
@@ -284,8 +299,8 @@ main{
   </div>
 </main>
 <footer></footer>
-<script src="eventi.js?v=20261128b"></script>
-<script src="comune.js?v=20261128b"></script>
+<script src="eventi.js?v=20261128c"></script>
+<script src="comune.js?v=20261128c"></script>
 <script>
 const oggi=oggiMezzanotte();
 const eventiOrdinati=[...eventi].sort(ordinaPerData);
@@ -338,13 +353,28 @@ function creaCard(e){
   return card;
 }
 
+// Card già mostrate: quando l'elenco si allunga, entrano solo quelle nuove (le altre restano ferme)
+let chiaviMostrate=null;
+const chiaveEvento=e=>e.data+'|'+e.titolo;
 function renderGrid(){
   const eventiVisibili=[
     ...eventiFuturi.slice(0,futuriVisibili),
     ...eventiPassati.slice(0,passatiVisibili)
   ].sort(ordinaPerData);
   grid.innerHTML='';
-  eventiVisibili.forEach(e=>grid.appendChild(creaCard(e)));
+  // ritardi decrescenti per le prime tre, le altre arrivano con la terza
+  const ritardi=[0,50,90];
+  let nuove=0;
+  eventiVisibili.forEach(e=>{
+    const card=creaCard(e);
+    if(chiaviMostrate && !chiaviMostrate.has(chiaveEvento(e))){
+      card.classList.add('nuova');
+      card.style.setProperty('--ritardo',ritardi[Math.min(nuove,ritardi.length-1)]+'ms');
+      nuove++;
+    }
+    grid.appendChild(card);
+  });
+  chiaviMostrate=new Set(eventiVisibili.map(chiaveEvento));
   avviaSlideshow();
   aggiornaBadgeOspiti();
   contenitoreAltriFuturi.style.display=futuriVisibili<eventiFuturi.length ? 'block' : 'none';
